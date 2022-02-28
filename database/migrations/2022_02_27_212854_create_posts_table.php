@@ -15,6 +15,15 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->integer('employee_id');
+            $table->string('title');
+            $table->string('thumnail')->nullable();
+            $table->longText('content');
+            $table->timestamp('publish_at')->nullable();
+            $table->timestamp('send_notfi')->nullable();
+            $table->enum('status',['done', 'wite', 'cancel'])->default('wite');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

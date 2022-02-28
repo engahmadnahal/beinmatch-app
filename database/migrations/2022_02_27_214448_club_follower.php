@@ -13,7 +13,11 @@ class ClubFollower extends Migration
      */
     public function up()
     {
-        //
+         Schema::create('club_follower', function (Blueprint $table) {
+            $table->id();
+           $table->integer('user_id');
+           $table->integer('club_id');
+        });
     }
 
     /**
@@ -23,6 +27,6 @@ class ClubFollower extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('club_follower');
     }
 }

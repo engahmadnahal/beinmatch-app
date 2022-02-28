@@ -15,6 +15,10 @@ class CreateDawriesTable extends Migration
     {
         Schema::create('dawries', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('avater');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

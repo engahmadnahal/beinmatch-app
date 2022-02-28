@@ -15,6 +15,9 @@ class CreateMatchlikesTable extends Migration
     {
         Schema::create('matchlikes', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('match_id');
+            $table->boolean('is_like');
             $table->timestamps();
         });
     }

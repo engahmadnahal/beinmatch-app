@@ -15,6 +15,13 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
+            $table->integer('employee_id');
+            $table->string('title');
+            $table->string('content');
+            $table->string('img');
+            $table->enum('type',['box','notf']);
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

@@ -15,6 +15,9 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->boolean('slide_active')->default(false);
+            $table->boolean('match_active')->default(true);
+            $table->boolean('ads_active')->default(false);
             $table->timestamps();
         });
     }

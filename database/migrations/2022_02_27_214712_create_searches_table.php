@@ -15,6 +15,11 @@ class CreateSearchesTable extends Migration
     {
         Schema::create('searches', function (Blueprint $table) {
             $table->id();
+            $table->string('content');
+            $table->enum('status',['success','error'])->default('error');
+            $table->string('token_user');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

@@ -15,6 +15,11 @@ class CreatePollsTable extends Migration
     {
         Schema::create('polls', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('match_id');
+            $table->boolean('club_one')->default(false);
+            $table->boolean('darw')->default(false);
+            $table->boolean('club_two')->default(false);
             $table->timestamps();
         });
     }

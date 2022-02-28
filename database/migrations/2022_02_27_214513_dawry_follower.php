@@ -11,9 +11,13 @@ class DawryFollower extends Migration
      *
      * @return void
      */
-    public function up()
+   public function up()
     {
-        //
+         Schema::create('dawry_follower', function (Blueprint $table) {
+            $table->id();
+           $table->integer('user_id');
+           $table->integer('dawry_id');
+        });
     }
 
     /**
@@ -23,6 +27,6 @@ class DawryFollower extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('club_follower');
     }
 }

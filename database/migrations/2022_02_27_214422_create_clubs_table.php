@@ -15,6 +15,20 @@ class CreateClubsTable extends Migration
     {
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
+            $table->integer('dawry_id');
+            $table->string('name');
+            $table->string('avater');
+            $table->string('country');
+            $table->string('order_on_dawry');
+            $table->string('playing');
+            $table->string('have_won');
+            $table->string('draw');
+            $table->string('on_him');
+            $table->string('difference');
+            $table->string('points');
+            $table->string('last_five');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
