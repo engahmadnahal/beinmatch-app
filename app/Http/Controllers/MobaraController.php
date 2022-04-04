@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Match;
+use App\Models\Mobara;
 use Illuminate\Http\Request;
 
-class MatchController extends Controller
+class MobaraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class MatchController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Match  $match
+     * @param  \App\Models\Mobara  $mobara
      * @return \Illuminate\Http\Response
      */
-    public function show(Match $match)
+    public function show(Mobara $mobara)
     {
         //
     }
@@ -52,10 +52,10 @@ class MatchController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Match  $match
+     * @param  \App\Models\Mobara  $mobara
      * @return \Illuminate\Http\Response
      */
-    public function edit(Match $match)
+    public function edit(Mobara $mobara)
     {
         //
     }
@@ -64,10 +64,10 @@ class MatchController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Match  $match
+     * @param  \App\Models\Mobara  $mobara
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Match $match)
+    public function update(Request $request, Mobara $mobara)
     {
         //
     }
@@ -75,10 +75,10 @@ class MatchController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Match  $match
+     * @param  \App\Models\Mobara  $mobara
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Match $match)
+    public function destroy(Mobara $mobara)
     {
         //
     }

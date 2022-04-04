@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dawry;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ class CreateClubsTable extends Migration
     {
         Schema::create('clubs', function (Blueprint $table) {
             $table->id();
-            $table->integer('dawry_id');
+            $table->foreignIdFor(Dawry::class)->constrained();
             $table->string('name');
             $table->string('avater');
             $table->string('country');

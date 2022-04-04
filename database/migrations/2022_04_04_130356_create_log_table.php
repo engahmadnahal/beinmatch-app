@@ -1,12 +1,10 @@
 <?php
 
-use App\Models\Club;
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ClubFollower extends Migration
+class CreateLogTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +13,10 @@ class ClubFollower extends Migration
      */
     public function up()
     {
-         Schema::create('club_follower', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Club::class)->constrained();
+            $table->string('body');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +27,6 @@ class ClubFollower extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('club_follower');
+        Schema::dropIfExists('log');
     }
 }

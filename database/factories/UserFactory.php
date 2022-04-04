@@ -39,7 +39,18 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'email_verified_at' => null,
+                'fname' => $this->faker->firstName(),
+                'lname' => $this->faker->lastName(),
+                'avater' => $this->faker->imageUrl(),
+                'fname' => $this->faker->firstName(),
+                'email' => $this->faker->unique()->safeEmail(),
+                'email_verified_at' => now(),
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'os_mobile' => "Android",
+                'ip_address' => $this->faker->ipv4(),
+                'status' => 'active',
+                'fname' => $this->faker->firstName(),
+                'remember_token' => Str::random(10),
             ];
         });
     }

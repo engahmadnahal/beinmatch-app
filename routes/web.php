@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,13 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [AdminController::class , 'index']);
 
 Route::get('/posts',function(){
     return view('posts.index');
 });
+// Route::resource('posts', PostController::class);
 
 Route::get('/posts/show',function(){
     return view('posts.show');

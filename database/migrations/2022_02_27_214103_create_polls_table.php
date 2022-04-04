@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Mobara;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,8 @@ class CreatePollsTable extends Migration
     {
         Schema::create('polls', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('match_id');
+            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Mobara::class)->constrained();
             $table->boolean('club_one')->default(false);
             $table->boolean('darw')->default(false);
             $table->boolean('club_two')->default(false);

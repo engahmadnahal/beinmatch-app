@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,11 @@ class CreateViewsTable extends Migration
     {
         Schema::create('views', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('post_id');
+            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Post::class)->constrained();
+
+            // $table->integer('user_id');
+            // $table->integer('post_id');
             $table->timestamps();
         });
     }

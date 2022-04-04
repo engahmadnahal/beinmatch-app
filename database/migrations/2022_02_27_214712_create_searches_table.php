@@ -19,7 +19,6 @@ class CreateSearchesTable extends Migration
             $table->enum('status',['success','error'])->default('error');
             $table->string('token_user');
             $table->softDeletes();
-
             $table->timestamps();
         });
     }

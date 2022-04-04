@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employee;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,8 @@ class CreateChatsTable extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
-            $table->integer('employee_id');
+            // $table->integer('employee_id');
+            $table->foreignIdFor(Employee::class)->constrained();
             $table->integer('sender');
             $table->integer('resever');
             $table->integer('msg');

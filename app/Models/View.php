@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class View extends Model
 {
     use HasFactory;
+     public function viewPost(){
+        return $this->belongsTo(Post::class,'post_id','id');
+    }
+
+     public function viewUsers(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 }
