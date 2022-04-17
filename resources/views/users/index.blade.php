@@ -29,7 +29,8 @@
 								<div class="d-flex justify-content-between">
 									<h4 class="card-title mg-b-0">كل المستخدمين</h4>
                                     <div class="btn-group">
-										<button class="btn btn-light"><i class="bx bx-refresh"></i></button> <button class="btn btn-light "><i class="bx bx-archive"></i></button>  <button class="btn btn-light disabled"><i class="bx bx-trash"></i></button>
+										<button class="btn btn-light"><i class="bx bx-refresh"></i></button>
+                                        <a href="{{route('users.trush')}}"><button class="btn btn-light "><i class="bx bx-archive"></i></button></a>
 									</div>
 
 								</div>
@@ -40,105 +41,56 @@
 										<thead>
 
 											<tr>
-                                               <th class="wd-lg-20p"><span><label class="ckbox"><input id="checkAll" type="checkbox"> <span></span></label></span></th>
 												<th class="wd-lg-8p"><span>اسم المستخدم</span></th>
 												<th class="wd-lg-20p"><span>تاريخ الانضمام</span></th>
 												<th class="wd-lg-20p"><span>حالة الايميل</span></th>
 												<th class="wd-lg-20p"><span>النشاط</span></th>
+												<th class="wd-lg-20p"><span>حالة المستخدم</span></th>
 												<th class="wd-lg-20p"><span>نوع الهاتف</span></th>
 												<th class="wd-lg-20p">الحدث</th>
 											</tr>
 										</thead>
 										<tbody>
+                                            @foreach ($users as $user)
                                             <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
 												<td colspan="1" class="title-post">
-
-                                                    محمد سعيد	</td>
+                                                    {{$user->full_name}}
+                                                </td>
 												<td>
-													08/06/2020
+													{{$user->toArray()['created_at']}}
 												</td>
 												<td class="text-center">
-													<span class="label text-warning d-flex"><div class="dot-label bg-warning ml-1"></div>غير مفعل</span>
+													<span class="label @if(!is_null($user->email_verified_at)) text-success @else text-warning @endif  d-flex"><div class="dot-label @if(!is_null($user->email_verified_at)) bg-success @else bg-warning @endif ml-1"></div>{{$user->status_email}}</span>
 												</td>
 												<td>
-													<span class="label text-muted d-flex"><div class="dot-label bg-gray-300 ml-1"></div>غير نشط</span>
+													<span class="label text-muted d-flex"><div class="dot-label @if($user->is_online) bg-success @else bg-gray-300 @endif ml-1"></div>{{$user->online}}</span>
 												</td>
                                                 <td>
-													Android
-												</td>
-												<td>
-                                                    <a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-lock"></i>
-													</a>
-												</td>
-											</tr>
+													<span class="label @if($user->status == 'active') text-success @else text-danger @endif  d-flex"><div class="dot-label @if($user->status == 'active') bg-success @else bg-danger @endif ml-1"></div>{{$user->status_user}}</span>
 
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="1" class="title-post">
 
-                                                    محمد نادر	</td>
-												<td>
-													08/09/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-success d-flex"><div class="dot-label bg-success ml-1"></div> مفعل</span>
-												</td>
-												<td>
-													<span class="label text-success d-flex"><div class="dot-label bg-success ml-1"></div>نشط</span>
 												</td>
                                                 <td>
-													Android
+													{{$user->os_mobile}}
 												</td>
 												<td>
-                                                    <a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-primary">
+                                                    <form action="{{route('users.destroy',$user->id)}}" method="post" class="btn btn-sm btn-danger">
+                                                        @csrf
+                                                        @method('delete')
+														<button type="submit" class="btn-empty"><i class="las la-trash"></i></button>
+													</form>
+													<a href="{{route('users.show',$user->id)}}" class="btn btn-sm btn-primary">
 														<i class="far fa-eye"></i>
 													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-lock"></i>
-													</a>
+													<form action="{{route('users.block',$user->id)}}" method='post' class="btn btn-sm btn-danger">
+                                                        @csrf
+														<button type="submit" class="btn-empty"><i class="las la-lock"></i></button>
+													</form>
 												</td>
 											</tr>
+                                            @endforeach
 
-                                             <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="1" class="title-post">
 
-                                                    محمد نادر	</td>
-												<td>
-													08/09/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-success d-flex"><div class="dot-label bg-success ml-1"></div> مفعل</span>
-												</td>
-												<td>
-													<span class="label text-muted d-flex"><div class="dot-label bg-gray-300 ml-1"></div>غير نشط</span>
-												</td>
-                                                <td>
-                                                    iPhone
-												</td>
-												<td>
-                                                    <a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-lock"></i>
-													</a>
-												</td>
-											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -165,24 +117,6 @@
 @endsection
 @section('js')
 <script>
- 	// $('#checkAll').on('click', function() {
- 	// 	if ($(this).is(':checked')) {
- 	// 		$('.ckbox input').each(function() {
- 	// 			$(this).attr('checked', true);
- 	// 		});
- 	// 	} else {
- 	// 		$('.ckbox input').each(function() {
- 	// 			$(this).attr('checked', false);
- 	// 		});
- 	// 	}
- 	// });
- 	// $('input').on('click', function() {
- 	// 	if ($(this).is(':checked')) {
- 	// 		$(this).attr('checked', false);
- 	// 	} else {
- 	// 		$(this).attr('checked', true);
- 	// 	}
- 	// });
 
 
       	$('#checkAll').on('click', function() {

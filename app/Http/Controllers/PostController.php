@@ -46,7 +46,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('posts.show');
     }
 
     /**
@@ -57,7 +57,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit');
     }
 
     /**
@@ -81,5 +81,24 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+         /**
+     * Show All items is removed.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trush(){
+        $posts = Post::onlyTrashed()->get();
+        return view('posts.trash',['posts'=>$posts]);
+    }
+
+     /**
+     * Method Using restor item is removed softDelete.
+     * @return \Illuminate\Http\Response
+     */
+    public function restor($id){
+        Post::withTrashed()->where('id',$id)->restore();
+        return redirect()->back();
     }
 }

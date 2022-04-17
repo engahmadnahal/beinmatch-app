@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,26 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminController::class , 'index']);
 
-Route::get('/posts',function(){
-    return view('posts.index');
-});
-// Route::resource('posts', PostController::class);
+// Post Routes
+Route::get('/posts/restor/{id}',[PostController::class , 'restor'])->name('posts.restor');
+Route::get('/posts/trash',[PostController::class,'trush'])->name('posts.trush');
+Route::resource('posts',PostController::class);
 
-Route::get('/posts/show',function(){
-    return view('posts.show');
-});
-
-Route::get('/posts/trash',function(){
-    return view('posts.trash');
-});
-Route::get('/posts/create',function(){
-    return view('posts.craete');
-});
-Route::get('/posts/edit',function(){
-    return view('posts.craete');
-});
 // Matches
-// {{dd(date('Y-m-d H:i:s', strtotime("14:05")))}}
+
 Route::get('/matches',function(){
     return view('matches.index');
 });
@@ -55,45 +44,16 @@ Route::get('/matches/edit',function(){
     return view('matches.craete');
 });
 // Employees
-Route::get('/employees',function(){
-    return view('employees.index');
-});
+Route::get('/employees/trash',[EmployeeController::class , 'trush'])->name('employees.trush');
+Route::get('/employees/chat',[EmployeeController::class , 'chat'])->name('employees.chat');
+Route::post('/employees/restor/{id}',[EmployeeController::class , 'restor'])->name('employees.restor');
+Route::resource('/employees',EmployeeController::class);
 
-Route::get('/employees/show',function(){
-    return view('employees.show');
-});
-
-Route::get('/employees/trash',function(){
-    return view('employees.trash');
-});
-Route::get('/employees/create',function(){
-    return view('employees.craete');
-});
-
-Route::get('/employees/chat',function(){
-    return view('employees.chat');
-});
-Route::get('/employees/edit',function(){
-    return view('employees.craete');
-});
 // User
-Route::get('/users',function(){
-    return view('users.index');
-});
-
-Route::get('/users/show',function(){
-    return view('users.show');
-});
-
-Route::get('/users/trash',function(){
-    return view('users.trash');
-});
-Route::get('/users/create',function(){
-    return view('users.craete');
-});
-Route::get('/users/edit',function(){
-    return view('users.craete');
-});
+Route::get('/users/trash',[UserController::class , 'trush'])->name('users.trush');
+Route::post('/users/restor/{id}',[UserController::class , 'restor'])->name('users.restor');
+Route::post('/users/block/{id}',[UserController::class,'block'])->name('users.block');
+Route::resource('/users',UserController::class);
 
 
 

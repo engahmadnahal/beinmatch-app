@@ -18,15 +18,15 @@ class CreateEmployeesTable extends Migration
             $table->string('fname');
             $table->string('lname');
             $table->string('username');
-            $table->string('avater');
+            $table->string('avater')->default('assets/img/upload/media/login.png');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('salary')->default('0');
             $table->string('jop_title')->nullable();
-            $table->string('type')->default('emplyee');
             $table->string('phone')->nullable();
             $table->enum('gender',['M','F'])->default('M');
+            $table->string('address')->nullable();
             $table->boolean('is_online')->default(false);
             $table->enum('status',['active', 'block'])->default('active');
             $table->softDeletes();

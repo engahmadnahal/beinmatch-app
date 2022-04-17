@@ -4,6 +4,7 @@
     tbody tr {
     height: 80px;
 }
+
 </style>
 @endsection
 @section('page-header')
@@ -29,7 +30,11 @@
 								<div class="d-flex justify-content-between">
 									<h4 class="card-title mg-b-0">كل الموظفين</h4>
                                     <div class="btn-group">
-										<button class="btn btn-light"><i class="bx bx-refresh"></i></button> <button class="btn btn-light "><i class="bx bx-archive"></i></button>  <button class="btn btn-light disabled"><i class="bx bx-trash"></i></button>
+										<button class="btn btn-light"><i class="bx bx-refresh"></i></button>
+                                        <a href="{{route('employees.trush')}}">
+                                            <button class="btn btn-light "><i class="bx bx-archive"></i></button>
+                                        </a>
+
 									</div>
                                     <div class="pr-1 mb-3 mb-xl-0">
                                         <button type="button" class="btn btn-primary btn-icon ml-2"><i class="typcn typcn-edit"></i></button>
@@ -42,7 +47,7 @@
 										<thead>
 
 											<tr>
-                                               <th class="wd-lg-20p"><span><label class="ckbox"><input id="checkAll" type="checkbox"> <span></span></label></span></th>
+
 												<th class="wd-lg-8p"><span>اسم الموظف</span></th>
 												<th class="wd-lg-20p"><span>تاريخ الانضمام</span></th>
 												<th class="wd-lg-20p"><span>الحالة</span></th>
@@ -52,141 +57,46 @@
 											</tr>
 										</thead>
 										<tbody>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="1" class="title-post">
+                                            @foreach ($employees as $emp)
+                                                <tr>
+                                                    <td colspan="1" class="title-post">
 
-                                                    محمد سعيد	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-warning d-flex"><div class="dot-label bg-warning ml-1"></div>تحت المراجعة</span>
-												</td>
-												<td>
-													900$
-												</td>
-                                                <td>
-													محرر
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="las la-pen"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-lock"></i>
-													</a>
-												</td>
-											</tr>
+                                                        {{$emp->full_name}}
+                                                    	</td>
+                                                    <td>
+                                                        {{$emp->toArray()['created_at']}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="label text-warning d-flex"><div class="dot-label bg-warning ml-1"></div>تحت المراجعة</span>
+                                                    </td>
+                                                    <td>
+                                                        {{$emp->salary}}$
+                                                    </td>
+                                                    <td>
+                                                        {{$emp->jop_title}}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{route('employees.show',$emp->id)}}" class="btn btn-sm btn-primary">
+                                                            <i class="far fa-eye"></i>
+                                                        </a>
+                                                        <a href="{{route('employees.edit',$emp->id)}}" class="btn btn-sm btn-info">
+                                                            <i class="las la-pen"></i>
+                                                        </a>
+                                                        <form action="{{route('employees.destroy',$emp->id)}}" method="post" class="btn btn-sm btn-danger">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button class='btn-empty' type="submit" ><i class="las la-lock"></i></button>
+                                                        </form>
+                                                        </a>
+                                                    </td>
+                                                </tr>
 
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="1" class="title-post">
+                                            @endforeach
 
-                                                    محمد سعيد	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-warning d-flex"><div class="dot-label bg-warning ml-1"></div>تحت المراجعة</span>
-												</td>
-												<td>
-													900$
-												</td>
-                                                <td>
-													محرر
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="las la-pen"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-lock"></i>
-													</a>
-												</td>
-											</tr>
-
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="1" class="title-post">
-
-                                                    محمد سعيد	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-danger d-flex"><div class="dot-label bg-danger ml-1"></div> تم الحظر</span>
-												</td>
-												<td>
-													900$
-												</td>
-                                                <td>
-													محرر
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="las la-pen"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-lock"></i>
-													</a>
-												</td>
-											</tr>
-
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="1" class="title-post">
-
-                                                    محمد سعيد	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-warning d-flex"><div class="dot-label bg-warning ml-1"></div>تحت المراجعة</span>
-												</td>
-												<td>
-													900$
-												</td>
-                                                <td>
-													محرر
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="las la-pen"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-lock"></i>
-													</a>
-												</td>
-											</tr>
 										</tbody>
 									</table>
 								</div>
-								<ul class="pagination mt-4 mb-0 float-left">
-									<li class="page-item page-prev disabled">
-										<a class="page-link" href="#" tabindex="-1">Prev</a>
-									</li>
-									<li class="page-item active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item page-next">
-										<a class="page-link" href="#">Next</a>
-									</li>
-								</ul>
+
 							</div>
 						</div>
 					</div><!-- COL END -->

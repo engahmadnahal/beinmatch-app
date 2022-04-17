@@ -19,3 +19,9 @@
 <link href="{{URL::asset('assets/css-rtl/skin-modes.css')}}" rel="stylesheet">
 <!---Coustom css-->
 <link href="{{URL::asset('assets/css-rtl/coustom.css')}}" rel="stylesheet">
+<!-- Toster -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<style>
+    .btn-empty{background: transparent;border:none;color:#fff}
+</style>
+

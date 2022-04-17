@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\rfs;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,72 +15,104 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+
+        $users = User::all();
+        return view('users.index',['users'=>$users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    // /**
+    //  * Show the form for creating a new resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function create()
+    // {
+    //     //
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    // /**
+    //  * Store a newly created resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function store(Request $request)
+    // {
+    //     //
+    // }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\rfs  $rfs
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(rfs $rfs)
+    public function show(User $user)
     {
-        //
+        return view('users.show');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\rfs  $rfs
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(rfs $rfs)
-    {
-        //
-    }
+    // public function edit(User $rfs)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\rfs  $rfs
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, rfs $rfs)
-    {
-        //
-    }
+    // public function update(Request $request, User $user)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\rfs  $rfs
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(rfs $rfs)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        $user->status = 'delete';
+        $user->save();
+        return redirect()->back();
+    }
+
+    /**
+     * Show All items is removed.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function trush(){
+        $users = User::onlyTrashed()->get();
+        return view('users.trash',['users'=>$users]);
+    }
+
+     /**
+     * Method Using restor item is removed softDelete.
+     * @return \Illuminate\Http\Response
+     */
+    public function restor($id){
+        User::withTrashed()->where('id',$id)->restore();
+        return redirect()->back();
+    }
+
+    public function block($id){
+        $user = User::findOrFail($id);
+        $user->status = 'block';
+        $user->save();
+        return redirect()->back();
     }
 }

@@ -37,7 +37,6 @@
 										<thead>
 
 											<tr>
-                                               <th class="wd-lg-20p"><span><label class="ckbox"><input id="checkAll" type="checkbox"> <span></span></label></span></th>
 												<th class="wd-lg-8p"><span>المستخدم</span></th>
 												<th class="wd-lg-20p"><span></th>
 												<th class="wd-lg-20p"><span>تاريخ الحذف</span></th>
@@ -47,46 +46,27 @@
 
 										</thead>
 										<tbody>
+                                            @foreach ($users as $user)
                                             <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
 												<td  colspan="2" class="title-post">
 
-                                                    أحمد سعدان - (USERID#23215)	</td>
+                                                    {{$user->full_name}} - (USERID#{{$user->id}})	</td>
 												<td>
-													08/06/2020
+													{{$user->toArray()['created_at']}}
 												</td>
 												<td class="text-center">
 													<span class="label text-danger d-flex"><div class="dot-label bg-danger ml-1"></div>حُذفت</span>
 												</td>
 												<td>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="icon ion-ios-share-alt"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
+													<form action="{{route('users.restor',$user->id)}}" method="post" class="btn btn-sm btn-info">
+                                            @csrf
+                                            <button  class='btn-empty' type="submit" style=""><i class="icon ion-ios-share-alt"></i></button>
+                                        </form>
 												</td>
 											</tr>
-                                             <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td  colspan="2" class="title-post">
+                                            @endforeach
 
-                                                    أحمد سعدان - (USERID#23215)	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-danger d-flex"><div class="dot-label bg-danger ml-1"></div>حظر</span>
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="icon ion-ios-share-alt"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-												</td>
-											</tr>
+
 
 										</tbody>
 									</table>
