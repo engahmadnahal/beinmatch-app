@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dawry;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DawryController extends Controller
 {
@@ -15,6 +16,8 @@ class DawryController extends Controller
     public function index()
     {
         //
+
+        return view('dawry.index');
     }
 
     /**
@@ -25,6 +28,8 @@ class DawryController extends Controller
     public function create()
     {
         //
+        return view('dawry.craete');
+
     }
 
     /**
@@ -36,6 +41,24 @@ class DawryController extends Controller
     public function store(Request $request)
     {
         //
+
+        $validator = Validator($request->all(),[
+            'dawry_name' => 'required|string',
+            'dawry_img' => 'required|string'
+        ]);
+        if(!$validator->fails()){
+            $dawry = new Dawry();
+            $dawry->name = $request->input('dawry_name');
+            $dawry->avater = $request->input('dawry_img');
+            $isSaved = $dawry->save();
+            return response()->json([
+                'msg'=>$isSaved ? 'Save is Success' : 'Error is saved'
+            ],$isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json([
+                'msg'=>$validator->getMessageBag()->first()
+            ],Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -47,6 +70,8 @@ class DawryController extends Controller
     public function show(Dawry $dawry)
     {
         //
+        return view('dawry.show');
+
     }
 
     /**
@@ -58,6 +83,8 @@ class DawryController extends Controller
     public function edit(Dawry $dawry)
     {
         //
+        return view('dawry.edit');
+
     }
 
     /**
@@ -69,7 +96,22 @@ class DawryController extends Controller
      */
     public function update(Request $request, Dawry $dawry)
     {
-        //
+            $validator = Validator($request->all(),[
+            'dawry_name' => 'required|string',
+            'dawry_img' => 'required|string'
+        ]);
+        if(!$validator->fails()){
+            $dawry->name = $request->input('dawry_name');
+            $dawry->avater = $request->input('dawry_img');
+            $isSaved = $dawry->save();
+            return response()->json([
+                'msg'=>$isSaved ? 'Save is Success' : 'Error is saved'
+            ],$isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json([
+                'msg'=>$validator->getMessageBag()->first()
+            ],Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -81,5 +123,7 @@ class DawryController extends Controller
     public function destroy(Dawry $dawry)
     {
         //
+        $dawry->delete();
+        return redirect()->back();
     }
 }

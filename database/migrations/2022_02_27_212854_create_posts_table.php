@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Dawry;
 use App\Models\Employee;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->id();
             // $table->integer('employee_id');
             $table->foreignIdFor(Employee::class)->constrained();
+            $table->foreignIdFor(Dawry::class)->constrained();
             $table->string('title');
             $table->string('thumnail')->nullable();
             $table->longText('content');

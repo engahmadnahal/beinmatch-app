@@ -24,13 +24,13 @@
 					</li>
 					<li class="side-item side-item-category"> المنشورات & مباريات اليوم</li>
 					<li class="slide">
-						<a class="side-menu__item" href="#">
+						<a class="side-menu__item" href="{{route('posts.index')}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M13 4H6v16h12V9h-5V4zm3 14H8v-2h8v2zm0-6v2H8v-2h8z" opacity=".3"></path><path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"></path></svg>
                             <span class="side-menu__label">كل المنشورات</span>
                         </a>
 					</li>
 					<li class="slide">
-						<a class="side-menu__item" href="#">
+						<a class="side-menu__item" href="{{route('posts.create')}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M13 4H6v16h12V9h-5V4zm3 14H8v-2h8v2zm0-6v2H8v-2h8z" opacity=".3"></path><path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"></path></svg>
                             <span class="side-menu__label">أضف مقالة جديدة</span>
                         </a>
@@ -77,8 +77,8 @@
                             <span class="side-menu__label">الدوريات</span>
                             <i class="angle fe fe-chevron-down"></i></a>
 						<ul class="slide-menu">
-							<li><a class="slide-item" href="#">أضف دوري جديد</a></li>
-							<li><a class="slide-item" href="#">عرض الدوريات</a></li>
+							<li><a class="slide-item" href="{{route('dawries.create')}}">أضف دوري جديد</a></li>
+							<li><a class="slide-item" href="{{route('dawries.index')}}">عرض الدوريات</a></li>
 						</ul>
 					</li>
 					<li class="slide">
