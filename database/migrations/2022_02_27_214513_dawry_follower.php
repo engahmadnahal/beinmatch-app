@@ -19,6 +19,8 @@ class DawryFollower extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Dawry::class)->constrained();
+            $table->timestamps();
+
         });
     }
 

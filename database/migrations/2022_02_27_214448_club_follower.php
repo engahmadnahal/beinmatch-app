@@ -19,6 +19,8 @@ class ClubFollower extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Club::class)->constrained();
+            $table->timestamps();
+
         });
     }
 

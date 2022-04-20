@@ -21,7 +21,24 @@
 <link href="{{URL::asset('assets/css-rtl/coustom.css')}}" rel="stylesheet">
 <!-- Toster -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
     .btn-empty{background: transparent;border:none;color:#fff}
+    .widget-user .widget-user-image {
+    background: #fff;
+    border-radius: 100%;
+}
+td.imgAndName {
+    display: flex;
+    align-items: center;
+
+}
+.avater {
+    width: 50px;
+    height: 50px;
+}
+.imgAndName span {
+    margin-right: 13px;
+}
 </style>
 

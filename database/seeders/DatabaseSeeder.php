@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\ClubFollower;
+use App\Models\DawryFollower ;
 use App\Models\Employee;
 use App\Models\Post;
 use App\Models\User;
@@ -20,5 +22,8 @@ class DatabaseSeeder extends Seeder
         // Employee::factory(50)->create();
         // User::factory(50)->create();
         Post::factory(20)->create();
+        // ClubFollower::factory(30)->create();
+        // DawryFollower::factory(30)->create();
+
     }
 }

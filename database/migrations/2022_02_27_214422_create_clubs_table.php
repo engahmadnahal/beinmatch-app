@@ -20,14 +20,15 @@ class CreateClubsTable extends Migration
             $table->string('name');
             $table->string('avater');
             $table->string('country');
-            $table->string('order_on_dawry');
-            $table->string('playing');
-            $table->string('have_won');
-            $table->string('draw');
-            $table->string('on_him');
-            $table->string('difference');
-            $table->string('points');
-            $table->string('last_five');
+            // $table->string('order_on_dawry');
+            $table->string('playing')->nullable();
+            $table->string('have_won')->nullable();
+            $table->string('draw')->nullable();
+            $table->string('game_over')->nullable();
+            $table->string('on_him')->nullable();
+            $table->string('difference')->nullable();
+            $table->string('points')->nullable();
+            // $table->string('last_five');
             $table->softDeletes();
 
             $table->timestamps();

@@ -17,6 +17,7 @@ class PostFactory extends Factory
         $resultStatus = $st[rand(0,2)];
         return [
             'employee_id' => 1,
+            'dawry_id' => $this->faker->numberBetween(5,30),
             'title' => $this->faker->realTextBetween(20,60),
             'thumnail' => $this->faker->imageUrl,
             'content' => $this->faker->realTextBetween(1000,1500),

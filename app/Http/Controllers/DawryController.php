@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Club;
 use App\Models\Dawry;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +17,9 @@ class DawryController extends Controller
     public function index()
     {
         //
+        $dawry = Dawry::paginate(15);
 
-        return view('dawry.index');
+        return view('dawry.index',['dawry'=>$dawry]);
     }
 
     /**
@@ -70,7 +72,10 @@ class DawryController extends Controller
     public function show(Dawry $dawry)
     {
         //
-        return view('dawry.show');
+        $data = Dawry::where('id',$dawry->id)->withCount('clubs')->withCount('users')->first();
+        // dd($data);
+        $club = Club::where('points','>=',0)->where('dawry_id',$dawry->id)->orderBy('points','desc')->orderBy('difference','desc')->get();
+        return view('dawry.show',['dawry'=>$data,'clubs'=>$club]);
 
     }
 

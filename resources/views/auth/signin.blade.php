@@ -25,17 +25,17 @@
 										<div class="mb-5 d-flex"> <a href=""><img src="{{asset('assets/img/brand/favicon.png')}}" class="sign-favicon ht-40" alt="logo"></a></div>
 										<div class="card-sigin">
 											<div class="main-signup-header">
-												<h2>{{__('cms.welcome')}}</h2>
+												<h2>مرحباً بك !</h2>
 
-												<h5 class="font-weight-semibold mb-4">{{__('cms.login')}}.</h5>
+												<h5 class="font-weight-semibold mb-4">تسجيل الدخول .</h5>
 												<form action="{{route('auth.login')}}" method="post">
                                                     @csrf
 													<div class="form-group">
-														<label>{{__('cms.email')}}</label> <input class="form-control" name="email" placeholder="{{__('cms.email')}}" type="text" value="{{old('email')}}">
+														<label>الايميل</label> <input class="form-control" name="email" placeholder="الايميل" type="text" value="{{old('email')}}">
                                                         @error('email') {{$message}} @enderror
 													</div>
 													<div class="form-group">
-														<label>{{__('cms.password')}}</label> <input class="form-control" name="password" placeholder="{{__('cms.password')}}" type="password" value="{{old('password')}}">
+														<label>كلمة المرور</label> <input class="form-control" name="password" placeholder="كلمة المرور" type="password" value="{{old('password')}}">
                                                         @error('password') {{$message}} @enderror
 													</div><button class="btn btn-main-primary btn-block">{{__('cms.sign_in')}}</button>
                                                     {{-- <div class="row mg-t-10">
@@ -50,7 +50,7 @@
                                                     </div> --}}
 												</form>
 												<div class="main-signin-footer mt-5">
-													<p><a href="">{{__('cms.forget_password')}}</a></p>
+													<p><a href="">هل نسيت كلمة المرور</a></p>
 												</div>
 											</div>
 										</div>

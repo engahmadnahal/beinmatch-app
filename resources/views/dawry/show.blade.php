@@ -12,6 +12,7 @@
 }
 </style>
 @endsection
+
 @section('page-header')
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
@@ -32,29 +33,29 @@
 									<div class="col-sm-12 col-xl-12 col-lg-12">
 						<div class="card user-wideget user-wideget-widget widget-user">
 							<div class="widget-user-header bg-primary">
-								<h3 class="widget-user-username">الدوري الاسباني</h3>
+								<h3 class="widget-user-username">{{$dawry->name}}</h3>
 							</div>
 							<div class="widget-user-image" >
-								<img src="https://img.btolat.com/news/large/126966.jpg?v=49" class="brround" alt="User Avatar " id="avater">
+								<img src="{{$dawry->avater}}" class="brround" alt="User Avatar " id="avater">
 							</div>
 							<div class="user-wideget-footer">
 								<div class="row">
 									<div class="col-sm-4 border-left">
 										<div class="description-block">
 											<h5 class="description-header">عدد المتابعين </h5>
-											<span class="description-text">3965</span>
+											<span class="description-text">{{$dawry->users_count}}</span>
 										</div>
 									</div>
 									<div class="col-sm-4 border-left">
 										<div class="description-block">
 											<h5 class="description-header">عدد الفرق </h5>
-											<span class="description-text">98</span>
+											<span class="description-text">{{$dawry->clubs_count}}</span>
 										</div>
 									</div>
 									<div class="col-sm-4">
 										<div class="description-block">
-											<h5 class="description-header">الدولة</h5>
-											<span class="description-text">اسبانيا</span>
+											<h5 class="description-header"></h5>
+											<span class="description-text">---</span>
 										</div>
 									</div>
 								</div>
@@ -83,67 +84,44 @@
 									<table class="table table-striped mg-b-0 text-md-nowrap">
 										<thead>
 											<tr>
-												<th>ID</th>
+												<th>الترتيب</th>
 												<th>النادي</th>
 												<th>المباريات</th>
 												<th>الفوز</th>
 
                                                 <th>التعادل</th>
 												<th>خسارة</th>
-												<th>له</th>
-												<th>عليه</th>
+												{{-- <th>له</th>
+												<th>عليه</th> --}}
 
                                                 <th>الفرق</th>
 												<th>النقاط</th>
-												<th>اخر 5 مباريات</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<th scope="row">1</th>
-												<td>ريال مدريد</td>
-												<td>10</td>
-												<td>5</td>
+                                            @foreach ($clubs as $item)
+                                                <tr>
+												<th scope="row">{{++$loop->index}}</th>
+												<td class="imgAndName">
+                                                    <div class="avater">
+								                        <img src="{{$item->avater}}" class="brround" alt="User Avatar " id="avater">
+							                        </div>
+                                                    <span>{{$item->name}}</span>
 
-                                                <th>3</th>
-												<td>2</td>
-												<td>2</td>
-												<td>9</td>
+                                                </td>
+												<td>{{$item->playing}}</td>
+												<td>{{$item->have_won}}</td>
 
-                                                <th >7</th>
-												<td>56</td>
-												<td>خ - ف - ف - ف - خ</td>
+                                                <th>{{$item->draw}}</th>
+												<td>{{$item->game_over}}</td>
+												{{-- <td>2</td>
+												<td>9</td> --}}
+
+                                                <th >{{$item->difference}}</th>
+												<td>{{$item->points}}</td>
 											</tr>
-                                            <tr>
-												<th scope="row">2</th>
-												<td>ريال مدريد</td>
-												<td>10</td>
-												<td>5</td>
+                                            @endforeach
 
-                                                <th>3</th>
-												<td>2</td>
-												<td>2</td>
-												<td>9</td>
-
-                                                <th >7</th>
-												<td>56</td>
-												<td>خ - ف - ف - ف - خ</td>
-											</tr>
-                                            <tr>
-												<th scope="row">3</th>
-												<td>ريال مدريد</td>
-												<td>10</td>
-												<td>5</td>
-
-                                                <th>3</th>
-												<td>2</td>
-												<td>2</td>
-												<td>9</td>
-
-                                                <th >7</th>
-												<td>56</td>
-												<td>خ - ف - ف - ف - خ</td>
-											</tr>
 										</tbody>
 									</table>
 								</div><!-- bd -->

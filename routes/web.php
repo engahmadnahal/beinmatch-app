@@ -6,8 +6,11 @@ use App\Http\Controllers\DawryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Scraping\GetClubController;
+use App\Http\Controllers\Scraping\GetDawryController;
 use App\Http\Controllers\UserController;
 use App\Models\Dawry;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -133,4 +136,18 @@ Route::middleware('auth:admin')->group(function(){
         return view('channels.craete');
     });
 
+});
+
+
+
+
+//// Scraping Data And Test Routes
+
+Route::get('/get-dawry',[GetDawryController::class , 'getDawry']);
+Route::get('/get-club',[GetClubController::class , 'getClub']);
+Route::get('/get-data-club',[GetClubController::class , 'getDataClub']);
+
+Route::get('/test',function(){
+   $user = User::where('id','4')->with('dawry')->first();
+   dd($user);
 });
