@@ -40,5 +40,13 @@ td.imgAndName {
 .imgAndName span {
     margin-right: 13px;
 }
+.pagination {
+    display: flex;
+    padding-right: 0;
+    list-style: none;
+    border-radius: 3px;
+    justify-content: end;
+    margin-top: 21px;
+}
 </style>
 

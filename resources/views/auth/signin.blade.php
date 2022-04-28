@@ -37,7 +37,7 @@
 													<div class="form-group">
 														<label>كلمة المرور</label> <input class="form-control" name="password" placeholder="كلمة المرور" type="password" value="{{old('password')}}">
                                                         @error('password') {{$message}} @enderror
-													</div><button class="btn btn-main-primary btn-block">{{__('cms.sign_in')}}</button>
+													</div><button class="btn btn-main-primary btn-block">دخول</button>
                                                     {{-- <div class="row mg-t-10">
                                                         <div class="col-lg-6">
                                                             <label class="rdiobox"><input name="user" type="radio" value="doctor" @if(old('user') == 'doctor') checked @endif> <span>{{__('cms.sign_in_doctor')}}</span></label>

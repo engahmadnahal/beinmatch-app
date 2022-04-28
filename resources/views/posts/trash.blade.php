@@ -37,7 +37,6 @@
 										<thead>
 
 											<tr>
-                                               <th class="wd-lg-20p"><span><label class="ckbox"><input id="checkAll" type="checkbox"> <span></span></label></span></th>
 												<th class="wd-lg-8p"><span>المقالة وعنوانها</span></th>
 												<th class="wd-lg-20p"><span></th>
 												<th class="wd-lg-20p"><span>تاريخ النشر</span></th>
@@ -47,34 +46,34 @@
 											</tr>
 										</thead>
 										<tbody>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
+                                            @foreach ($posts as $post)
+                                                <tr>
 												<td colspan="2" class="title-post">
 
-                                                    عاجل الان انتقال رونالدو لفريق ليفربول الانجليزي بصفقة خيالية ..	</td>
+                                                    {{$post->title}}
+                                                	</td>
 												<td>
-													08/06/2020
+													{{$post->deleted_at->format('Y/m/d')}}
 												</td>
 												<td class="text-center">
 													<span class="label text-danger d-flex"><div class="dot-label bg-danger ml-1"></div>حُذفت</span>
 												</td>
 												<td>
-													<a href="#">سامر سعدان</a>
+													<a href="{{route('employees.show',$post->employee->id)}}">{{$post->employee->full_name}}</a>
 												</td>
 												<td>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="icon ion-ios-share-alt"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
+													<form action="{{route('posts.restor',$post->id)}}" class="btn btn-sm btn-info">
+														<button type="submit" class="btn-empty"><i class="icon ion-ios-share-alt"></i></button>
+													</form>
 												</td>
 											</tr>
+                                            @endforeach
+
 
 										</tbody>
 									</table>
 								</div>
-								<ul class="pagination mt-4 mb-0 float-left">
+								{{-- <ul class="pagination mt-4 mb-0 float-left">
 									<li class="page-item page-prev disabled">
 										<a class="page-link" href="#" tabindex="-1">Prev</a>
 									</li>
@@ -86,7 +85,8 @@
 									<li class="page-item page-next">
 										<a class="page-link" href="#">Next</a>
 									</li>
-								</ul>
+								</ul> --}}
+                                {{$posts->links('pagination::bootstrap-4')}}
 							</div>
 						</div>
 					</div><!-- COL END -->

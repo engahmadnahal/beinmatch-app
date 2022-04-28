@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class View extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
      public function viewPost(){
         return $this->belongsTo(Post::class,'post_id','id');
     }

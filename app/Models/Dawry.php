@@ -21,4 +21,8 @@ class Dawry extends Model
     public function users(){
         return $this->belongsToMany(User::class,'dawry_follower','dawry_id','user_id');
     }
+
+    public function posts(){
+        return $this->hasMany(Post::class,'dawry_id','id');
+    }
 }

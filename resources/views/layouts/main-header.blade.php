@@ -108,11 +108,11 @@
 							</div>
 
 							<div class="dropdown main-profile-menu nav nav-item nav-link">
-								<a class="profile-user d-flex" href=""><img alt="" src="{{URL::asset('assets/img/faces/6.jpg')}}"></a>
+								<a class="profile-user d-flex" href=""><img alt="" src="/{{auth()->user()->avater}}"></a>
 								<div class="dropdown-menu">
 									<div class="main-header-profile bg-primary p-3">
 										<div class="d-flex wd-100p">
-											<div class="main-img-user"><img alt="" src="{{URL::asset('assets/img/faces/6.jpg')}}" class=""></div>
+											<div class="main-img-user"><img alt="" src="/{{auth()->user()->avater}}" class=""></div>
 											<div class="mr-3 my-auto">
 												<h6>Ahmad Nahal</h6><span>Admin</span>
 											</div>
@@ -121,7 +121,7 @@
 									<a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>الملف الشخصي</a>
 									<a class="dropdown-item" href=""><i class="bx bx-cog"></i> تعديل الملف الشخصي</a>
 									<a class="dropdown-item" href=""><i class="bx bxs-inbox"></i>صندوق الرسائل</a>
-									<a class="dropdown-item" href="{{ url('/' . $page='page-signin') }}"><i class="bx bx-log-out"></i> Sign Out</a>
+									<form action="{{route('auth.logout')}}" method="post" class="dropdown-item">@csrf <button type="submit" style="border: navajowhite;background: transparent;display: flex;align-items: center;"><i class="bx bx-log-out"></i> Sign Out</button></form>
 								</div>
 							</div>
 

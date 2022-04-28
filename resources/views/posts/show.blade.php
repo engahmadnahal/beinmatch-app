@@ -4,15 +4,24 @@
     tbody tr {
     height: 80px;
 }
+.action {
+    display: flex;
+}
+form {
+    margin-right: 10px;
+}
 </style>
 @endsection
 @section('page-header')
-				<!-- breadcrumb -->
+				<!-- breadcrum
+                    b -->
+
+
 				<div class="breadcrumb-header justify-content-between">
 					<div class="left-content">
 						<div>
 						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">التفاصيل</h2>
-						  <p class="mg-b-0">عرض جميع تفاصيل المفالة</p>
+						  <p class="mg-b-0">عرض جميع تفاصيل المقالة</p>
 						</div>
 					</div>
 				</div>
@@ -27,25 +36,27 @@
 								<div class="row row-sm ">
 									<div class=" col-xl-5 col-lg-12 col-md-12">
 										<div class="preview-pic tab-content">
-										  <div class="tab-pane active" id="pic-1"><img src="http://localhost/assets/img/ecommerce/shirt-5.png" alt="image"></div>
+										  <div class="tab-pane active" id="pic-1"><img src="{{Storage::url($post->thumnail)}}" alt="image"></div>
 										</div>
 
 									</div>
 									<div class="details col-xl-7 col-lg-12 col-md-12 mt-4 mt-xl-0">
-										<h4 class="product-title mb-1">عاجل انتقال رونالدو لفريق ليفربول الانجليزي</h4>
-										<p class="text-muted tx-13 mb-1">الدوري الاسباني,الدوري الانجليزي,رونالدو , اخبار الرياضة</p>
+										<h4 class="product-title mb-1">{{$post->title}}</h4>
+										<p class="text-muted tx-13 mb-1">{{$post->dawry->name}}</p>
 										<br>
-                                        <h6 class="h4 views">المشاهدات : <span class="h5 ml-2">30,562</span></h6>
-                                        <h6 class="h4 likes">عدد المعجبين : <span class=" h5 ml-2">30,562</span></h6>
-                                        <h6 class="h4 comments">عدد التعليقات : <span class="h5 ml-2">30,562</span></h6>
-                                        <h6 class="h4 writer">اسم الناشر :<span class="h5 ml-2">سعيد خالدي</span></h6>
-                                        <h6 class="h4 publishAt">تاريخ النشر :<span class="h5 ml-2">20-3-2022</span></h6>
-                                        <h6 class="h4 status">حالة المقال :<span class="h5 ml-2 ">نُشرت</span></h6>
+                                        <h6 class="h4 views">المشاهدات : <span class="h5 ml-2">{{$post->user_view_count}}</span></h6>
+                                        <h6 class="h4 likes">عدد المعجبين : <span class=" h5 ml-2">{{$post->user_like_count}}</span></h6>
+                                        <h6 class="h4 comments">عدد التعليقات : <span class="h5 ml-2">{{$post->user_comment_count}}</span></h6>
+                                        <h6 class="h4 writer">اسم الناشر : <a href="{{route('employees.show',$post->employee_id)}}"><span class="h5 ml-2">{{$post->employee->full_name}}</span></a></h6>
+                                        <h6 class="h4 publishAt">تاريخ النشر :<span class="h5 ml-2">{{$post->created_at->format('Y-m-d')}}</span></h6>
+                                        <h6 class="h4 status">حالة المقال :<span class="h5 ml-2 ">{{$post->post_status}}</span></h6>
 
 
 										<div class="action">
-											<button class="add-to-cart btn btn-primary" type="button">تعديل</button>
-											<button class="add-to-cart btn btn-danger" type="button">حذف</button>
+											<a class="add-to-cart btn btn-primary" href="{{route('posts.edit',$post->id)}}">تعديل</a>
+											<form action="{{route('posts.destroy',$post->id)}}" method="post">@csrf @method('delete')
+                                                <button class="add-to-cart btn btn-danger" type="button">حذف</button>
+                                            </form>
 										</div>
 									</div>
 								</div>
@@ -87,40 +98,75 @@
 <script src="{{asset('assets/plugins/jquery.flot/jquery.flot.pie.js')}}"></script>
 <script src="{{asset('assets/plugins/jquery.flot/jquery.flot.resize.js')}}"></script>
 <script>
-    var newCust = [
-		[0, 2],
-		[1, 3],
-		[2, 6],
-		[3, 5],
-		[4, 7],
-		[5, 8],
-		[6, 10]
+    /*
+        'likesYesterDay'
+        'likesToDay'
+    */
+//    @php
+
+
+//             $zeroToFiveLike = 0;
+//             $SixToTwelveLike = 0;
+//             $TwelveToEightteentLike = 0;
+//             $EihtteenToTwentyFour = 0;
+
+//                 foreach ($likesYesterDay as $like ){
+
+//                     $houreOfLike = substr(explode(' ',$like->created_at)[1],0,2);
+//                     if($houreOfLike < 6){
+//                         $zeroToFiveLike++;
+//                     }
+//                     else if($houreOfLike < 12 && $houreOfLike >= 6){
+//                         $SixToTwelveLike++;
+//                     }else if($houreOfLike < 18 && $houreOfLike >= 12){
+//                         $TwelveToEightteentLike++;
+//                     }else if($houreOfLike <=  24 && $houreOfLike >= 18){
+//                         $EihtteenToTwentyFour++;
+//                     }
+
+//             }
+
+
+//    @endphp
+
+    var yesterdayLikes = [
+		[0, {{$likesYesterDay['zeroFive']}}],
+		[6, {{$likesYesterDay['SixTwelve']}}],
+		[12, {{$likesYesterDay['TwelveEightteent']}}],
+		[18, {{$likesYesterDay['EihtteenTwenty']}}],
+
+
 	];
-        var newCust2 = [
-		[0, 20],
-		[1, 5],
-		[2, 1],
-		[3, 9],
-		[4, 7],
-		[5, 8],
-		[6, 10]
-	];
-	var retCust = [
-		[0, 1],
-		[1, 2],
-		[2, 5],
-		[3, 3],
-		[4, 5],
-		[5, 6],
-		[6, 9]
+        var todayLikes = [
+		[0, {{$likesToDay['zeroFive']}}],
+		[6, {{$likesToDay['SixTwelve']}}],
+		[12, {{$likesToDay['TwelveEightteent']}}],
+		[18, {{$likesToDay['EihtteenTwenty']}}],
 	];
 
+
+	var todayView = [
+		[0, {{$viewToDay['zeroFive']}}],
+		[6, {{$viewToDay['SixTwelve']}}],
+		[12, {{$viewToDay['TwelveEightteent']}}],
+		[18, {{$viewToDay['EihtteenTwenty']}}],
+	];
+
+    var yesterdayView = [
+		[0, {{$viewYsterDay['zeroFive']}}],
+		[6, {{$viewYsterDay['SixTwelve']}}],
+		[12, {{$viewYsterDay['TwelveEightteent']}}],
+		[18, {{$viewYsterDay['EihtteenTwenty']}}],
+
+	];
+
+
 	 var plot = $.plot($('#flotLine1'), [{
-		data: newCust2,
+		data: todayLikes,
 		label: 'اليوم',
 		color: '#007bff'
 	}, {
-		data: retCust,
+		data: yesterdayLikes,
 		label: 'الامس',
 		color: '#f7557a'
 	}], {
@@ -145,7 +191,7 @@
 		},
 		yaxis: {
 			min: 0,
-			max: 15,
+			max: 500,
 			color: '#eee',
 			tickColor: 'rgba(171, 167, 167,0.2)',
 			font: {
@@ -166,11 +212,11 @@
     //___________________
 
      var plot = $.plot($('#flotLine2'), [{
-		data: newCust,
+		data: todayView,
 		label: 'اليوم',
 		color: '#007bff'
 	}, {
-		data: retCust,
+		data: yesterdayView,
 		label: 'الامس',
 		color: '#f7557a'
 	}], {
@@ -195,7 +241,7 @@
 		},
 		yaxis: {
 			min: 0,
-			max: 15,
+			max: 1000,
 			color: '#eee',
 			tickColor: 'rgba(171, 167, 167,0.2)',
 			font: {
@@ -206,6 +252,8 @@
 		xaxis: {
 			color: '#eee',
 			tickColor: 'rgba(171, 167, 167,0.2)',
+            // min : 0,
+            // max : 24
 			font: {
 				size: 10,
 				color: '#999'

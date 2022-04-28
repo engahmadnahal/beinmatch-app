@@ -9,7 +9,7 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="left-content">
 						<div>
-						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">مرحباً بك مجدداً , Ahmad NAhal</h2>
+						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">مرحباً بك مجدداً , {{auth()->user()->full_name}}</h2>
 						  <p class="mg-b-0">نتمنى لك يوماً مليئ بالنشاط والابداع .</p>
 						</div>
 					</div>

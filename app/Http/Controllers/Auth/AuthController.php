@@ -47,6 +47,6 @@ class AuthController extends Controller
         $guard = 'admin';
         Auth::guard($guard)->logout();
         $request->session()->invalidate();
-        return redirect()->route('home.index');
+        return redirect()->route('auth.index');
     }
 }

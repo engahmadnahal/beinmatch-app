@@ -11,7 +11,9 @@ class Employee extends Authenticatable
 {
     use HasFactory,SoftDeletes;
 
-
+    public function posts(){
+        return $this->hasMany(Post::class , 'employee_id','id');
+    }
 
     public function getFullNameAttribute(){
         return $this->fname . " ". $this->lname;

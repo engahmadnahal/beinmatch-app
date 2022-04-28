@@ -18,7 +18,7 @@ class CreateDawriesTable extends Migration
             $table->string('name');
             $table->string('avater');
             $table->softDeletes();
-
+            // $table->boolean('active')->default(false);
             $table->timestamps();
         });
     }

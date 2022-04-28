@@ -24,6 +24,18 @@ class User extends Authenticatable
         return $this->belongsToMany(Dawry::class,'dawry_follower','user_id','dawry_id');
     }
 
+    public function comments(){
+        return $this->belongsToMany(Post::class,'comments','user_id','post_id');
+    }
+
+    public function likes(){
+        return $this->belongsToMany(Post::class,'likes','user_id','post_id');
+    }
+
+    public function view(){
+        return $this->belongsToMany(Post::class,'views','user_id','post_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

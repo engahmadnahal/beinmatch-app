@@ -10,6 +10,7 @@ use App\Http\Controllers\Scraping\GetClubController;
 use App\Http\Controllers\Scraping\GetDawryController;
 use App\Http\Controllers\UserController;
 use App\Models\Dawry;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -29,14 +30,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest:admin')->group(function(){
     Route::get('/auth',[AuthController::class , 'index'])->name('auth.index');
     Route::post('/auth/login',[AuthController::class , 'login'])->name('auth.login');
-    Route::post('/auth/logout',[AuthController::class , 'logout'])->name('auth.logout');
 });
 
 Route::middleware('auth:admin')->group(function(){
     Route::get('/', [HomeController::class ,'index'])->name('home.index');
+    Route::post('/auth/logout',[AuthController::class , 'logout'])->name('auth.logout');
     // Post Routes
     Route::get('/posts/restor/{id}',[PostController::class , 'restor'])->name('posts.restor');
     Route::get('/posts/trash',[PostController::class,'trush'])->name('posts.trush');
+    Route::post('/posts/delete-all',[PostController::class , 'deleteAll'])->name('posts.delete_all');
+    Route::get('/posts/publish',[PostController::class , 'getPublish'])->name('posts.publish');
+    Route::get('/posts/wait',[PostController::class , 'getWait'])->name('posts.wait');
+    Route::get('/posts/cancel',[PostController::class , 'getCancel'])->name('posts.cancel');
     Route::resource('posts',PostController::class);
 
     // Matches
@@ -148,6 +153,6 @@ Route::get('/get-club',[GetClubController::class , 'getClub']);
 Route::get('/get-data-club',[GetClubController::class , 'getDataClub']);
 
 Route::get('/test',function(){
-   $user = User::where('id','4')->with('dawry')->first();
-   dd($user);
+   $user = Post::where('id','23')->withCount('userLike')->first();
+   return response()->json($user);
 });
