@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\DawryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MobaraController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Scraping\GetClubController;
 use App\Http\Controllers\Scraping\GetDawryController;
@@ -33,8 +35,16 @@ Route::middleware('guest:admin')->group(function(){
 });
 
 Route::middleware('auth:admin')->group(function(){
+    // Auth route
     Route::get('/', [HomeController::class ,'index'])->name('home.index');
     Route::post('/auth/logout',[AuthController::class , 'logout'])->name('auth.logout');
+
+    // Employees
+    Route::get('/employees/trash',[EmployeeController::class , 'trush'])->name('employees.trush');
+    Route::get('/employees/chat',[EmployeeController::class , 'chat'])->name('employees.chat');
+    Route::post('/employees/restor/{id}',[EmployeeController::class , 'restor'])->name('employees.restor');
+    Route::resource('/employees',EmployeeController::class);
+
     // Post Routes
     Route::get('/posts/restor/{id}',[PostController::class , 'restor'])->name('posts.restor');
     Route::get('/posts/trash',[PostController::class,'trush'])->name('posts.trush');
@@ -44,36 +54,31 @@ Route::middleware('auth:admin')->group(function(){
     Route::get('/posts/cancel',[PostController::class , 'getCancel'])->name('posts.cancel');
     Route::resource('posts',PostController::class);
 
-    // Matches
-
-    Route::get('/matches',function(){
-        return view('matches.index');
-    });
-
-    Route::get('/matches/show',function(){
-        return view('matches.show');
-    });
-
-    Route::get('/matches/trash',function(){
-        return view('matches.trash');
-    });
-    Route::get('/matches/create',function(){
-        return view('matches.craete');
-    });
-    Route::get('/matches/edit',function(){
-        return view('matches.craete');
-    });
-    // Employees
-    Route::get('/employees/trash',[EmployeeController::class , 'trush'])->name('employees.trush');
-    Route::get('/employees/chat',[EmployeeController::class , 'chat'])->name('employees.chat');
-    Route::post('/employees/restor/{id}',[EmployeeController::class , 'restor'])->name('employees.restor');
-    Route::resource('/employees',EmployeeController::class);
 
     // User
     Route::get('/users/trash',[UserController::class , 'trush'])->name('users.trush');
     Route::post('/users/restor/{id}',[UserController::class , 'restor'])->name('users.restor');
     Route::post('/users/block/{id}',[UserController::class,'block'])->name('users.block');
     Route::resource('/users',UserController::class);
+
+    // Dawry
+    Route::resource('dawries',DawryController::class);
+
+
+    // Channels
+    Route::resource('channels',ChannelController::class);
+
+    // Matches
+    Route::get('/matches/trash',[MobaraController::class , 'trush'])->name('matches.trush');
+    Route::get('/matches/get-publish',[MobaraController::class , 'getPublish'])->name('matches.publish');
+    Route::get('/matches/get-wait',[MobaraController::class , 'getWait'])->name('matches.wait');
+    Route::get('/matches/get-cancel',[MobaraController::class , 'getCancel'])->name('matches.cancel');
+
+
+    Route::post('/matches/restor/{id}',[MobaraController::class , 'restor'])->name('matches.restor');
+    Route::resource('matches', MobaraController::class);
+
+
 
 
 
@@ -105,9 +110,6 @@ Route::middleware('auth:admin')->group(function(){
         return view('clubs.craete');
     });
 
-    // Dawry
-
-    Route::resource('dawries',DawryController::class);
 
     // Setting
     Route::get('/setting',function(){
@@ -115,7 +117,6 @@ Route::middleware('auth:admin')->group(function(){
     });
 
     // notification
-
     Route::get('/notification',function(){
         return view('notification.index');
     });
@@ -124,22 +125,9 @@ Route::middleware('auth:admin')->group(function(){
         return view('notification.craete');
     });
 
-    // Channels
-    Route::get('/channels',function(){
-        return view('channels.index');
-    });
 
-    Route::get('/channels/show',function(){
-        return view('channels.show');
-    });
 
-    Route::get('/channels/create',function(){
-        return view('channels.craete');
-    });
 
-    Route::get('/channels/edit',function(){
-        return view('channels.craete');
-    });
 
 });
 

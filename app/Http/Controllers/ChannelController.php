@@ -15,6 +15,8 @@ class ChannelController extends Controller
     public function index()
     {
         //
+        $channels = Channel::paginate(15);
+        return view('channels.index',['channels'=>$channels]);
     }
 
     /**
@@ -25,6 +27,9 @@ class ChannelController extends Controller
     public function create()
     {
         //
+        return view('channels.craete');
+
+
     }
 
     /**
@@ -36,6 +41,25 @@ class ChannelController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'urlOne' => 'required|string',
+            'urlTwo' => 'required|string',
+            'urlThree' => 'required|string',
+            'name_channel' => 'required|string',
+        ]);
+
+        $channelUrls = [
+            'one'=> $request->input('urlOne'),
+            'two'=> $request->input('urlTwo'),
+            'three'=> $request->input('urlThree'),
+        ];
+
+        $channel = new Channel();
+        $channel->name = $request->input('name_channel');
+        $channel->urls = json_encode($channelUrls);
+        $channel->save();
+        return redirect()->route('channels.index');
+
     }
 
     /**
@@ -47,6 +71,9 @@ class ChannelController extends Controller
     public function show(Channel $channel)
     {
         //
+
+        return view('channels.show',['channel'=>$channel]);
+
     }
 
     /**
@@ -58,6 +85,11 @@ class ChannelController extends Controller
     public function edit(Channel $channel)
     {
         //
+
+        return view('channels.edit',[
+            'channelData'=>$channel,
+            'onlyCh'=>json_decode($channel->urls)
+        ]);
     }
 
     /**
@@ -70,6 +102,23 @@ class ChannelController extends Controller
     public function update(Request $request, Channel $channel)
     {
         //
+        $request->validate([
+            'urlOne' => 'required|string',
+            'urlTwo' => 'required|string',
+            'urlThree' => 'required|string',
+            'name_channel' => 'required|string',
+        ]);
+
+        $channelUrls = [
+            'one'=> $request->input('urlOne'),
+            'two'=> $request->input('urlTwo'),
+            'three'=> $request->input('urlThree'),
+        ];
+
+        $channel->name = $request->input('name_channel');
+        $channel->urls = json_encode($channelUrls);
+        $channel->save();
+        return redirect()->route('channels.index');
     }
 
     /**
@@ -81,5 +130,8 @@ class ChannelController extends Controller
     public function destroy(Channel $channel)
     {
         //
+        $channel->delete();
+        return redirect()->route('channels.index');
+
     }
 }

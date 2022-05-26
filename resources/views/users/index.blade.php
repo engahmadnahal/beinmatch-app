@@ -94,7 +94,7 @@
 										</tbody>
 									</table>
 								</div>
-								<ul class="pagination mt-4 mb-0 float-left">
+								{{-- <ul class="pagination mt-4 mb-0 float-left">
 									<li class="page-item page-prev disabled">
 										<a class="page-link" href="#" tabindex="-1">Prev</a>
 									</li>
@@ -106,7 +106,9 @@
 									<li class="page-item page-next">
 										<a class="page-link" href="#">Next</a>
 									</li>
-								</ul>
+								</ul> --}}
+
+                                {{$users->links('pagination::bootstrap-4')}}
 							</div>
 						</div>
 					</div><!-- COL END -->

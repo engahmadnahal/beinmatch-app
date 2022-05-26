@@ -41,101 +41,29 @@
         <div class="col-xl-9 col-lg-9 col-md-12">
 
             <div class="row row-sm">
-                <div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
+                @foreach ($channels as $item)
+                    <div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="pro-img-box">
                                 <div class="d-flex product-sale">
-
                                 </div>
-                                <img class="w-100"
-                                    src="https://ssl.gstatic.com/onebox/media/sports/logos/0iShHhASp5q1SL4JhtwJiw_96x96.png"
-                                    alt="product-image">
-                                <a href="#" class="adtocart"> <i class="las la-pen"></i>
+                                <p></p>
+                                <a href="{{route('channels.show',$item->id)}}" class="adtocart"> <i class="las la-pen"></i>
                                 </a>
                             </div>
                             <div class="text-center pt-3">
 
-                                <h4 class="h5 mb-0 mt-2 text-center font-weight-bold ">Bein Sports 1</h4>
+                                <h4 class="h5 mb-0 mt-2 text-center font-weight-bold ">{{$item->name}}</h4>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="pro-img-box">
-                                <div class="d-flex product-sale">
+                @endforeach
 
-                                </div>
-                                <img class="w-100"
-                                    src="https://ssl.gstatic.com/onebox/media/sports/logos/0iShHhASp5q1SL4JhtwJiw_96x96.png"
-                                    alt="product-image">
-                                <a href="#" class="adtocart"> <i class="las la-pen"></i>
-                                </a>
-                            </div>
-                            <div class="text-center pt-3">
-
-                                <h4 class="h5 mb-0 mt-2 text-center font-weight-bold ">Bein Sports 1</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="pro-img-box">
-                                <div class="d-flex product-sale">
-
-                                </div>
-                                <img class="w-100"
-                                    src="https://ssl.gstatic.com/onebox/media/sports/logos/0iShHhASp5q1SL4JhtwJiw_96x96.png"
-                                    alt="product-image">
-                                <a href="#" class="adtocart"> <i class="las la-pen"></i>
-                                </a>
-                            </div>
-                            <div class="text-center pt-3">
-
-                                <h4 class="h5 mb-0 mt-2 text-center font-weight-bold ">Bein Sports 1</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-4  col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="pro-img-box">
-                                <div class="d-flex product-sale">
-
-                                </div>
-                                <img class="w-100"
-                                    src="https://ssl.gstatic.com/onebox/media/sports/logos/0iShHhASp5q1SL4JhtwJiw_96x96.png"
-                                    alt="product-image">
-                                <a href="#" class="adtocart"> <i class="las la-pen"></i>
-                                </a>
-                            </div>
-                            <div class="text-center pt-3">
-
-                                <h4 class="h5 mb-0 mt-2 text-center font-weight-bold ">Bein Sports 1</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <ul class="pagination product-pagination mr-auto float-left">
-                <li class="page-item page-prev disabled">
-                    <a class="page-link" href="#" tabindex="-1">Prev</a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item page-next">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
+            {{$channels->links('pagination::bootstrap-4')}}
         </div>
     </div>
     </div>

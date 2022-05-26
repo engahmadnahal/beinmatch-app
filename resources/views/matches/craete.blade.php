@@ -35,36 +35,28 @@ span.select2 {
     <!-- Row Content -->
     <div class="row row-sm">
         <div class="col-xl-3 col-lg-3 col-md-12 mb-3 mb-md-0">
-            <form action="/" method="get">
+            <form action="{{route('matches.store')}}" method="post">
+                @csrf
+                @method('POST')
             <div class="card">
                 <div class="card-header border-bottom pt-3 pb-3 mb-0 font-weight-bold text-uppercase">الاعدادات</div>
                 <div class="card-body pb-0">
                     <div class="form-group">
                         <label class="form-label">التصنيفات</label>
-                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true" name="dawry">
 											<option label="Choose one" data-select2-id="3">
 											</option>
-											<option value="Firefox">
-												Firefox
-											</option>
-											<option value="Chrome">
-												Chrome
-											</option>
-											<option value="Safari">
-												Safari
-											</option>
-											<option value="Opera">
-												Opera
-											</option>
-											<option value="Internet Explorer">
-												Internet Explorer
-											</option>
+											@foreach ($dawrys as $dawry)
+                                                <option value="{{$dawry->id}}">
+                                                    {{$dawry->name}}
+                                                </option>
+                                            @endforeach
 										</select>
 
 
                         <label class="form-label">نشر المقال</label>
                         <div class="publish main-toggle main-toggle-secondary">
-                            <input type="checkbox" name="publish_post" id="publish" style="display: none">
+                            <input type="checkbox" name="publish_match" id="publish" style="display: none">
                             <span></span>
                         </div>
 
@@ -77,7 +69,6 @@ span.select2 {
                     <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">حفظ الأن</button>
                 </div>
             </div>
-            </form>
 
         </div>
 
@@ -92,48 +83,29 @@ span.select2 {
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
                                     <label class="form-label">اسم الفريق الاول: </label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="2" tabindex="-1" aria-hidden="true">
+                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="3" tabindex="-1" aria-hidden="true" name="club_one">
 											<option label="Choose one" data-select2-id="3">
 											</option>
-											<option value="Firefox">
-												Firefox
-											</option>
-											<option value="Chrome">
-												Chrome
-											</option>
-											<option value="Safari">
-												Safari
-											</option>
-											<option value="Opera">
-												Opera
-											</option>
-											<option value="Internet Explorer">
-												Internet Explorer
-											</option>
+											@foreach ( $clubs as $club)
+                                                <option value="{{$club->id}}">
+                                                    {{$club->name}}
+                                                </option>
+                                            @endforeach
 										</select>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">اسم الفريق الثاني: </label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="3" tabindex="-1" aria-hidden="true">
+                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="6" tabindex="-1" aria-hidden="true" name="club_two">
 											<option label="Choose one" data-select2-id="3">
 											</option>
-											<option value="Firefox">
-												Firefox
-											</option>
-											<option value="Chrome">
-												Chrome
-											</option>
-											<option value="Safari">
-												Safari
-											</option>
-											<option value="Opera">
-												Opera
-											</option>
-											<option value="Internet Explorer">
-												Internet Explorer
-											</option>
+
+											@foreach ( $clubs as $club)
+                                                <option value="{{$club->id}}">
+                                                    {{$club->name}}
+                                                </option>
+                                            @endforeach
 										</select>
                                 </div>
                             </div>
@@ -143,24 +115,14 @@ span.select2 {
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
                                     <label class="form-label">البطولة: </label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="4" tabindex="-1" aria-hidden="true">
+                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="4" tabindex="-1" aria-hidden="true" name="botola">
 											<option label="Choose one" data-select2-id="4">
 											</option>
-											<option value="Firefox">
-												Firefox
-											</option>
-											<option value="Chrome">
-												Chrome
-											</option>
-											<option value="Safari">
-												Safari
-											</option>
-											<option value="Opera">
-												Opera
-											</option>
-											<option value="Internet Explorer">
-												Internet Explorer
-											</option>
+											@foreach ($dawrys as $dawry)
+                                                <option value="{{$dawry->id}}">
+                                                    {{$dawry->name}}
+                                                </option>
+                                            @endforeach
 										</select>
                                 </div>
                             </div>
@@ -168,24 +130,14 @@ span.select2 {
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">القناة الناقلة: </label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="5" tabindex="-1" aria-hidden="true">
+                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="5" tabindex="-1" aria-hidden="true" name="channel">
 											<option label="Choose one" data-select2-id="1">
 											</option>
-											<option value="Firefox">
-												Firefox
-											</option>
-											<option value="Chrome">
-												Chrome
-											</option>
-											<option value="Safari">
-												Safari
-											</option>
-											<option value="Opera">
-												Opera
-											</option>
-											<option value="Internet Explorer">
-												Internet Explorer
-											</option>
+											@foreach ($channel as $item)
+                                                <option value="{{$item->id}}">
+                                                    {{$item->name}}
+                                                </option>
+                                            @endforeach
 										</select>
                                 </div>
                             </div>
@@ -201,7 +153,7 @@ span.select2 {
 											<div class="input-group-text">
 												<i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
 											</div>
-										</div><input class="form-control" id="datetimepicker2" type="text" value="2022-01-01 21:05">
+										</div><input class="form-control" id="datetimepicker2" type="text" value="2022-01-01 21:05" name="timeStart">
 									</div>
                                 </div>
                             </div>
@@ -209,7 +161,7 @@ span.select2 {
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">المعلق: </label>
-                                    <input class="form-control" type="text" placeholder="اسم المعلق..">
+                                    <input class="form-control" type="text" placeholder="اسم المعلق.." name="voice">
                                 </div>
                             </div>
                         </div>
@@ -218,6 +170,7 @@ span.select2 {
 
 
         </div>
+        </form>
     </div>
 
     </div>
@@ -271,10 +224,23 @@ $('.publish').on('click', function() {
 	};
 })
 $(document).ready(function() {
+		$('.clubOne').select2({
+			placeholder: 'Choose one',
+			searchInputPlaceholder: 'Search'
+		});
+
+		$('.clubTwo').select2({
+			placeholder: 'Choose one',
+			searchInputPlaceholder: 'Search'
+		});
+
+
 		$('.select2').select2({
 			placeholder: 'Choose one',
 			searchInputPlaceholder: 'Search'
 		});
+
+
 		$('.select2-no-search').select2({
 			minimumResultsForSearch: Infinity,
 			placeholder: 'Choose one'

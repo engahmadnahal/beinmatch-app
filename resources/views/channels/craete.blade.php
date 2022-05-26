@@ -35,13 +35,15 @@
     <!-- Row Content -->
     <div class="row row-sm">
         <div class="col-xl-3 col-lg-3 col-md-12 mb-3 mb-md-0">
-            <form action="" method="get">
+            <form action="{{route('channels.store')}}" method="post">
+                @method('POST')
+                @csrf
                 <div class="card">
                     <div class="card-header border-bottom pt-3 pb-3 mb-0 font-weight-bold text-uppercase">الاعدادات</div>
                     <div class="card-body pb-0">
                         <div class="form-group">
                             <label class="form-label">اسم القناة</label>
-                            <input type="text" name="name_channel" id="inputName" class="form-control" placeholder="اسم القناة..">
+                            <input type="text" name="name_channel" class="form-control" placeholder="اسم القناة.." value="{{old('name_channel')}}">
                         </div>
                     </div>
 
@@ -49,7 +51,6 @@
                         <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">حفظ الأن</button>
                     </div>
                 </div>
-            </form>
 
         </div>
 
@@ -65,21 +66,24 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">الرابط الاول : </label>
-                                    <input class="form-control" type="text" placeholder="الرابط الاول">
+                                    <input class="form-control" type="text" placeholder="الرابط الاول" name="urlOne" value="{{old('urlOne')}}">
+                                    @error('urlOne') {{$message}} @enderror
                                 </div>
                             </div>
 
                              <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">الرابط الثاني : </label>
-                                    <input class="form-control" type="text" placeholder="الرابط الثاني">
+                                    <input class="form-control" type="text" placeholder="الرابط الثاني" name="urlTwo" value="{{old('urlTwo')}}">
+                                    @error('urlTwo') {{$message}} @enderror
                                 </div>
                             </div>
 
                              <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">الرابط الثالث : </label>
-                                    <input class="form-control" type="text" placeholder="الرابط الثالث">
+                                    <input class="form-control" type="text" placeholder="الرابط الثالث" name="urlThree" value="{{old('urlThree')}}">
+                                    @error('urlThree') {{$message}} @enderror
                                 </div>
                             </div>
 
@@ -94,6 +98,7 @@
 
             </div>
         </div>
+            </form>
 
     </div>
     </div>

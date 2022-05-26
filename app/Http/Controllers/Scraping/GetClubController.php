@@ -185,6 +185,14 @@ class GetClubController extends Controller
 
 
     // Get Data for club , (point , won , ...)
+
+    /*
+
+
+            https://jdwel.com/2021-2022-spanish-primera-division/
+
+
+    */
     public function getDataClub(Request $request){
 
         $client = new Client();

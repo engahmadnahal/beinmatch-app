@@ -142,6 +142,8 @@ class EmployeeController extends Controller
             $employee->address = $request->input('address');
             $employee->avater = 'assets/img/upload/media/login.png';
             $isSaved = $employee->save();
+
+            // return
             return response()->json(
                 [
                     'msg'=>$isSaved ? 'Save new emplyee is success' : 'Error Save is success'
