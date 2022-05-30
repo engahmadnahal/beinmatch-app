@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Club;
+use App\Models\Dawry;
 use Illuminate\Http\Request;
 
 class ClubController extends Controller
@@ -15,6 +16,12 @@ class ClubController extends Controller
     public function index()
     {
         //
+        $clubs = Club::paginate(12);
+        $dawrys = Dawry::all();
+        return view('clubs.index',[
+            'clubs' => $clubs,
+            'dawrys' => $dawrys
+        ]);
     }
 
     /**
@@ -25,6 +32,11 @@ class ClubController extends Controller
     public function create()
     {
         //
+        // create variable for dawrys
+        $dawrys = Dawry::all();
+        return view('clubs.craete',[
+            'dawrys'=>$dawrys,
+        ]);
     }
 
     /**
@@ -36,6 +48,19 @@ class ClubController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'dawry' => 'required|integer',
+            'logo_url'=>'required|string',
+            'country'=>'required|string',
+        ]);
+        $club = new Club();
+        $club->name = $request->input('name');
+        $club->dawry_id = $request->input('dawry');
+        $club->avater = $request->input('logo_url');
+        $club->country = $request->input('country');
+        $club->save();
+        return redirect()->route('clubs.index');
     }
 
     /**
@@ -47,6 +72,9 @@ class ClubController extends Controller
     public function show(Club $club)
     {
         //
+        return view('clubs.show',[
+            'club'=>$club,
+        ]);
     }
 
     /**
@@ -58,6 +86,11 @@ class ClubController extends Controller
     public function edit(Club $club)
     {
         //
+        $dawrys = Dawry::all();
+        return view('clubs.edit',[
+            'club'=>$club,
+            'dawrys'=>$dawrys,
+        ]);
     }
 
     /**
@@ -70,6 +103,18 @@ class ClubController extends Controller
     public function update(Request $request, Club $club)
     {
         //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'dawry' => 'required|integer',
+            'logo_url'=>'required|string',
+            'country'=>'required|string',
+        ]);
+        $club->name = $request->input('name');
+        $club->dawry_id = $request->input('dawry');
+        $club->avater = $request->input('logo_url');
+        $club->country = $request->input('country');
+        $club->save();
+        return redirect()->route('clubs.index');
     }
 
     /**
@@ -81,5 +126,7 @@ class ClubController extends Controller
     public function destroy(Club $club)
     {
         //
+        $club->delete();
+        return redirect()->route('clubs.index');
     }
 }

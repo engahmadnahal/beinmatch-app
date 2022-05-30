@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('css')
-    <link href="{{ asset('assets/plugins/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet" />
+    <link href="{{asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 
     <style>
         .ql-tooltip {
@@ -41,15 +41,19 @@
                     <div class="card-body pb-0">
                         <div class="form-group">
                             <label class="form-label">الدوري التابع له</label>
-                            <select name="type_emp" id="select-beast" class="form-control nice-select custom-select"
-                                style="display: none;">
-                                <option value="0">--تحديد--</option>
-                                <option value="1">Foot wear</option>
-                                <option value="2">Top wear</option>
-                                <option value="3">Bootom wear</option>
-                                <option value="4">Men's Groming</option>
-                                <option value="5">Accessories</option>
-                            </select>
+
+
+                                <select class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true" name="dawry">
+											<option label="Choose one" data-select2-id="3">
+											</option>
+											@foreach ($dawrys as $dawry)
+                                                <option value="{{$dawry->id}}">
+                                                    {{$dawry->name}}
+                                                </option>
+                                            @endforeach
+										</select>
+
+
                             <p class="tx-19 tx-gray-500 mb-2">يتم ملئ باقي معلومات الفريق بالسكرابينج</a></p>
 
 
@@ -75,13 +79,13 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">اسم الفريق : </label>
-                                    <input class="form-control" type="text" placeholder="اسم الفريق ">
+                                    <input class="form-control" type="text" name="name" placeholder="اسم الفريق ">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">صورة الفريق : </label>
-                                    <input class="form-control" type="text" placeholder="صورة الفريق">
+                                    <input class="form-control" type="text" name="logo_url" placeholder="صورة الفريق">
                                 </div>
                             </div>
                         </div>
@@ -90,22 +94,11 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">دولة الفريق : </label>
-                                    <select name="type_emp" id="select-beast" class="form-control nice-select custom-select"
-                                        style="display: none;">
-                                        <option value="0">--تحديد--</option>
-                                        <option value="1">Foot wear</option>
-                                        <option value="2">Top wear</option>
-                                        <option value="3">Bootom wear</option>
-                                        <option value="4">Men's Groming</option>
-                                        <option value="5">Accessories</option>
-                                    </select>
+                                    <input type="text" name="country" class="form-control" placeholder="دولة الفريق">
                                 </div>
                             </div>
 
                         </div>
-
-
-
 
                     </div>
                 </div>
@@ -119,14 +112,16 @@
     <!-- Container closed -->
 @endsection
 @section('js')
-    <script src="{{ asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.js') }}"></script>
-
+    <script src="{{asset('assets/plugins/select2/js/select2.min.js')}}"></script>
     <script>
         (function($) {
             "use strict";
 
             // ______________Nice Select
-            $('select.nice-select').niceSelect();
+            		$('.select2').select2({
+			placeholder: 'Choose one',
+			searchInputPlaceholder: 'Search'
+		});
         })(jQuery);
     </script>
 @endsection

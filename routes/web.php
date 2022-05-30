@@ -3,15 +3,19 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ChannelController;
+use App\Http\Controllers\ClubController;
 use App\Http\Controllers\DawryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MobaraController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Scraping\GetClubController;
 use App\Http\Controllers\Scraping\GetDawryController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Models\Dawry;
+use App\Models\Notification;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -64,21 +68,28 @@ Route::middleware('auth:admin')->group(function(){
     // Dawry
     Route::resource('dawries',DawryController::class);
 
-
     // Channels
     Route::resource('channels',ChannelController::class);
 
     // Matches
-    Route::get('/matches/trash',[MobaraController::class , 'trush'])->name('matches.trush');
-    Route::get('/matches/get-publish',[MobaraController::class , 'getPublish'])->name('matches.publish');
-    Route::get('/matches/get-wait',[MobaraController::class , 'getWait'])->name('matches.wait');
-    Route::get('/matches/get-cancel',[MobaraController::class , 'getCancel'])->name('matches.cancel');
+    Route::get('/mobaras/trash',[MobaraController::class , 'trush'])->name('mobaras.trush');
+    Route::get('/mobaras/get-publish',[MobaraController::class , 'getPublish'])->name('mobaras.publish');
+    Route::get('/mobaras/get-wait',[MobaraController::class , 'getWait'])->name('mobaras.wait');
+    Route::get('/mobaras/get-cancel',[MobaraController::class , 'getCancel'])->name('mobaras.cancel');
 
 
-    Route::post('/matches/restor/{id}',[MobaraController::class , 'restor'])->name('matches.restor');
-    Route::resource('matches', MobaraController::class);
+    Route::post('/mobaras/restor/{id}',[MobaraController::class , 'restor'])->name('mobaras.restor');
+    Route::resource('mobaras', MobaraController::class);
 
+    //Clubs Route Resource
+    Route::resource('clubs',ClubController::class);
 
+    //Setting Route
+    Route::get('/settings/mobile',[SettingController::class , 'mobile'])->name('settings.mobile');
+    Route::post('/settings/mobile',[SettingController::class , 'saveSettingMobile'])->name('settings.saveMobile');
+
+    // notifications
+    Route::resource('/notifications',NotificationController::class);
 
 
 
@@ -93,37 +104,12 @@ Route::middleware('auth:admin')->group(function(){
     });
 
 
-    // Clubs
-    Route::get('/clubs',function(){
-        return view('clubs.index');
-    });
-
-    Route::get('/clubs/show',function(){
-        return view('clubs.show');
-    });
-
-    Route::get('/clubs/create',function(){
-        return view('clubs.craete');
-    });
-
-    Route::get('/clubs/edit',function(){
-        return view('clubs.craete');
-    });
 
 
-    // Setting
-    Route::get('/setting',function(){
-        return view('setting.index');
-    });
 
-    // notification
-    Route::get('/notification',function(){
-        return view('notification.index');
-    });
 
-    Route::get('/notification/create',function(){
-        return view('notification.craete');
-    });
+
+
 
 
 

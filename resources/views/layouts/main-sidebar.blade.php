@@ -36,13 +36,13 @@
                         </a>
 					</li>
 					<li class="slide">
-						<a class="side-menu__item" href="{{route('matches.index')}}">
+						<a class="side-menu__item" href="{{route('mobaras.index')}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M13 4H6v16h12V9h-5V4zm3 14H8v-2h8v2zm0-6v2H8v-2h8z" opacity=".3"></path><path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"></path></svg>
                             <span class="side-menu__label">مباريات اليوم</span>
                         </a>
 					</li>
 					<li class="slide">
-						<a class="side-menu__item" href="{{route('matches.create')}}">
+						<a class="side-menu__item" href="{{route('mobaras.create')}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M13 4H6v16h12V9h-5V4zm3 14H8v-2h8v2zm0-6v2H8v-2h8z" opacity=".3"></path><path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"></path></svg>
                             <span class="side-menu__label">أضف مباراة جديدة</span>
                         </a>
@@ -57,6 +57,7 @@
 						<ul class="slide-menu">
 							<li><a class="slide-item" href="#">المستخدمين</a></li>
 							<li><a class="slide-item" href="#">سجل البحث</a></li>
+                            <li><a class="slide-item" href="#">سجل الأخطاء</a></li>
 						</ul>
 					</li>
                     <li class="side-item side-item-category">المستخدمين</li>
@@ -87,8 +88,8 @@
                             <span class="side-menu__label">الفرق الرياضية</span>
                             <i class="angle fe fe-chevron-down"></i></a>
 						<ul class="slide-menu">
-							<li><a class="slide-item" href="#">أضف فريق جديد</a></li>
-							<li><a class="slide-item" href="#">عرض كل الفرق</a></li>
+							<li><a class="slide-item" href="{{route('clubs.create')}}">أضف فريق جديد</a></li>
+							<li><a class="slide-item" href="{{route('clubs.index')}}">عرض كل الفرق</a></li>
 						</ul>
 					</li>
                     <li class="side-item side-item-category">القنوات الرياضية</li>
@@ -98,15 +99,18 @@
                             <span class="side-menu__label"> كل القنوات الرياضية</span>
                         </a>
 					</li>
-					<li class="side-item side-item-category">الاعدادات</li>
 					<li class="slide">
-						<a class="side-menu__item" href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon"  viewBox="0 0 24 24" ><path d="M0 0h24v24H0V0z" fill="none"/><path d="M5 5h4v4H5zm10 10h4v4h-4zM5 15h4v4H5zM16.66 4.52l-2.83 2.82 2.83 2.83 2.83-2.83z" opacity=".3"/><path d="M16.66 1.69L11 7.34 16.66 13l5.66-5.66-5.66-5.65zm-2.83 5.65l2.83-2.83 2.83 2.83-2.83 2.83-2.83-2.83zM3 3v8h8V3H3zm6 6H5V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-2v8h8v-8h-8zm6 6h-4v-4h4v4z"/></svg>
-                            <span class="side-menu__label">كل الاعدادات</span>
-                        </a>
+						<a class="side-menu__item" data-toggle="slide" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6.26 9L12 13.47 17.74 9 12 4.53z" opacity=".3"/><path d="M19.37 12.8l-7.38 5.74-7.37-5.73L3 14.07l9 7 9-7zM12 2L3 9l1.63 1.27L12 16l7.36-5.73L21 9l-9-7zm0 11.47L6.26 9 12 4.53 17.74 9 12 13.47z"/></svg>
+                            <span class="side-menu__label">الاعدادات</span>
+                            <i class="angle fe fe-chevron-down"></i></a>
+						<ul class="slide-menu">
+							<li><a class="slide-item" href="{{route('settings.mobile')}}">اعدادات التطبيق</a></li>
+							<li><a class="slide-item" href="#">اعدادات الويب</a></li>
+						</ul>
 					</li>
 					<li class="slide">
-						<a class="side-menu__item" href="#">
+						<a class="side-menu__item" href="{{route('notifications.index')}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon"  viewBox="0 0 24 24" ><path d="M0 0h24v24H0V0z" fill="none"/><path d="M5 5h4v4H5zm10 10h4v4h-4zM5 15h4v4H5zM16.66 4.52l-2.83 2.82 2.83 2.83 2.83-2.83z" opacity=".3"/><path d="M16.66 1.69L11 7.34 16.66 13l5.66-5.66-5.66-5.65zm-2.83 5.65l2.83-2.83 2.83 2.83-2.83 2.83-2.83-2.83zM3 3v8h8V3H3zm6 6H5V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-2v8h8v-8h-8zm6 6h-4v-4h4v4z"/></svg>
                             <span class="side-menu__label">الاشعارات</span>
                         </a>

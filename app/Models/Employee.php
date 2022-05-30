@@ -11,6 +11,9 @@ class Employee extends Authenticatable
 {
     use HasFactory,SoftDeletes;
 
+    public function mobara(){
+        return $this->hasMany(Mobara::class,'employee_id','id');
+    }
     public function posts(){
         return $this->hasMany(Post::class , 'employee_id','id');
     }

@@ -20,8 +20,8 @@
     <!-- /breadcrumb -->
 @endsection
 @section('content')
-    <form action="">
-
+    <form action="{{route('settings.saveMobile')}}" method="post">
+        @csrf
         <!-- Row Content -->
         <div class="row row-sm">
 
@@ -37,9 +37,14 @@
                                     <p class="mb-2">عند تفعيل هذا الخيار سيتم ايقاف السلايدر في التطبيق ، وسيتوجب
                                         عليك
                                         تفعيل جدول المباريات .</p>
-                                    <div class=" main-toggle main-toggle-secondary" id="stop_slider">
-                                        <input type="checkbox" name="stop_slider" id="stop_slider_input"
-                                            style="display: none">
+                                    <div class=" main-toggle main-toggle-secondary {{$mobSetting->slide_active == 1 ? "on" : ""}}" id="stop_slider">
+                                        <input type="checkbox"  id="stop_slider_input"
+                                            style="display: none" name="slide_active"
+                                            @if ($mobSetting->slide_active == 1)
+                                                checked
+
+                                            @endif
+                                            >
                                         <span></span>
                                     </div>
                                 </div>
@@ -63,9 +68,13 @@
                                 <div class="custom-checkbox custom-control">
                                     <p class="mb-2">عند تفعيل هذا الخيار سيتم ايقاف جدول المباريات ، وسيتعين عليك
                                         تفعيل السلايدر</p>
-                                    <div class=" main-toggle main-toggle-secondary" id="stop_match">
-                                        <input type="checkbox" name="stop_match" id="stop_match_input"
-                                            style="display: none">
+                                    <div class=" main-toggle main-toggle-secondary {{$mobSetting->match_active == 1 ? "on" : ""}}" id="stop_match">
+                                        <input type="checkbox"  id="stop_match_input"
+                                            style="display: none" name="match_active"
+                                            @if ($mobSetting->match_active == 1)
+                                                checked
+                                            @endif
+                                            >
                                         <span></span>
                                     </div>
                                 </div>
@@ -88,9 +97,14 @@
                             <div class="checkbox">
                                 <div class="custom-checkbox custom-control">
                                     <p class="mb-2">عند تفعيل هذه الخيار سيتم تفعيل الاعلانات في التطبيق .</p>
-                                    <div class=" main-toggle main-toggle-secondary" id="active_ads">
-                                        <input type="checkbox" name="active_ads" id="active_ads_input"
-                                            style="display: none">
+                                    <div class=" main-toggle main-toggle-secondary {{$mobSetting->ads_active == 1 ? "on" : ""}}" id="active_ads">
+                                        <input type="checkbox"  id="active_ads_input"
+                                            style="display: none" name="ads_active"
+                                            @if ($mobSetting->ads_active == 1)
+                                                checked
+
+                                            @endif
+                                            >
                                         <span></span>
                                     </div>
                                 </div>

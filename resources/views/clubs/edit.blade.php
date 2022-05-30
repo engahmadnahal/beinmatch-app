@@ -1,20 +1,23 @@
 @extends('layouts.master')
 @section('css')
-    <link href="{{ asset('assets/plugins/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet" />
+    <link href="{{asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 
-<style>
-    .ql-tooltip {
-    display: none;
-}
-span.select2 {
-    width: 100% !important;
-}
-.input-group {
+    <style>
+        .ql-tooltip {
+            display: none;
+        }
 
-    width: 100% !important;
-    padding: 0;
-}
-</style>
+        span.select2 {
+            width: 100% !important;
+        }
+
+        .input-group {
+
+            width: 100% !important;
+            padding: 0;
+        }
+
+    </style>
 @endsection
 @section('page-header')
     <!-- breadcrumb -->
@@ -33,94 +36,97 @@ span.select2 {
     <div class="row row-sm">
         <div class="col-xl-3 col-lg-3 col-md-12 mb-3 mb-md-0">
             <form action="" method="get">
-            <div class="card">
-                <div class="card-header border-bottom pt-3 pb-3 mb-0 font-weight-bold text-uppercase">الاعدادات</div>
-                <div class="card-body pb-0">
-                    <div class="form-group">
-                        <label class="form-label">الدوري التابع له</label>
-                        <select name="type_emp" id="select-beast" class="form-control nice-select custom-select" style="display: none;">
-                            <option value="0">--تحديد--</option>
-                            <option value="1">Foot wear</option>
-                            <option value="2">Top wear</option>
-                            <option value="3">Bootom wear</option>
-                            <option value="4">Men's Groming</option>
-                            <option value="5">Accessories</option>
-                        </select>
+                <div class="card">
+                    <div class="card-header border-bottom pt-3 pb-3 mb-0 font-weight-bold text-uppercase">الاعدادات</div>
+                    <div class="card-body pb-0">
+                        <div class="form-group">
+                            <label class="form-label">الدوري التابع له</label>
 
 
+                                <select class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true" name="dawry">
+											<option label="Choose one" data-select2-id="3">
+											</option>
+											@foreach ($dawrys as $dawry)
+                                                <option value="{{$dawry->id}}"
+                                                    @if ($dawry->id == $club->dawry_id)
+                                                        selected
+                                                    @endif
+
+                                                    >
+                                                    {{$dawry->name}}
+                                                </option>
+                                            @endforeach
+										</select>
+
+
+                            <p class="tx-19 tx-gray-500 mb-2">يتم ملئ باقي معلومات الفريق بالسكرابينج</a></p>
+
+
+                        </div>
+                    </div>
+
+                    <div class="py-2 px-3">
+                        <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">حفظ الأن</button>
                     </div>
                 </div>
-
-                <div class="py-2 px-3">
-                    <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">حفظ الأن</button>
-                </div>
-            </div>
             </form>
 
         </div>
 
         <div class="col-xl-9 col-lg-9 col-md-12">
-         <div class="card">
-            <div class="card-body">
+            <div class="card">
                 <div class="card-body">
-                    <div class="main-content-label mg-b-5">
-                        معلومات الفريق
-                    </div>
-                    <div class="row row-sm">
+                    <div class="card-body">
+                        <div class="main-content-label mg-b-5">
+                            معلومات الفريق
+                        </div>
+                        <div class="row row-sm">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">اسم الفريق : </label>
-                                    <input class="form-control" type="text" placeholder="اسم الفريق ">
+                                    <input class="form-control" type="text" name="name" placeholder="اسم الفريق " value="{{$club->name}}">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">صورة الفريق : </label>
-                                    <input class="form-control" type="text" placeholder="صورة الفريق">
+                                    <input class="form-control" type="text" name="logo_url" placeholder="صورة الفريق" value="{{$club->avater}}">
                                 </div>
                             </div>
-                    </div>
+                        </div>
 
-                    <div class="row row-sm">
+                        <div class="row row-sm">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">دولة الفريق : </label>
-                                    <select name="type_emp" id="select-beast" class="form-control nice-select custom-select" style="display: none;">
-                                        <option value="0">--تحديد--</option>
-                                        <option value="1">Foot wear</option>
-                                        <option value="2">Top wear</option>
-                                        <option value="3">Bootom wear</option>
-                                        <option value="4">Men's Groming</option>
-                                        <option value="5">Accessories</option>
-                                    </select>
+                                    <input type="text" name="country" class="form-control" placeholder="دولة الفريق" value="{{$club->country}}">
                                 </div>
                             </div>
 
+                        </div>
+
                     </div>
-
-
-
-
                 </div>
+
+
             </div>
-
-
         </div>
-    </div>
 
     </div>
     </div>
     <!-- Container closed -->
 @endsection
 @section('js')
-    <script src="{{ asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.js') }}"></script>
-
-<script>
-            (function($) {
+    <script src="{{asset('assets/plugins/select2/js/select2.min.js')}}"></script>
+    <script>
+        (function($) {
             "use strict";
 
             // ______________Nice Select
-            $('select.nice-select').niceSelect();
+            		$('.select2').select2({
+			placeholder: 'Choose one',
+			searchInputPlaceholder: 'Search'
+		});
         })(jQuery);
-</script>
+    </script>
 @endsection

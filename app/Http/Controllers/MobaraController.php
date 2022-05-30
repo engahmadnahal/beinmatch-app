@@ -20,7 +20,10 @@ class MobaraController extends Controller
     public function index()
     {
         //
-        return view('matches.index');
+        $mobara = Mobara::paginate(10);
+        return view('matches.index',[
+            'mobara' => $mobara,
+        ]);
     }
 
     /**
@@ -51,7 +54,7 @@ class MobaraController extends Controller
     {
         // id	employee_id	club_one_id	club_two_id	start	botola	channel_id	voice_over	publish_at
         $request->validate([
-            "publish_match"=>'required',
+            "publish_match"=>'nullable',
             "club_one" => "required",
             "club_two" => "required",
             "botola" => "required",
@@ -70,7 +73,7 @@ class MobaraController extends Controller
         $mobara->voice_over = $request->input('voice');
         $mobara->publish_at = $request->input('publish_match') == 'on' ? Carbon::createFromTimestamp(time()) : null;
         $mobara->save();
-        return redirect()->route('matches.index');
+        return redirect()->route('mobaras.index');
 
     }
 
@@ -95,7 +98,15 @@ class MobaraController extends Controller
     public function edit(Mobara $mobara)
     {
         //
-        return view('matches.update');
+        $dawrys = Dawry::all();
+        $clubs = Club::all();
+        $channel = Channel::all();
+        return view('matches.edit',[
+            'mobara'=>$mobara,
+            'channel'=>$channel,
+            'clubs'=>$clubs,
+            'dawrys'=>$dawrys,
+        ]);
     }
 
     /**
@@ -108,6 +119,26 @@ class MobaraController extends Controller
     public function update(Request $request, Mobara $mobara)
     {
         //
+        $request->validate([
+            "publish_match"=>'nullable',
+            "club_one" => "required",
+            "club_two" => "required",
+            "botola" => "required",
+            "timeStart" => "required",
+            "voice" => "required",
+            "channel" => "required",
+
+        ]);
+        $mobara->employee_id = auth()->user()->id;
+        $mobara->club_one_id = $request->input('club_one');
+        $mobara->club_two_id = $request->input('club_two');
+        $mobara->start = $request->input('timeStart');
+        $mobara->botola = $request->input('botola');
+        $mobara->channel_id = $request->input('channel');
+        $mobara->voice_over = $request->input('voice');
+        $mobara->publish_at = $request->input('publish_match') == 'on' ? Carbon::createFromTimestamp(time()) : null;
+        $mobara->save();
+        return redirect()->route('mobaras.index');
     }
 
     /**

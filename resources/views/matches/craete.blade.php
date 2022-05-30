@@ -35,14 +35,14 @@ span.select2 {
     <!-- Row Content -->
     <div class="row row-sm">
         <div class="col-xl-3 col-lg-3 col-md-12 mb-3 mb-md-0">
-            <form action="{{route('matches.store')}}" method="post">
+            <form action="{{route('mobaras.store')}}" method="post">
                 @csrf
                 @method('POST')
             <div class="card">
                 <div class="card-header border-bottom pt-3 pb-3 mb-0 font-weight-bold text-uppercase">الاعدادات</div>
                 <div class="card-body pb-0">
                     <div class="form-group">
-                        <label class="form-label">التصنيفات</label>
+                        {{-- <label class="form-label">التصنيفات</label>
                         <select class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true" name="dawry">
 											<option label="Choose one" data-select2-id="3">
 											</option>
@@ -51,7 +51,7 @@ span.select2 {
                                                     {{$dawry->name}}
                                                 </option>
                                             @endforeach
-										</select>
+										</select> --}}
 
 
                         <label class="form-label">نشر المقال</label>

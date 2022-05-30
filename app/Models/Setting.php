@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Setting extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
+    protected $fillable = [
+        'slide_active',
+        'match_active',
+        'ads_active',
+    ];
 }

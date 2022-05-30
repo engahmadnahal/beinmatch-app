@@ -55,6 +55,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        "email_verified_at",
+        "pivot",
+        "deleted_at"
     ];
 
     /**
@@ -64,7 +67,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'created_at'=>'datetime:Y/m/d'
+        'created_at'=>'datetime:Y/m/d',
+        'updated_at'=>'datetime:Y/m/d'
     ];
 
 

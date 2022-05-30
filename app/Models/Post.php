@@ -52,7 +52,13 @@ class Post extends Model
     }
 
 protected $casts = [
-    'created_at'=>'datetime:Y/m/d'
+    'created_at'=>'datetime:Y/m/d',
+    'updated_at'=>'datetime:Y/m/d'
 ];
 
+protected $hidden = [
+    "email_verified_at",
+    "pivot",
+    "deleted_at"
+];
 }

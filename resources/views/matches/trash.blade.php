@@ -36,7 +36,7 @@
 									<table class="table card-table table-striped table-vcenter text-nowrap mb-0">
 										<thead>
 											<tr>
-                                               <th class="wd-lg-20p"><span><label class="ckbox"><input id="checkAll" type="checkbox"> <span></span></label></span></th>
+                                               {{-- <th class="wd-lg-20p"><span><label class="ckbox"><input id="checkAll" type="checkbox"> <span></span></label></span></th> --}}
 												<th class="wd-lg-8p"><span>المباراة وعنوانها</span></th>
 												<th class="wd-lg-20p"><span></th>
 												<th class="wd-lg-20p"><span>تاريخ الحذف</span></th>
@@ -46,46 +46,37 @@
 											</tr>
 										</thead>
 										<tbody>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="2" class="title-post">
+                                            @foreach($mobara as $item)
+                                                <tr>
+                                                    {{-- <td><label class="ckbox"><input type="checkbox"> <span></span></label></td> --}}
+                                                    <td colspan="2" class="title-post">
 
-                                                    عاجل الان انتقال رونالدو لفريق ليفربول الانجليزي بصفقة خيالية ..	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-danger d-flex"><div class="dot-label bg-danger ml-1"></div>حُذفت</span>
-												</td>
-												<td>
-													<a href="#">سامر سعدان</a>
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="icon ion-ios-share-alt"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-												</td>
-											</tr>
-
+                                                        {{$item->title}}
+                                                    </td>
+                                                    <td>
+                                                        {{$item->deleted_at->format('Y-m-d')}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="label text-danger d-flex"><div class="dot-label bg-danger ml-1"></div>حُذفت</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{route('employees.show',$item->employee->id)}}">{{$item->employee->full_name}}</a>
+                                                    </td>
+                                                    <td>
+                                                        <form action="{{route('mobaras.restor',$item->id)}}" method="post" class="btn btn-sm btn-info">
+                                                            @csrf
+                                                            <button type="submit" class="btn-empty"><i class="icon ion-ios-share-alt"></i></button>
+                                                        </form>
+                                                        {{-- <a href="#" class="btn btn-sm btn-danger">
+                                                            <i class="las la-trash"></i>
+                                                        </a> --}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
 										</tbody>
 									</table>
 								</div>
-								<ul class="pagination mt-4 mb-0 float-left">
-									<li class="page-item page-prev disabled">
-										<a class="page-link" href="#" tabindex="-1">Prev</a>
-									</li>
-									<li class="page-item active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item page-next">
-										<a class="page-link" href="#">Next</a>
-									</li>
-								</ul>
+								{{$mobara->links('pagination::bootstrap-4')}}
 							</div>
 						</div>
 					</div><!-- COL END -->

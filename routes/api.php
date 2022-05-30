@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\UserAuthController;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +19,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return auth()->user();
+// });
+
+
+Route::prefix('v1')->group(function(){
+
+    // Guest route
+    Route::middleware('guest:sanctum')->group(function(){
+        // Create Auth users
+        Route::post('/user/login', [UserAuthController::class , 'login']);
+        Route::post('/user/signup', [UserAuthController::class , 'signup']);
+
+        // Get Posts Api For non Auth users
+        Route::get('/posts', [PostController::class , 'index']);
+        // Get Single Post Api For non Auth users
+        Route::get('/posts/{id}', [PostController::class , 'show']);
+
+
+    });
+
+    // Auth route
+    Route::middleware('auth:sanctum')->group(function(){
+        Route::post('/user/logout', [UserAuthController::class , 'logout']);
+    });
+
+
+
+
+
 });

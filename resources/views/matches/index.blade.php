@@ -51,12 +51,17 @@
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
-									<h4 class="card-title mg-b-0">كل المقالات</h4>
+									<h4 class="card-title mg-b-0">كل المباريات</h4>
                                     <div class="btn-group">
-										<button class="btn btn-light"><i class="bx bx-refresh"></i></button> <button class="btn btn-light "><i class="bx bx-archive"></i></button>  <button class="btn btn-light disabled"><i class="bx bx-trash"></i></button>
+										<button class="btn btn-light">
+                                            {{-- <i class="bx bx-refresh"></i></button>  --}}
+                                            <a class="btn btn-light " href="{{route('mobaras.trush')}}"><i class="bx bx-archive"></i></a>
+                                             {{-- <button class="btn btn-light disabled">
+                                                 <i class="bx bx-trash"></i>
+                                            </button> --}}
 									</div>
                                     <div class="pr-1 mb-3 mb-xl-0">
-                                        <button type="button" class="btn btn-primary btn-icon ml-2"><i class="typcn typcn-edit"></i></button>
+                                        <a href="{{route('mobaras.create')}}" class="btn btn-primary btn-icon ml-2"><i class="typcn typcn-edit"></i></a>
                                     </div>
 								</div>
 							</div>
@@ -66,8 +71,8 @@
 										<thead>
 
 											<tr>
-                                               <th class="wd-lg-20p"><span><label class="ckbox"><input id="checkAll" type="checkbox"> <span></span></label></span></th>
-												<th class="wd-lg-8p"><span>المقالة وعنوانها</span></th>
+                                               {{-- <th class="wd-lg-20p"><span><label class="ckbox"><input id="checkAll" type="checkbox"> <span></span></label></span></th> --}}
+												<th class="wd-lg-8p"><span>المباراة وعنوانها</span></th>
 												<th class="wd-lg-20p"><span></th>
 												<th class="wd-lg-20p"><span>تاريخ النشر</span></th>
 												<th class="wd-lg-20p"><span>الحالة</span></th>
@@ -76,146 +81,46 @@
 											</tr>
 										</thead>
 										<tbody>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="2" class="title-post">
+                                            @foreach ($mobara as $item)
+                                                <tr>
+                                                    {{-- <td><label class="ckbox"><input type="checkbox"> <span></span></label></td> --}}
+                                                    <td colspan="2" class="title-post">
 
-                                                    عاجل الان انتقال رونالدو لفريق ليفربول الانجليزي بصفقة خيالية ..	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-warning d-flex"><div class="dot-label bg-warning ml-1"></div>تحت المراجعة</span>
-												</td>
-												<td>
-													<a href="#">سامر سعدان</a>
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="las la-pen"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-												</td>
-											</tr>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="2" class="title-post">
+                                                        {{$item->title}}
+                                                    	</td>
+                                                    <td>
+                                                        {{$item->created_at->format('Y-m-d')}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="label {{!is_null($item->publish_at) ? "text-success" :"text-warning" }} d-flex"><div class="dot-label {{!is_null($item->publish_at) ? "bg-success" :"bg-warning" }}  ml-1">
 
-                                                    عاجل الان انتقال رونالدو لفريق ليفربول الانجليزي بصفقة خيالية ..	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-muted d-flex"><div class="dot-label bg-gray-300 ml-1"></div>تحت التعديل</span>
-												</td>
-												<td>
-													<a href="#">سامر سعدان</a>
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="las la-pen"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-												</td>
-											</tr>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="2" class="title-post">عاجل الان انتقال رونالدو لفريق ليفربول الانجليزي بصفقة خيالية ..	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-warning d-flex"><div class="dot-label bg-warning ml-1"></div>تحت المراجعة</span>
-												</td>
-												<td>
-													<a href="#">سامر سعدان</a>
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="las la-pen"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-												</td>
-											</tr>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="2" class="title-post">عاجل الان انتقال رونالدو لفريق ليفربول الانجليزي بصفقة خيالية ..	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-success d-flex"><div class="dot-label bg-success ml-1"></div>تم النشر</span>
-												</td>
-												<td>
-													<a href="#">سامر سعدان</a>
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="las la-pen"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-												</td>
-											</tr>
-                                            <tr>
-                                                <td><label class="ckbox"><input type="checkbox"> <span></span></label></td>
-												<td colspan="2" class="title-post">عاجل الان انتقال رونالدو لفريق ليفربول الانجليزي بصفقة خيالية ..	</td>
-												<td>
-													08/06/2020
-												</td>
-												<td class="text-center">
-													<span class="label text-danger d-flex"><div class="dot-label bg-danger ml-1"></div> تم الرفض</span>
-												</td>
-												<td>
-													<a href="#">سامر سعدان</a>
-												</td>
-												<td>
-													<a href="#" class="btn btn-sm btn-primary">
-														<i class="far fa-eye"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-info">
-														<i class="las la-pen"></i>
-													</a>
-													<a href="#" class="btn btn-sm btn-danger">
-														<i class="las la-trash"></i>
-													</a>
-												</td>
-											</tr>
+                                                        </div>
+                                                            {{$item->status}}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{route('employees.show',$item->employee->id)}}">{{$item->employee->full_name}}</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{route('mobaras.show',$item->id)}}" class="btn btn-sm btn-primary">
+                                                            <i class="far fa-eye"></i>
+                                                        </a>
+                                                        <a href="{{route('mobaras.edit',$item->id)}}" class="btn btn-sm btn-info">
+                                                            <i class="las la-pen"></i>
+                                                        </a>
+                                                        <form action="{{route('mobaras.destroy',$item->id)}}" method='post' class="btn btn-sm btn-danger">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn-empty"><i class="las la-trash"></i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
 										</tbody>
 									</table>
 								</div>
-								<ul class="pagination mt-4 mb-0 float-left">
-									<li class="page-item page-prev disabled">
-										<a class="page-link" href="#" tabindex="-1">Prev</a>
-									</li>
-									<li class="page-item active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item page-next">
-										<a class="page-link" href="#">Next</a>
-									</li>
-								</ul>
+								{{$mobara->links('pagination::bootstrap-4')}}
 							</div>
 						</div>
 					</div><!-- COL END -->

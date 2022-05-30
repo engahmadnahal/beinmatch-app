@@ -30,11 +30,11 @@
                         <h4 class="card-title mg-b-0">كل الرسائل والاشعارات</h4>
                         <div class="btn-group">
                             <button class="btn btn-light"><i class="bx bx-refresh"></i></button>
-                             <button class="btn btn-light disabled"><i class="bx bx-trash"></i></button>
+                             {{-- <button class="btn btn-light disabled"><i class="bx bx-trash"></i></button> --}}
                         </div>
                         <div class="pr-1 mb-3 mb-xl-0">
-                            <button type="button" class="btn btn-primary btn-icon ml-2"><i
-                                    class="typcn typcn-edit"></i></button>
+                            <a href="{{route('notifications.create')}}" class="btn btn-primary btn-icon ml-2"><i
+                                    class="typcn typcn-edit"></i></a>
                         </div>
                     </div>
                 </div>
@@ -80,19 +80,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <ul class="pagination mt-4 mb-0 float-left">
-                        <li class="page-item page-prev disabled">
-                            <a class="page-link" href="#" tabindex="-1">Prev</a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item page-next">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
+                   {{$notifications->links('pagination::bootstrap-4')}}
                 </div>
             </div>
         </div><!-- COL END -->
