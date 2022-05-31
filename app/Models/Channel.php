@@ -9,4 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Channel extends Model
 {
     use HasFactory,SoftDeletes;
+
+    // Create Relation With Mobara
+    public function mobara()
+    {
+        return $this->hasMany(Mobara::class,'channel_id','id');
+    }
 }

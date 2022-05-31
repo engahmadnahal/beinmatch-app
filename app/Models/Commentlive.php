@@ -9,4 +9,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Commentlive extends Model
 {
     use HasFactory,SoftDeletes;
+
+    protected $with = [
+        'commentUserForMatch',
+    ];
+
+    protected $hidden = [
+        "deleted_at",
+        "created_at",
+        "updated_at",
+    ];
+    public function commentMatch(){
+        return $this->belongsTo(Mobara::class,'mobara_id','id');
+    }
+
+    public function commentUserForMatch(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+
 }

@@ -13,6 +13,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
 
+
+
     public function views(){
         return $this->hasMany(View::class,'user_id','id');
     }
@@ -36,6 +38,23 @@ class User extends Authenticatable
         return $this->belongsToMany(Post::class,'views','user_id','post_id');
     }
 
+    public function commentsLive(){
+        return $this->belongsToMany(Mobara::class,'commentlives','user_id','mobara_id');
+    }
+
+    public function likesLive(){
+        return $this->belongsToMany(Mobara::class,'matchlikes','user_id','mobara_id');
+    }
+
+    public function commentUserForMatch(){
+        return $this->hasMany(Commentlive::class,'user_id','id');
+    }
+
+    public function commentForPost(){
+        return $this->hasMany(Comment::class,'user_id','id');
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -46,6 +65,8 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+
 
     /**
      * The attributes that should be hidden for serialization.

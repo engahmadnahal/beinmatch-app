@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MainResource;
-use App\Http\Resources\PostResource;
-use App\Models\Post;
+use App\Http\Resources\MobaraResource;
+use App\Models\Mobara;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PostController extends Controller
+class MobaraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +18,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
-        $posts = Post::where('status', 'done')->paginate(10);
-        return PostResource::collection($posts);
+        // id employee_id club_one_id club_two_id start botola channel_id voice_over publish_at
+        // Get All Mobara for Api
+        $mobara = Mobara::where('publish_at','<>',null)->get();
+        return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'Success Get Mobara');
+
     }
+
 
 
     /**
@@ -43,26 +46,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
-        $post = Post::where('id',$id)->where('status','done')->first();
-        // return response()->json([
-        //     'status'=>true,
-        //     'message'=>"Success get post",
-        //     'data'=>new PostResource($post)
-        // ],Response::HTTP_OK);
-        return new MainResource(new PostResource($post),Response::HTTP_OK,"Success Get Post");
+        // Get Single Mobara for Api
+        $mobara = Mobara::findOrFail($id);
+        return new MainResource(new MobaraResource($mobara),Response::HTTP_OK,'Success Get Mobara');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.

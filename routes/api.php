@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MobaraController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserAuthController;
 use App\Models\User;
@@ -38,6 +39,10 @@ Route::prefix('v1')->group(function(){
         Route::get('/posts', [PostController::class , 'index']);
         // Get Single Post Api For non Auth users
         Route::get('/posts/{id}', [PostController::class , 'show']);
+        // Get All Mobara Api For non Auth users
+        Route::get('/mobara', [MobaraController::class , 'index']);
+        // Get Single Mobara Api For non Auth users
+        Route::get('/mobara/{id}', [MobaraController::class , 'show']);
 
 
     });

@@ -25,4 +25,10 @@ class Dawry extends Model
     public function posts(){
         return $this->hasMany(Post::class,'dawry_id','id');
     }
+
+    // Create Relation With Mobara
+    public function mobara()
+    {
+        return $this->hasMany(Mobara::class,'botola','id');
+    }
 }

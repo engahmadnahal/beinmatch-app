@@ -17,11 +17,12 @@ class CreatePollsTable extends Migration
     {
         Schema::create('polls', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained();
-            $table->foreignIdFor(Mobara::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Mobara::class)->constrained()->cascadeOnDelete();
             $table->boolean('club_one')->default(false);
             $table->boolean('darw')->default(false);
             $table->boolean('club_two')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

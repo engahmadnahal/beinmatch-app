@@ -16,16 +16,16 @@ class CreateMobarasTable extends Migration
     {
         Schema::create('mobaras', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Employee::class)->constrained();
+            $table->foreignIdFor(Employee::class)->constrained()->cascadeOnDelete();
             $table->integer('club_one_id');
             $table->integer('club_two_id');
             $table->timestamp('start');
-            $table->string('botola');
-            $table->integer('channel_id');
+
+            $table->foreignId('botola')->references('id')->on('dawries')->cascadeOnDelete();
+            $table->foreignId('channel_id')->constrained()->cascadeOnDelete();
             $table->string('voice_over');
             $table->timestamp('publish_at')->nullable();
             $table->softDeletes();
-
             $table->timestamps();
         });
     }

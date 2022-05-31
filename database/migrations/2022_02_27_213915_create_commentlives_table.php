@@ -19,7 +19,7 @@ class CreateCommentlivesTable extends Migration
         Schema::create('commentlives', function (Blueprint $table) {
             $table->id();
             // $table->integer('user_id');
-            $table->integer('match_id');
+            // $table->integer('match_id');
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Mobara::class)->constrained();
             $table->string('comment');

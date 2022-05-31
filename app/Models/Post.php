@@ -35,6 +35,11 @@ class Post extends Model
         return $this->belongsToMany(User::class,'views','post_id','user_id');
     }
 
+    // Create Relation With Comment
+    public function comment()
+    {
+        return $this->hasMany(Comment::class,'post_id','id');
+    }
 
 
     public function getPostStatusAttribute()

@@ -12,6 +12,7 @@ class PostResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+
     public function toArray($request)
     {
         // employee_id dawry_id title thumnail content publish_at send_notfi status deleted_at created_at updated_at
@@ -31,7 +32,11 @@ class PostResource extends JsonResource
             'likes'=>$this->userLike->where('is_liken',1)->count(),
             'dislikes'=>$this->userLike->where('is_liken',0)->count(),
             'views'=>$this->userView->count(),
-            'comments'=>$this->userComment,
+            'comments'=>[
+                'count'=>$this->comment->count(),
+                'data'=>$this->comment,
+
+            ],
         ];
     }
 }
