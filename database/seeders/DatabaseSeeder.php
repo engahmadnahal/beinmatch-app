@@ -40,6 +40,8 @@ class DatabaseSeeder extends Seeder
             'status' => "active",
         ]);
 
+        //id	fname	lname	username	avater	email	email_verified_at	password	salary
+        // jop_title	phone	gender	address	is_online	status	deleted_at	created_at	updated_at
         Employee::create([
             'fname'=>"Admin",
             'lname'=>"Admin",
@@ -49,11 +51,6 @@ class DatabaseSeeder extends Seeder
             'password'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'salary'=>"000000",
             'jop_title'=>'Admin',
-            'type'=>"admin",
-            'phone'=>"0123456789",
-            'gender'=>"M",
-            'is_online'=>"true",
-            'status'=>"active"
         ]);
 
     }
