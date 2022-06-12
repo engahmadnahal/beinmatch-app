@@ -4,9 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class CommentResource extends JsonResource
 {
-    public $token;
     /**
      * Transform the resource into an array.
      *
@@ -17,11 +16,11 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->fname . ' ' . $this->lname,
-            'email' => $this->email,
-            'username' => $this->username,
-            'status' => $this->status,
-            'token'=> $this->token
+            'user_id' => $this->user_id,
+            'mobara_id' => $this->mobara_id,
+            'comment' => $this->comment,
+            'created_at' => $this->created_at->diffForHumans(),
+            'updated_at' => $this->updated_at->diffForHumans(),
         ];
     }
 }

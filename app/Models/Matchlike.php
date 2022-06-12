@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Matchlike extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
+
+    protected $fillable = ['user_id','mobara_id','is_like'];
 }

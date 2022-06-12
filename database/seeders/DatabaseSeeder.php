@@ -30,6 +30,15 @@ class DatabaseSeeder extends Seeder
         // Comment::factory(40)->create();
         // View::factory(25)->create();
         // Like::factory(20)->create();
+        User::create([
+            'fname' => "Guest",
+            'lname' => "User",
+            'username' => "GuestUser",
+            'avater' => "assets/img/upload/media/login.png",
+            'email' => "guest@guest.com",
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'status' => "active",
+        ]);
 
     }
 }

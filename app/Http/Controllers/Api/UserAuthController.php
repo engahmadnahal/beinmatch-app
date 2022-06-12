@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MainResource;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,11 +31,13 @@ class UserAuthController extends Controller
         if(!is_null($user)){
             if(Hash::check($request->password, $user->password)){
                 $token = $user->createToken('beinmatchapp');
+                // Set Token To User Resource
+                $user['token'] = $token->plainTextToken;
                 return response()->json([
                     'message' => 'Login Successful',
                     'data' => $user,
-                    'token' => $token->plainTextToken
                 ], Response::HTTP_OK);
+                // return new MainResource((new UserResource($user))->token = ,Response::HTTP_OK,'Login is success');
             }else{
                 return response()->json([
                     'message' => 'Invalid Password'
@@ -70,10 +74,11 @@ class UserAuthController extends Controller
             $isSaved = $user->save();
 
             $token = $user->createToken('beinmatchapp');
+            $user['token'] = $token->plainTextToken;
             return response()->json([
                 'message' => $isSaved  ? 'User created successfully' : 'User creation failed',
                 'data' => $user,
-                'token' => $token->plainTextToken
+                // 'token' => $token->plainTextToken
             ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
         }
     }

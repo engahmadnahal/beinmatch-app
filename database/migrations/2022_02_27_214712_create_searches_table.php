@@ -17,7 +17,7 @@ class CreateSearchesTable extends Migration
             $table->id();
             $table->string('content');
             $table->enum('status',['success','error'])->default('error');
-            $table->string('token_user');
+            $table->string('user_id');
             $table->softDeletes();
             $table->timestamps();
         });

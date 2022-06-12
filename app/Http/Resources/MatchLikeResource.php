@@ -4,9 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class MatchLikeResource extends JsonResource
 {
-    public $token;
     /**
      * Transform the resource into an array.
      *
@@ -16,12 +15,8 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->fname . ' ' . $this->lname,
-            'email' => $this->email,
-            'username' => $this->username,
-            'status' => $this->status,
-            'token'=> $this->token
+            'mobara_id'=>$this->mobara_id,
+            'is_like'=>$this->is_like,
         ];
     }
 }

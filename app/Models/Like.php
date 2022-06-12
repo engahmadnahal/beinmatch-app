@@ -10,7 +10,6 @@ class Like extends Model
 {
     use HasFactory,SoftDeletes;
 
-    // protected $fillable = [
-    //     ''
-    // ];
+      protected $fillable = ['user_id','post_id','is_like'];
+
 }

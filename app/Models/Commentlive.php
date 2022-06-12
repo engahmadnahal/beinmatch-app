@@ -19,6 +19,12 @@ class Commentlive extends Model
         "created_at",
         "updated_at",
     ];
+
+    protected $fillable = [
+        "mobara_id",
+        "comment",
+        "user_id"
+    ];
     public function commentMatch(){
         return $this->belongsTo(Mobara::class,'mobara_id','id');
     }

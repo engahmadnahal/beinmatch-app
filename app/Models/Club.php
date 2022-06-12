@@ -15,4 +15,11 @@ class Club extends Model
     public function users(){
         return $this->belongsToMany(User::class,'club_follower','club_id','user_id');
     }
+
+
+    protected $hidden = [
+        'created_at','updated_at','deleted_at','on_him'
+    ];
+
+
 }

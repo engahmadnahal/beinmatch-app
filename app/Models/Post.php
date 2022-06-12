@@ -11,9 +11,9 @@ class Post extends Model
     use HasFactory,SoftDeletes;
 
     protected $with = [
-        'userLike',
-        'userComment',
-        'userView'
+        // 'userLike',
+        // 'userComment',
+        // 'userView'
     ];
 
 

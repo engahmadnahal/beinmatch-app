@@ -25,4 +25,12 @@ class Poll extends Model
         "darw"=>"boolean",
         "club_two"=>"boolean"
     ];
+
+    protected $fillable = [
+        "mobara_id",
+        "club_one",
+        "darw",
+        "club_two",
+        "user_id"
+    ];
 }
