@@ -2,9 +2,9 @@
 @section('css')
     <link href="{{ asset('assets/plugins/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet" />
 <!---Internal Fancy uploader css-->
-<link href="http://bein.test/assets/plugins/select2/css/select2.min.css" rel="stylesheet">
-<link href="http://bein.test/assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet">
-<link href="http://bein.test/assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css" rel="stylesheet">
+<link href="{{asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+<link href="{{asset('assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css')}}" rel="stylesheet">
+<link href="{{asset('assets/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.css')}}" rel="stylesheet">
 <style>
     .ql-tooltip {
     display: none;
