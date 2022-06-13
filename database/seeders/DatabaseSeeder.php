@@ -35,39 +35,48 @@ class DatabaseSeeder extends Seeder
         /*
             Create A Guset User
         */
-        User::create([
-            'fname' => "Guest",
-            'lname' => "User",
-            'username' => "GuestUser",
-            'avater' => "assets/img/upload/media/login.png",
-            'email' => "guest@guest.com",
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'status' => "active",
-        ]);
+
+        if(User::where('email', 'guest@guest.com')->first() == null){
+            User::create([
+                'fname' => "Guest",
+                'lname' => "User",
+                'username' => "GuestUser",
+                'avater' => "assets/img/upload/media/login.png",
+                'email' => "guest@guest.com",
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'status' => "active",
+            ]);
+        }
 
         /**
          * Create A Admin User
          */
-        Employee::create([
-            'fname'=>"Admin",
-            'lname'=>"Admin",
-            'username'=>"Admin",
-            'avater'=>"assets/img/upload/media/login.png",
-            'email'=>"admin@admin.com",
-            'password'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'salary'=>"000000",
-            'jop_title'=>'Admin',
-        ]);
+
+         if(Employee::where('email', 'admin@admin.com')->first() == null){
+            Employee::create([
+                'fname'=>"Admin",
+                'lname'=>"Admin",
+                'username'=>"Admin",
+                'avater'=>"assets/img/upload/media/login.png",
+                'email'=>"admin@admin.com",
+                'password'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'salary'=>"000000",
+                'jop_title'=>'Admin',
+            ]);
+         }
 
         /**
          * Create a setting for mobile
          * id	slide_active	match_active	ads_active	created_at	updated_at
          */
-        Setting::create([
-            "slide_active"=>0,
-            "match_active "=>1,
-            "ads_active"=>0,
-        ]);
+        if(Setting::find(1) == null){
+            Setting::create([
+                "slide_active" => 0,
+                "match_active" => 1,
+                "ads_active" => 0,
+            ]);
+        }
+
 
     }
 }
