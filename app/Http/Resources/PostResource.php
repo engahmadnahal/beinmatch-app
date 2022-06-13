@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class PostResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'thumnail'=>$this->thumnail,
+            'thumnail'=>Storage::url($this->thumnail),
             'body' => $this->content,
             'employee'=>[
                 'id'=>$this->employee->id,
