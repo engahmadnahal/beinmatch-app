@@ -61,11 +61,12 @@ class DatabaseSeeder extends Seeder
 
         /**
          * Create a setting for mobile
+         * id	slide_active	match_active	ads_active	created_at	updated_at
          */
         Setting::create([
-            "ads_active"=>0,
-            "match_active "=>1,
             "slide_active"=>0,
+            "match_active "=>1,
+            "ads_active"=>0,
         ]);
 
     }
