@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Symfony\Component\HttpFoundation\Response;
 
 class EmployeeController extends Controller
@@ -16,7 +17,7 @@ class EmployeeController extends Controller
     public function index()
     {
 
-        $emp = Employee::all();
+        $emp = Employee::withCount('permissions')->get();
         return view('employees.index',['employees'=>$emp]);
     }
 
@@ -188,5 +189,48 @@ class EmployeeController extends Controller
     public function restor($id){
         Employee::withTrashed()->where('id',$id)->restore();
         return redirect()->back();
+    }
+
+
+    public function editUserPermission(Request $request , Employee $employee ){
+        $permissions = Permission::where('guard_name','admin')->get();
+        $empPermissions = $employee->permissions;
+        if(count($empPermissions) > 0){
+            foreach($permissions as $permission){
+                $permission->setAttribute('assign',false);
+                foreach($empPermissions as $empPermission){
+                    if($empPermission->id == $permission->id){
+                        $permission->setAttribute('assign',true);
+                    }
+                }
+            }
+        }
+        return view('employees.permissions',['employee'=>$employee,'permissions'=>$permissions]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Patient  $patient
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUserPermission(Request $request , Employee $employee ){
+
+        $validator = Validator($request->all(),[
+            'permission_id' =>'required|exists:permissions,id'
+        ]);
+
+        if(!$validator->fails()){
+            $permission = Permission::findOrFail($request->input('permission_id'));
+            if($employee->hasPermissionTo($permission)){
+                $employee->revokePermissionTo($permission);
+            }else{
+                $employee->givePermissionTo($permission);
+            }
+            return response()->json(['msg'=>'Success add this permission'],Response::HTTP_OK);
+        }else{
+        return response()->json(['msg'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
+        }
     }
 }

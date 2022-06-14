@@ -17,7 +17,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">انشاء مقالة جديدة</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">تعديل المقالة </h2>
             </div>
         </div>
 
@@ -74,6 +74,12 @@
                                 >
                                 <span></span>
                             </div>
+                            <br>
+
+                            <label class="form-label">اعدادات الادمن</label>
+                            <label class="rdiobox"><input  id="done" name="status" type="radio" @if($post->status == "done") checked @endif><span>نشر</span></label>
+                            <br>
+                            <label class="rdiobox"><input id="cancel" name="status" type="radio" @if($post->status == "cancel") checked @endif><span>رفض</span></label>
 
                         </div>
                     </div>
@@ -130,6 +136,8 @@
             formData.append('dawry_id', document.getElementById('dawry').value);
             formData.append('_method', 'PUT');
             formData.append('publish_at', document.getElementById('publish').checked);
+            formData.append('done', document.getElementById('done').checked);
+            formData.append('cancel', document.getElementById('cancel').checked);
             formData.append('send_notfi', document.getElementById('sendNotfi').checked);
             formData.append('post_title', document.getElementById('post_title').value);
             formData.append('post_content', document.getElementById('post_content').value);

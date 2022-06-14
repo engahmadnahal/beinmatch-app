@@ -174,10 +174,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
         if($request->hasFile('post_img')){
             $validator = Validator($request->all(),[
                 "dawry_id" => "required|numeric|exists:dawries,id",
                 "publish_at" => "nullable",
+                "cancel" => "nullable",
+                "done" => "nullable",
                 "send_notfi" => "nullable",
                 "post_title" => "required|string|min:15:max:40",
                 "post_content" => "required|string",
@@ -190,6 +193,8 @@ class PostController extends Controller
                 "send_notfi" => "nullable",
                 "post_title" => "required|string|min:15:max:40",
                 "post_content" => "required|string",
+                "cancel" => "nullable",
+                "done" => "nullable",
             ]);
         }
         // if no any error
@@ -207,6 +212,11 @@ class PostController extends Controller
             $post->content = $request->input('post_content');
             $post->send_notfi = $request->input('send_notfi') == "true" ? Carbon::createFromTimestamp(time()) : null;
             $post->publish_at = $request->input('publish_at') == "true" ? Carbon::createFromTimestamp(time()) : null;
+            if($request->done == "true"){
+                $post->status = "done";
+            }elseif($request->cancel == "true"){
+                $post->status = "cancel";
+            }
             $isSaved = $post->save();
             // $isSaved = true;
             return response()->json([

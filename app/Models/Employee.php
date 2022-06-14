@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Employee extends Authenticatable
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,HasRoles;
 
     public function mobara(){
         return $this->hasMany(Mobara::class,'employee_id','id');
@@ -20,6 +21,9 @@ class Employee extends Authenticatable
 
     public function getFullNameAttribute(){
         return $this->fname . " ". $this->lname;
+    }
+    public function getStatusEmpAttribute(){
+        return $this->status == 'active' ? 'مفعل' : 'محظور';
     }
     protected $casts = [
         'created_at' => 'datetime:Y/m/d',

@@ -1,5 +1,7 @@
 @extends('layouts.master')
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <style>
     tbody tr {
     height: 80px;
@@ -53,6 +55,7 @@
 												<th class="wd-lg-20p"><span>الحالة</span></th>
 												<th class="wd-lg-20p"><span>الراتب</span></th>
 												<th class="wd-lg-20p"><span>الرتبة</span></th>
+												<th class="wd-lg-20p">الصلاحيات</th>
 												<th class="wd-lg-20p">الحدث</th>
 											</tr>
 										</thead>
@@ -67,7 +70,7 @@
                                                         {{$emp->toArray()['created_at']}}
                                                     </td>
                                                     <td class="text-center">
-                                                        <span class="label text-warning d-flex"><div class="dot-label bg-warning ml-1"></div>تحت المراجعة</span>
+                                                        <span class="label @if($emp->status == 'active') text-success @else text-danger @endif d-flex"><div class="dot-label @if($emp->status == 'active') bg-success @else bg-danger @endif ml-1"></div>{{$emp->status_emp}}</span>
                                                     </td>
                                                     <td>
                                                         {{$emp->salary}}$
@@ -76,17 +79,18 @@
                                                         {{$emp->jop_title}}
                                                     </td>
                                                     <td>
+                                                        {{$emp->permissions_count}}
+                                                    </td>
+                                                    <td>
                                                         <a href="{{route('employees.show',$emp->id)}}" class="btn btn-sm btn-primary">
                                                             <i class="far fa-eye"></i>
                                                         </a>
                                                         <a href="{{route('employees.edit',$emp->id)}}" class="btn btn-sm btn-info">
                                                             <i class="las la-pen"></i>
                                                         </a>
-                                                        <form action="{{route('employees.destroy',$emp->id)}}" method="post" class="btn btn-sm btn-danger">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button class='btn-empty' type="submit" ><i class="las la-lock"></i></button>
-                                                        </form>
+                                                        <a href="{{route('employees.permissions',$emp->id)}}" class="btn btn-sm btn-info">
+                                                            <i class="fa-solid fa-gears"></i>
+                                                        </a>
                                                         </a>
                                                     </td>
                                                 </tr>

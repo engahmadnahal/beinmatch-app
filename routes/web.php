@@ -47,6 +47,9 @@ Route::middleware('auth:admin')->group(function(){
     Route::get('/employees/trash',[EmployeeController::class , 'trush'])->name('employees.trush');
     Route::get('/employees/chat',[EmployeeController::class , 'chat'])->name('employees.chat');
     Route::post('/employees/restor/{id}',[EmployeeController::class , 'restor'])->name('employees.restor');
+    Route::get('/employees/{employee}/permission/edit',[EmployeeController::class , 'editUserPermission'])->name('employees.permissions');
+    Route::put('/employees/{employee}/permission/update',[EmployeeController::class , 'updateUserPermission'])->name('employees.update_permissions');
+
     Route::resource('/employees',EmployeeController::class);
 
     // Post Routes
@@ -87,6 +90,8 @@ Route::middleware('auth:admin')->group(function(){
     //Setting Route
     Route::get('/settings/mobile',[SettingController::class , 'mobile'])->name('settings.mobile');
     Route::post('/settings/mobile',[SettingController::class , 'saveSettingMobile'])->name('settings.saveMobile');
+
+
 
     // notifications
     Route::resource('/notifications',NotificationController::class);
