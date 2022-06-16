@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\RessetPasswordController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\DawryController;
@@ -38,6 +39,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest:admin')->group(function(){
     Route::get('/auth',[AuthController::class , 'index'])->name('auth.index');
     Route::post('/auth/login',[AuthController::class , 'login'])->name('auth.login');
+    Route::get('/auth/forgot',[RessetPasswordController::class , 'showForgot'])->name('auth.forgot');
+    Route::post('/auth/reset',[RessetPasswordController::class , 'sendLinkReset'])->name('auth.reset');
+    Route::get('/auth/reset-poassword/{token}',[RessetPasswordController::class , 'showResetPassword'])->name('password.reset');
+    Route::post('/auth/reset-poassword',[RessetPasswordController::class , 'resetPassword'])->name('auth.reset_password');
 });
 
 Route::middleware('auth:admin')->group(function(){

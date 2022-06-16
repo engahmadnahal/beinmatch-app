@@ -50,7 +50,7 @@
                                                     </div> --}}
 												</form>
 												<div class="main-signin-footer mt-5">
-													<p><a href="">هل نسيت كلمة المرور</a></p>
+													<p><a href="{{route('auth.forgot')}}">هل نسيت كلمة المرور</a></p>
 												</div>
 											</div>
 										</div>
