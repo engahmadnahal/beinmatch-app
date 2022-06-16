@@ -64,12 +64,17 @@ class UserAuthController extends Controller
                 'message' => 'Email already exists'
             ], Response::HTTP_BAD_REQUEST);
         }else{
-
+            $username = User::where('username',$request->fname . '' . $request->lname)->first();
             $user = new User();
             $user->fname = $request->fname;
             $user->lname = $request->lname;
             $user->email = $request->email;
-            $user->username = $request->fname . '' . $request->lname;
+            if(is_null($username)){
+                $user->username = $request->fname . '' . $request->lname;
+
+            }else{
+                $user->username = $request->fname . '' . $request->lname . '' . rand(1,100);
+            }
             $user->password = Hash::make($request->password);
             $isSaved = $user->save();
 

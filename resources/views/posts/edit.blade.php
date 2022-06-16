@@ -61,6 +61,7 @@
                                 <span></span>
                             </div>
 
+                            @can('Create-Notifcation')
                             <label class="form-label">ارسال اشعارات</label>
                             <div class="nofication main-toggle main-toggle-secondary
                                 @if (!is_null($post->send_notfi))
@@ -74,13 +75,14 @@
                                 >
                                 <span></span>
                             </div>
+                            @endcan
                             <br>
-
+                            @can('Publish-Post')
                             <label class="form-label">اعدادات الادمن</label>
                             <label class="rdiobox"><input  id="done" name="status" type="radio" @if($post->status == "done") checked @endif><span>نشر</span></label>
                             <br>
                             <label class="rdiobox"><input id="cancel" name="status" type="radio" @if($post->status == "cancel") checked @endif><span>رفض</span></label>
-
+                            @endcan
                         </div>
                     </div>
 

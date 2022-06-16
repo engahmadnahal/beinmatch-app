@@ -11,8 +11,8 @@
 				<div class="breadcrumb-header justify-content-between">
 					<div class="left-content">
 						<div>
-						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">المنشورات</h2>
-						  <p class="mg-b-0">كل المقالات المنشورة</p>
+						  <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">المباريات</h2>
+						  <p class="mg-b-0">كل المباريات المنشورة</p>
 						</div>
 					</div>
 <div class="d-flex my-xl-auto right-content">
@@ -53,15 +53,19 @@
 								<div class="d-flex justify-content-between">
 									<h4 class="card-title mg-b-0">كل المباريات</h4>
                                     <div class="btn-group">
+                                        @can('Delete-Match')
 										<button class="btn btn-light">
                                             {{-- <i class="bx bx-refresh"></i></button>  --}}
                                             <a class="btn btn-light " href="{{route('mobaras.trush')}}"><i class="bx bx-archive"></i></a>
-                                             {{-- <button class="btn btn-light disabled">
+                                            @endcan
+                                            {{-- <button class="btn btn-light disabled">
                                                  <i class="bx bx-trash"></i>
                                             </button> --}}
 									</div>
                                     <div class="pr-1 mb-3 mb-xl-0">
+                                        @can('Create-Match')
                                         <a href="{{route('mobaras.create')}}" class="btn btn-primary btn-icon ml-2"><i class="typcn typcn-edit"></i></a>
+                                        @endcan
                                     </div>
 								</div>
 							</div>

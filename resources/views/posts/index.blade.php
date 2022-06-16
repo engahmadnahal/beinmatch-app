@@ -27,8 +27,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">المباريات</h2>
-                <p class="mg-b-0">عرض كل المباريات</p>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">المنشورات</h2>
+                <p class="mg-b-0">عرض كل المنشورات</p>
             </div>
         </div>
         <div class="d-flex my-xl-auto right-content">
@@ -53,16 +53,21 @@
             <div class="card">
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">كل المباريات</h4>
+                        <h4 class="card-title mg-b-0">كل المنشورات</h4>
                         <div class="btn-group">
                             <button class="btn btn-light"><i class="bx bx-refresh"></i></button>
+                            @can('Delete-Post')
                             <a class="btn btn-light " href="{{ route('posts.trush') }}"><i class="bx bx-archive"></i></a>
                             <button class="btn btn-light disabled" onclick="preformDeleteAll()"><i
                                     class="bx bx-trash"></i></button>
+                            @endcan
+
                         </div>
                         <div class="pr-1 mb-3 mb-xl-0">
+                            @can('Create-Post')
                             <a href="{{ route('posts.create') }}" class="btn btn-primary btn-icon ml-2"><i
                                     class="typcn typcn-edit"></i></a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -128,6 +133,7 @@
                                             <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-sm btn-info">
                                                 <i class="las la-pen"></i>
                                             </a>
+                                            @can('Delete-Post')
                                             <form action="{{ route('posts.destroy', $post->id) }}"
                                                 class="btn btn-sm btn-danger" method="post">
                                                 @csrf
@@ -135,6 +141,7 @@
                                                 <button type="submit" class="btn-empty"><i
                                                         class="las la-trash"></i></button>
                                             </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
