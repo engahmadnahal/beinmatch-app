@@ -14,7 +14,9 @@ use App\Http\Controllers\Scraping\GetClubController;
 use App\Http\Controllers\Scraping\GetDawryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Mail\EmployeeAdminEmail;
 use App\Models\Dawry;
+use App\Models\Employee;
 use App\Models\Notification;
 use App\Models\Post;
 use App\Models\User;
@@ -125,6 +127,8 @@ Route::middleware('auth:admin')->group(function(){
 
 
 
+
+
 //// Scraping Data And Test Routes
 
 Route::get('/get-dawry',[GetDawryController::class , 'getDawry']);
@@ -135,3 +139,9 @@ Route::get('/test',function(){
    $user = Post::where('id','23')->withCount('userLike')->first();
    return response()->json($user);
 });
+
+
+// Route::get('/test-mail',function(){
+
+//    return new EmployeeAdminEmail(Employee::first());
+// });

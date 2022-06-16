@@ -39,7 +39,9 @@
 
 									</div>
                                     <div class="pr-1 mb-3 mb-xl-0">
-                                        <button type="button" class="btn btn-primary btn-icon ml-2"><i class="typcn typcn-edit"></i></button>
+                                        <a href="{{route('employees.create')}}">
+                                            <button type="button" class="btn btn-primary btn-icon ml-2"><i class="typcn typcn-edit"></i></button>
+                                        </a>
                                     </div>
 								</div>
 							</div>

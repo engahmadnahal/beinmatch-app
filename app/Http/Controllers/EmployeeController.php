@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EmployeeAdminEmail;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Permission;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class EmployeeController extends Controller
 {
 
     public function __construct()
     {
-        $this->authorizeResource(Employee::class);
+        // $this->authorizeResource(Employee::class, 'employee');
     }
     /**
      * Display a listing of the resource.
@@ -59,10 +63,15 @@ class EmployeeController extends Controller
         ]);
 
         if(!$validator->fails()){
+            $passwordRandom = Str::random(8);
             $emp = new Employee();
             $emp->fname = $request->input('fname');
             $emp->lname = $request->input('lname');
-            $emp->username = $request->input('fname').$request->input('lname');
+            if(is_null(Employee::where('username',$request->input('fname').$request->input('lname'))->first())){
+                $emp->username = $request->input('fname').$request->input('lname');
+            }else{
+                $emp->username = $request->input('fname').$request->input('lname').Str::random(3);
+            }
             $emp->email = $request->input('email');
             $emp->salary = $request->input('salary');
             $emp->jop_title = $request->input('job_title');
@@ -71,9 +80,12 @@ class EmployeeController extends Controller
             $emp->status = $request->input('status') ? 'active' : 'block';
             $emp->is_online = 0;
             $emp->address = $request->input('address');
-            $emp->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
+            $emp->password = Hash::make($passwordRandom); // password
             $emp->avater = 'assets/img/upload/media/login.png';
             $isSaved = $emp->save();
+            if($isSaved){
+                Mail::to($emp)->send(new EmployeeAdminEmail($emp,$passwordRandom));
+            }
             return response()->json(
                 [
                     'msg'=>$isSaved ? 'Save new emplyee is success' : 'Error Save is success'
