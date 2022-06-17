@@ -33,7 +33,7 @@ class EmployeeAdminEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('info@bein-match.best', 'Bein Match')
+        return $this->from('hr@app.ahmadnahal.com', 'Welcome , on company')
             ->subject('New Employee')
             ->markdown('emails.emp_welcome',['emp'=>$this->employee,'passwordRandom'=>$this->passwordRandom]);
     }
