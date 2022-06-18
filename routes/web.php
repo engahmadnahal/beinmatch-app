@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\EmailVerifiyController;
 use App\Http\Controllers\Auth\RessetPasswordController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\ClubController;
@@ -45,7 +46,14 @@ Route::middleware('guest:admin')->group(function(){
     Route::post('/auth/reset-poassword',[RessetPasswordController::class , 'resetPassword'])->name('auth.reset_password');
 });
 
+
 Route::middleware('auth:admin')->group(function(){
+    Route::get('/auth/verifiy-email',[EmailVerifiyController::class , 'showVerifiyEmail'])->name('verification.notice');
+    Route::get('/auth/verifiy/{id}/{hash}',[EmailVerifiyController::class , 'verifiyEmail'])->name('verification.verify');
+    Route::post('/auth/send-verifiy',[EmailVerifiyController::class , 'sendVerifiyEmail'])->middleware('throttle:1,1')->name('verification.send');
+});
+
+Route::middleware(['auth:admin','verified'])->group(function(){
     // Auth route
     Route::get('/', [HomeController::class ,'index'])->name('home.index');
     Route::post('/auth/logout',[AuthController::class , 'logout'])->name('auth.logout');
