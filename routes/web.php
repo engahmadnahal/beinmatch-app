@@ -16,6 +16,7 @@ use App\Http\Controllers\Scraping\GetClubController;
 use App\Http\Controllers\Scraping\GetDawryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Jobs\TestJob;
 use App\Mail\EmployeeAdminEmail;
 use App\Models\Dawry;
 use App\Models\Employee;
@@ -148,10 +149,6 @@ Route::get('/get-dawry',[GetDawryController::class , 'getDawry']);
 Route::get('/get-club',[GetClubController::class , 'getClub']);
 Route::get('/get-data-club',[GetClubController::class , 'getDataClub']);
 
-Route::get('/test',function(){
-   $user = Post::where('id','23')->withCount('userLike')->first();
-   return response()->json($user);
-});
 
 
 // Route::get('/test-mail',function(){
