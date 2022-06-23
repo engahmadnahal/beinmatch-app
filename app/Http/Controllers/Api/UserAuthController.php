@@ -57,7 +57,7 @@ class UserAuthController extends Controller
         $request->validate([
             'fname' => 'required',
             'lname' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|unique:users,email',
             'password' => 'required',
         ]);
         $user = User::where('email', $request->email)->first();
