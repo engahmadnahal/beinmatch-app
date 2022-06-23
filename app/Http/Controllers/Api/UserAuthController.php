@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\MainResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,12 +70,19 @@ class UserAuthController extends Controller
             $user->fname = $request->fname;
             $user->lname = $request->lname;
             $user->email = $request->email;
-            if(is_null($username)){
-                $user->username = $request->fname . '' . $request->lname;
-
-            }else{
+            try{
+                /**
+                 * If User Delete using SoftDelete , The result equal null , but username is orady is find .
+                 */
+                if(is_null($username)){
+                    $user->username = $request->fname . '' . $request->lname;
+                }else{
+                    $user->username = $request->fname . '' . $request->lname . '' . rand(1,100);
+                }
+            }catch(Exception $ex){
                 $user->username = $request->fname . '' . $request->lname . '' . rand(1,100);
             }
+
             $user->password = Hash::make($request->password);
             $isSaved = $user->save();
 

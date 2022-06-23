@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\EmployeeAdminEmail;
 use App\Models\Employee;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -67,11 +68,19 @@ class EmployeeController extends Controller
             $emp = new Employee();
             $emp->fname = $request->input('fname');
             $emp->lname = $request->input('lname');
-            if(is_null(Employee::where('username',$request->input('fname').$request->input('lname'))->first())){
-                $emp->username = $request->input('fname').$request->input('lname');
-            }else{
+            try{
+                /**
+                 * If User Delete using SoftDelete , The result equal null , but username is orady is find .
+                 */
+                if(is_null(Employee::where('username',$request->input('fname').$request->input('lname'))->first())){
+                    $emp->username = $request->input('fname').$request->input('lname');
+                }else{
+                    $emp->username = $request->input('fname').$request->input('lname').Str::random(3);
+                }
+            }catch(Exception $ex){
                 $emp->username = $request->input('fname').$request->input('lname').Str::random(3);
             }
+
             $emp->email = $request->input('email');
             $emp->salary = $request->input('salary');
             $emp->jop_title = $request->input('job_title');

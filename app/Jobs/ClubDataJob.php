@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Http\Controllers\Scraping\GetClubController;
 use App\Models\Log;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -31,9 +32,7 @@ class ClubDataJob implements ShouldQueue
      */
     public function handle()
     {
-        //
-        Log::create([
-            'body'=>"Test Log"
-        ]);
+        $urlScraping = ["https://jdwel.com/2021-2022-spanish-primera-division/"];
+        (new GetClubController)->getDataClub($urlScraping);
     }
 }

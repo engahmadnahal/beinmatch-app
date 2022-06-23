@@ -193,7 +193,8 @@ class GetClubController extends Controller
 
 
     */
-    public function getDataClub(Request $request){
+    // public function getDataClub(Request $request){
+    public function getDataClub(array $urlScraping){
 
         $client = new Client();
         $index = 0;
@@ -208,60 +209,68 @@ class GetClubController extends Controller
             'difference'=>"",
             'points'=>"",
         ];
-        $crawler = $client->request('GET', $request->get('u'));
+        // $crawler = $client->request('GET', $request->get('u'));
 
-        $crawler->filter('tbody tr')->each(function ($node) use(&$data , &$index,&$currntData) {
-                $node->filter('.team')->each(function($node) use(&$data , &$index,&$currntData){
-                    $currntData['name'] = $node->text();
+        /**
+         *
+         * Looping For all url in array and scraping data
+         */
+        foreach($urlScraping as $url){
+            $crawler = $client->request('GET', $url);
 
+            $crawler->filter('tbody tr')->each(function ($node) use(&$data , &$index,&$currntData) {
+                    $node->filter('.team')->each(function($node) use(&$data , &$index,&$currntData){
+                        $currntData['name'] = $node->text();
+
+                    });
+
+                    $node->filter('.pld')->each(function($node) use(&$data , &$index,&$currntData){
+                        $currntData['playing'] = $node->text();
+
+                    });
+                    $node->filter('.won')->each(function($node) use(&$data , &$index,&$currntData){
+
+                        $currntData['have_won'] = $node->text();
+
+                    });
+
+                    $node->filter('.draw')->each(function($node) use(&$data , &$index,&$currntData){
+
+                        $currntData['draw'] = $node->text();
+
+                    });
+
+                    $node->filter('.lost')->each(function($node) use(&$data , &$index,&$currntData){
+
+                        $currntData['game_over'] = $node->text();
+
+                    });
+
+                    // $node->filter('.won')->each(function($node) use(&$data , &$index,&$currntData){
+
+                    //     $currntData['have_won'] = $node->text();
+
+                    // });
+
+                    $node->filter('.diff')->each(function($node) use(&$data , &$index,&$currntData){
+
+                        $currntData['difference'] = $node->text();
+
+                    });
+
+                    $node->filter('.pts')->each(function($node) use(&$data , &$index,&$currntData){
+
+                        $currntData['points'] = $node->text();
+
+                    });
+
+
+                    $data['data'][$index] = $currntData;
+                    $currntData = [];
+                    $index++;
                 });
-
-                $node->filter('.pld')->each(function($node) use(&$data , &$index,&$currntData){
-                    $currntData['playing'] = $node->text();
-
-                });
-                $node->filter('.won')->each(function($node) use(&$data , &$index,&$currntData){
-
-                    $currntData['have_won'] = $node->text();
-
-                });
-
-                $node->filter('.draw')->each(function($node) use(&$data , &$index,&$currntData){
-
-                    $currntData['draw'] = $node->text();
-
-                });
-
-                $node->filter('.lost')->each(function($node) use(&$data , &$index,&$currntData){
-
-                    $currntData['game_over'] = $node->text();
-
-                });
-
-                // $node->filter('.won')->each(function($node) use(&$data , &$index,&$currntData){
-
-                //     $currntData['have_won'] = $node->text();
-
-                // });
-
-                $node->filter('.diff')->each(function($node) use(&$data , &$index,&$currntData){
-
-                    $currntData['difference'] = $node->text();
-
-                });
-
-                $node->filter('.pts')->each(function($node) use(&$data , &$index,&$currntData){
-
-                    $currntData['points'] = $node->text();
-
-                });
-
-
-                $data['data'][$index] = $currntData;
-                $currntData = [];
-                $index++;
-            });
-            $this->updateDataForClub($data);
+                $this->updateDataForClub($data);
+        }
             return response()->json($data);
 
     }
