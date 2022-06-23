@@ -60,12 +60,7 @@ class UserAuthController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required',
         ]);
-        $user = User::where('email', $request->email)->first();
-        if(!is_null($user)){
-            return response()->json([
-                'message' => 'Email already exists'
-            ], Response::HTTP_BAD_REQUEST);
-        }else{
+
             $user = new User();
             $user->fname = $request->fname;
             $user->lname = $request->lname;
@@ -81,7 +76,7 @@ class UserAuthController extends Controller
                 'data' => $user,
                 // 'token' => $token->plainTextToken
             ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
-        }
+
     }
 
 
