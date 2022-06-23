@@ -66,23 +66,11 @@ class UserAuthController extends Controller
                 'message' => 'Email already exists'
             ], Response::HTTP_BAD_REQUEST);
         }else{
-            $username = User::where('username',$request->fname . '' . $request->lname)->first();
             $user = new User();
             $user->fname = $request->fname;
             $user->lname = $request->lname;
             $user->email = $request->email;
-            if(is_null($username)){
-                try{
-                    /**
-                     * If User Delete using SoftDelete , The result equal null , but username is orady is find .
-                     */
-                    $user->username = $request->fname . '' . $request->lname;
-                }catch(QueryException $ex){
-                    $user->username = $request->fname . '' . $request->lname . '' . rand(1,100);
-                }
-            }else{
-                $user->username = $request->fname . '' . $request->lname . '' . rand(1,100);
-            }
+            $user->username = $request->fname . '' . $request->lname . '_' . rand(1,100);
             $user->password = Hash::make($request->password);
             $isSaved = $user->save();
 
