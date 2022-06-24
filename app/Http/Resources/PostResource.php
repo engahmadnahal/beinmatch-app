@@ -22,6 +22,7 @@ class PostResource extends JsonResource
             'title' => $this->title,
             'thumnail'=>Storage::url($this->thumnail),
             'body' => $this->content,
+            'created_at'=> $this->created_at->diffForHumans(),
             'employee'=>[
                 'id'=>$this->employee->id,
                 'name'=>$this->employee->full_name
