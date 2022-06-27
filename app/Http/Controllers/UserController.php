@@ -108,6 +108,7 @@ class UserController extends Controller
      */
     public function restor($id){
         User::withTrashed()->where('id',$id)->restore();
+        Comment::withTrashed()->where('user_id',$id)->restore();
         return redirect()->back();
     }
 
@@ -115,6 +116,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->status = 'block';
         $user->save();
+
         return redirect()->back();
     }
 }
