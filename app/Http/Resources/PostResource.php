@@ -37,7 +37,14 @@ class PostResource extends JsonResource
             'views'=>$this->userView->count(),
             'comments'=>[
                 'count'=>$this->comment->count(),
-                'data'=>$this->comment,
+                'data'=>$this->comment->map(function($comment){
+                    return [
+                        'id'=>$comment->id,
+                        'content'=>$comment->content,
+                        'created_at'=>$comment->created_at->diffForHumans(),
+                        'user'=>$comment->user,
+                    ];
+                })
 
             ],
         ];

@@ -24,7 +24,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::where('status', 'done')->paginate(10);
+        $posts = Post::where('status', 'done')->orderBy('created_at','desc')->paginate(10);
         return PostResource::collection($posts);
     }
 
