@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\rfs;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -86,6 +87,7 @@ class UserController extends Controller
         $user->delete();
         $user->status = 'delete';
         $user->save();
+        Comment::where('user_id',$user->id)->delete();
         return redirect()->back();
     }
 
