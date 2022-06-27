@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\UserAuthController;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,8 @@ Route::prefix('v1')->group(function(){
      * Change Lang For All Route
      */
     Carbon::setLocale('ar');
+    App::setlocale('ar');
+
     Route::get('/setting',[SettingController::class,'getSetting']);
     Route::post('/log',[LogController::class,'sendLogs']);
     // Auth
