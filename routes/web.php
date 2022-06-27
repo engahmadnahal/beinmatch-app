@@ -16,13 +16,6 @@ use App\Http\Controllers\Scraping\GetClubController;
 use App\Http\Controllers\Scraping\GetDawryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
-use App\Jobs\TestJob;
-use App\Mail\EmployeeAdminEmail;
-use App\Models\Dawry;
-use App\Models\Employee;
-use App\Models\Notification;
-use App\Models\Post;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
