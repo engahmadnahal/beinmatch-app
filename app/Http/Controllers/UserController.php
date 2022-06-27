@@ -108,8 +108,9 @@ class UserController extends Controller
      */
     public function restor($id){
         $user = User::withTrashed()->where('id',$id)->first();
-        $user->restore();
         $user->status = 'active';
+        $user->restore();
+        $user->save();
         Comment::withTrashed()->where('user_id',$id)->restore();
         return redirect()->back();
     }
