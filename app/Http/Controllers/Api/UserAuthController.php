@@ -54,13 +54,20 @@ class UserAuthController extends Controller
 
 
     public function signup(Request $request){
-        $request->validate([
-            'fname' => 'required',
+        $validator = Validator($request->all(), [
+                    'fname' => 'required',
             'lname' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required',
         ]);
+        // $request->validate([
+        //     'fname' => 'required',
+        //     'lname' => 'required',
+        //     'email' => 'required|unique:users,email',
+        //     'password' => 'required',
+        // ]);
 
+        if(! $validator->fails()) {
             $user = new User();
             $user->fname = $request->fname;
             $user->lname = $request->lname;
@@ -76,6 +83,10 @@ class UserAuthController extends Controller
                 'data' => $user,
                 // 'token' => $token->plainTextToken
             ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else {
+            return response()->json(['status'=>false,'message'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
+        }
+
 
     }
 
