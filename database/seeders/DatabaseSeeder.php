@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         // DawryFollower::factory(30)->create();
         // Comment::factory(40)->create();
         // View::factory(25)->create();
-        // Like::factory(20)->create();
+        Like::factory(20)->create();
 
         /*
             Create A Guset User

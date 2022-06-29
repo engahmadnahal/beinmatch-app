@@ -17,6 +17,7 @@ class PostResource extends JsonResource
 
     public function toArray($request)
     {
+
         // employee_id dawry_id title thumnail content publish_at send_notfi status deleted_at created_at updated_at
         return [
             'id' => $this->id,
@@ -32,8 +33,8 @@ class PostResource extends JsonResource
                 'id'=>$this->dawry->id,
                 'name'=>$this->dawry->name
             ],
-            'likes'=>$this->userLike->where('is_liken',1)->count(),
-            'dislikes'=>$this->userLike->where('is_liken',0)->count(),
+            'likes'=>$this->likes->where('is_like',1)->count(),
+            'dislikes'=>$this->likes->where('is_like',0)->count(),
             'views'=>$this->userView->count(),
             'comments'=>[
                 'count'=>$this->comment->count(),

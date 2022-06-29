@@ -66,4 +66,21 @@ protected $hidden = [
     "pivot",
     "deleted_at"
 ];
+
+
+
+public function likes(){
+    return $this->hasMany(Like::class);
+}
+// public function getCountLikesAttribute()
+// {
+//     return Like::where('is_like',1)->where('post_id',$this->id)->count();
+// }
+
+// public function getCountDisLikesAttribute()
+// {
+//     return Like::where('post_id',$this->id)->count();
+// }
+
+
 }
