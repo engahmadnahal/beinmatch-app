@@ -62,6 +62,7 @@ Route::prefix('v1')->group(function(){
     // Register View For Post
     Route::post('post/{id}/view', [PostController::class , 'registerView']);
 
+
     /**
      *
      *  @Routes For Mobara Controller
@@ -129,6 +130,8 @@ Route::prefix('v1')->group(function(){
         Route::post('post/comment/{comment}/delete', [PostController::class , 'deleteComment']);
         // Send Like For Post
         Route::post('post/{id}/like', [PostController::class , 'createLike']);
+        // Check User Like For Post
+        Route::get('post/{post}/user-like', [PostController::class , 'checkUserLike']);
 
         /**
          *

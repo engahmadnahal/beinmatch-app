@@ -149,5 +149,13 @@ class PostController extends Controller
 
     }
 
+    // Check User Like For Post
+    public function checkUserLike(Post $post){
+        return response()->json([
+            "status"=> true,
+            "is_like"=>boolval((Like::where('post_id',$post->id)->where('user_id',auth()->user()->id)->first())->is_like)
+        ],Response::HTTP_OK);
+    }
+
 
 }
