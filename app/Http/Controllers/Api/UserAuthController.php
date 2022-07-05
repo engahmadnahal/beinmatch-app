@@ -88,7 +88,7 @@ class UserAuthController extends Controller
             $user->username =  'bein_user'. '_' . rand(1,100);
             $user->password = Hash::make($request->password);
             $user->avater = "assets/img/upload/media/login.png";
-            $user->ip_address = $request->ip_address??'0.0.0.0.0';
+            $user->ip_address = $request->ip();
             $isSaved = $user->save();
 
             $token = $user->createToken('beinmatchapp');
