@@ -42,6 +42,11 @@ Route::prefix('v1')->group(function(){
     Carbon::setLocale('ar');
     App::setlocale('ar');
 
+    Route::get('/ip',function(Request $request){
+        return response()->json(["user_id" => $request->ip()],200);
+
+    });
+
     Route::get('/setting',[SettingController::class,'getSetting']);
     Route::post('/log',[LogController::class,'sendLogs']);
     // Auth
