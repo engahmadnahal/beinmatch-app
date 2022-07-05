@@ -190,6 +190,7 @@ class GetClubController extends Controller
 
 
             https://jdwel.com/2021-2022-spanish-primera-division/
+            https://jdwel.com/2021-2022-spanish-primera-division/
 
 
     */

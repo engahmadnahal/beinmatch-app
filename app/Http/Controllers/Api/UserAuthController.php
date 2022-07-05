@@ -9,6 +9,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,62 +25,76 @@ class UserAuthController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+        $validator = Validator($request->all(),[
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:6|max:12',
         ]);
-
-        $user = User::where('email', $request->email)->first();
-        if(!is_null($user)){
-            if(Hash::check($request->password, $user->password)){
+        if(!$validator->fails()){
+            if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password],true)){
+                $user = User::where('email',$request->email)->first();
                 $token = $user->createToken('beinmatchapp');
                 // Set Token To User Resource
                 $user['token'] = $token->plainTextToken;
                 return response()->json([
-                    'message' => 'Login Successful',
+                    'message' => 'تم التسجيل بنجاح',
                     'data' => $user,
                 ], Response::HTTP_OK);
-                // return new MainResource((new UserResource($user))->token = ,Response::HTTP_OK,'Login is success');
             }else{
                 return response()->json([
-                    'message' => 'Invalid Password'
+                    'message' => 'كلمة المرور غير صحيحة'
                 ], Response::HTTP_BAD_REQUEST);
             }
         }else{
-            return response()->json([
-                'message' => 'Invalid Email'
-            ], Response::HTTP_BAD_REQUEST);
+            return response()->json(['status'=>false,'message'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
         }
+
+        // $user = User::where('email', $request->email)->first();
+        // if(!is_null($user)){
+        //     if(Hash::check($request->password, $user->password)){
+        //         $token = $user->createToken('beinmatchapp');
+        //         // Set Token To User Resource
+        //         $user['token'] = $token->plainTextToken;
+        //         return response()->json([
+        //             'message' => 'Login Successful',
+        //             'data' => $user,
+        //         ], Response::HTTP_OK);
+        //         // return new MainResource((new UserResource($user))->token = ,Response::HTTP_OK,'Login is success');
+        //     }else{
+        //         return response()->json([
+        //             'message' => 'Invalid Password'
+        //         ], Response::HTTP_BAD_REQUEST);
+        //     }
+        // }else{
+        //     return response()->json([
+        //         'message' => 'Invalid Email'
+        //     ], Response::HTTP_BAD_REQUEST);
+        // }
     }
 
 
     public function signup(Request $request){
         $validator = Validator($request->all(), [
-                    'fname' => 'required',
-            'lname' => 'required',
-            'email' => 'required|unique:users,email',
-            'password' => 'required',
+            'fname' => 'required|string',
+            'lname' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|max:12',
         ]);
-        // $request->validate([
-        //     'fname' => 'required',
-        //     'lname' => 'required',
-        //     'email' => 'required|unique:users,email',
-        //     'password' => 'required',
-        // ]);
 
         if(! $validator->fails()) {
             $user = new User();
             $user->fname = $request->fname;
             $user->lname = $request->lname;
             $user->email = $request->email;
-            $user->username = $request->fname . '' . $request->lname . '_' . rand(1,100);
+            $user->username =  'bein_user'. '_' . rand(1,100);
             $user->password = Hash::make($request->password);
+            $user->avater = "assets/img/upload/media/login.png";
+            $user->ip_address = $request->ip_address??'0.0.0.0.0';
             $isSaved = $user->save();
 
             $token = $user->createToken('beinmatchapp');
             $user['token'] = $token->plainTextToken;
             return response()->json([
-                'message' => $isSaved  ? 'User created successfully' : 'User creation failed',
+                'message' => $isSaved  ? 'تم التسجيل بنجاح' : 'حدث خطأ أثناء التسحيل حاول مجدداً',
                 'data' => $user,
                 // 'token' => $token->plainTextToken
             ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);

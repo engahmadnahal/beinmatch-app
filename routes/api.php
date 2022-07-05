@@ -91,7 +91,7 @@ Route::prefix('v1')->group(function(){
 
     // Get All Clubs Api For  Auth users
     Route::get('/clubs', [ClubController::class , 'index']);
-    Route::get('/clubs/{id}/show', [ClubController::class , 'show']);
+    Route::get('/clubs/{club}/show', [ClubController::class , 'show']);
     /**
      *
      *  @Routes For Dawry Controller
