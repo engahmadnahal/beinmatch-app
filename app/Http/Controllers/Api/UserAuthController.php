@@ -11,6 +11,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Mockery\Expectation;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserAuthController extends Controller
@@ -81,23 +82,29 @@ class UserAuthController extends Controller
         ]);
 
         if(! $validator->fails()) {
-            $user = new User();
-            $user->fname = $request->fname;
-            $user->lname = $request->lname;
-            $user->email = $request->email;
-            $user->username =  'bein_user'. '_' . rand(1,100);
-            $user->password = Hash::make($request->password);
-            $user->avater = "assets/img/upload/media/login.png";
-            $user->ip_address = $request->ip();
-            $isSaved = $user->save();
+            try{
+                $user = new User();
+                $user->fname = $request->fname;
+                $user->lname = $request->lname;
+                $user->email = $request->email;
+                $user->password = Hash::make($request->password);
+                $user->avater = "assets/img/upload/media/login.png";
+                $user->ip_address = $request->ip();
+                $isSaved = $user->save();
 
-            $token = $user->createToken('beinmatchapp');
-            $user['token'] = $token->plainTextToken;
-            return response()->json([
-                'message' => $isSaved  ? 'تم التسجيل بنجاح' : 'حدث خطأ أثناء التسحيل حاول مجدداً',
-                'data' => $user,
-                // 'token' => $token->plainTextToken
-            ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+                $token = $user->createToken('beinmatchapp');
+                $user['token'] = $token->plainTextToken;
+                return response()->json([
+                    'message' => $isSaved  ? 'تم التسجيل بنجاح' : 'حدث خطأ أثناء التسحيل حاول مجدداً',
+                    'data' => $user,
+                    // 'token' => $token->plainTextToken
+                ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+            }catch(Exception $e){
+                return response()->json([
+                    'message' => 'حدث خطأ ما',
+                ], Response::HTTP_BAD_REQUEST);
+            }
+
         }else {
             return response()->json(['status'=>false,'message'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
         }

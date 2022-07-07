@@ -37,7 +37,7 @@ class PostResource extends JsonResource
             'dislikes'=>$this->likes->where('is_like',0)->count(),
             'user_likes'=> $this->likes->map(function($userLike){
                 return [
-                    'user_id'=>$userLike->user_id,
+                    'user_id'=>intval($userLike->user_id),
                     'is_like'=>boolval($userLike->is_like),
                 ];
             }),
@@ -46,7 +46,7 @@ class PostResource extends JsonResource
                 'count'=>$this->comment->count(),
                 'data'=>$this->comment->map(function($comment){
                     return [
-                        'id'=>$comment->id,
+                        'id'=>intval($comment->id),
                         'content'=>$comment->content,
                         'created_at'=>$comment->created_at->diffForHumans(),
                         'user'=>$comment->user,
