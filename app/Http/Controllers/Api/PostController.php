@@ -121,7 +121,7 @@ class PostController extends Controller
                 'user_id' => auth()->user()->id,
                 'post_id' => $id,
             ],[
-                'is_like' => $request->is_like == "true" ? 1 : 0,
+                'is_like' => $request->is_like,
             ]);
             $dataOfPost['post_id'] = $id;
             $dataOfPost['likes'] = Like::where('post_id',$id)->where('is_like',1)->count();
