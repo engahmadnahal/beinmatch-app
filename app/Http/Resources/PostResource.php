@@ -15,8 +15,12 @@ class PostResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
 
+
     public function toArray($request)
     {
+        $isLikeUser = $this->likes->filter( function ($like) {
+                return $like->user_id == auth()->user()->id;
+            })->first();
 
         // employee_id dawry_id title thumnail content publish_at send_notfi status deleted_at created_at updated_at
         return [
@@ -35,12 +39,7 @@ class PostResource extends JsonResource
             ],
             'likes'=>$this->likes->where('is_like',1)->count(),
             'dislikes'=>$this->likes->where('is_like',0)->count(),
-            'user_likes'=> $this->likes->map(function($userLike){
-                return [
-                    'user_id'=>intval($userLike->user_id),
-                    'is_like'=>boolval($userLike->is_like),
-                ];
-            }),
+            'user_like'=> !is_null($isLikeUser) ? boolval($isLikeUser->is_like) : null ,
             'views'=>$this->userView->count(),
             'comments'=>[
                 'count'=>$this->comment->count(),

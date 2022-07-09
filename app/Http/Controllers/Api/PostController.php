@@ -13,6 +13,7 @@ use App\Models\Post;
 use App\Models\View;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PostController extends Controller
 {
@@ -38,8 +39,15 @@ class PostController extends Controller
     public function show($id)
     {
         //
-        $post = Post::where('id',$id)->where('status','done')->first();
-        return new MainResource(new PostResource($post),Response::HTTP_OK,"Success Get Post");
+        $postShow = Post::where('id',$id)->where('status','done')->first();
+        if(!is_null($postShow)){
+            return new MainResource(new PostResource($postShow,auth()->user()),Response::HTTP_OK,"Success Get Post");
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'لا يوجد منشور'
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
 

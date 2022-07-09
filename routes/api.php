@@ -58,14 +58,14 @@ Route::prefix('v1')->group(function(){
      *  @Routes For Post Controller
      */
 
-    // Get Posts Api For non Auth users
-    Route::get('/posts', [PostController::class , 'index']);
-    // Get Single Post Api For non Auth users
-    Route::get('/posts/{id}', [PostController::class , 'show']);
-    // Get All Comments For Post
-    Route::get('/post/{id}/comments',[PostController::class , 'getAllComments']);
-    // Register View For Post
-    Route::post('post/{id}/view', [PostController::class , 'registerView']);
+    // // Get Posts Api For non Auth users
+    // Route::get('/posts', [PostController::class , 'index']);
+    // // Get Single Post Api For non Auth users
+    // Route::get('/posts/{id}', [PostController::class , 'show']);
+    // // Get All Comments For Post
+    // Route::get('/post/{id}/comments',[PostController::class , 'getAllComments']);
+    // // Register View For Post
+    // Route::post('post/{id}/view', [PostController::class , 'registerView']);
 
 
     /**
@@ -127,12 +127,21 @@ Route::prefix('v1')->group(function(){
          *
          */
 
+        // Get Posts Api For  Auth users
+        Route::get('/posts', [PostController::class , 'index']);
+        // Get Single Post Api  non Auth users
+        Route::get('/posts/{id}', [PostController::class , 'show']);
+
+        // Register View For Post
+        Route::post('post/{id}/view', [PostController::class , 'registerView']);
         // Send Comment Api For  Auth users
-        Route::post('post/{id}/comment', [PostController::class , 'createComment']);
+        Route::post('post/{id}/comment/send', [PostController::class , 'createComment']);
         // Update Comment Api For  Auth users
         Route::post('post/{id}/comment/{comment}/edit', [PostController::class , 'updateComment']);
         // Delete Comment Api For  Auth users
         Route::post('post/comment/{comment}/delete', [PostController::class , 'deleteComment']);
+        // Get All Comments For Post
+        Route::get('/post/{id}/comments/show',[PostController::class , 'getAllComments']);
         // Send Like For Post
         Route::post('post/{id}/like', [PostController::class , 'createLike']);
         // Check User Like For Post
