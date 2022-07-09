@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Mockery\Expectation;
+use Nette\Utils\Random;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserAuthController extends Controller
@@ -87,6 +88,7 @@ class UserAuthController extends Controller
                 $user->fname = $request->fname;
                 $user->lname = $request->lname;
                 $user->email = $request->email;
+                $user->username = 'bein_user_'.Random::generate(5);
                 $user->password = Hash::make($request->password);
                 $user->avater = "assets/img/upload/media/login.png";
                 $user->ip_address = $request->ip();
@@ -102,6 +104,7 @@ class UserAuthController extends Controller
             }catch(Exception $e){
                 return response()->json([
                     'message' => 'حدث خطأ ما',
+                    'error' => $e->getMessage()
                 ], Response::HTTP_BAD_REQUEST);
             }
 
