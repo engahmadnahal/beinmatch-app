@@ -127,6 +127,7 @@ Route::prefix('v1')->group(function(){
          *
          */
 
+        Route::get('/posts/recommended', [PostController::class , 'recommendedPost']);
         // Get Posts Api For  Auth users
         Route::get('/posts', [PostController::class , 'index']);
         // Get Single Post Api  non Auth users

@@ -41,7 +41,7 @@ class PostController extends Controller
         //
         $postShow = Post::where('id',$id)->where('status','done')->first();
         if(!is_null($postShow)){
-            return new MainResource(new PostResource($postShow,auth()->user()),Response::HTTP_OK,"Success Get Post");
+            return new MainResource(new PostResource($postShow),Response::HTTP_OK,"تم جلب المنشورات بنجاح");
         }else{
             return response()->json([
                 'status' => false,
@@ -50,7 +50,10 @@ class PostController extends Controller
         }
     }
 
-
+    public function recommendedPost(){
+        $postRec = Post::where('status', 'done')->orderBy('created_at','desc')->take(2)->get();
+        return new MainResource(PostResource::collection($postRec),Response::HTTP_OK,"تم جلب المنشورات بنجاح");
+    }
     // Get All Comments
     public function getAllComments($id)
     {
