@@ -39,7 +39,8 @@ class PostResource extends JsonResource
             ],
             'likes'=>$this->likes->where('is_like',1)->count(),
             'dislikes'=>$this->likes->where('is_like',0)->count(),
-            'user_like'=> !is_null($isLikeUser) ? boolval($isLikeUser->is_like) : null ,
+            // [1] for like , [0] for dislike , [2] for null or nuthing
+            'user_like'=> !is_null($isLikeUser) ? $isLikeUser->is_like : 2 ,
             'views'=>$this->userView->count(),
             'comments'=>[
                 'count'=>$this->comment->count(),
