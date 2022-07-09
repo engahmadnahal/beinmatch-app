@@ -26,7 +26,7 @@ class PostCommentResource extends JsonResource
                     'fname'=>$this->user->fname,
                     'lname'=>$this->user->lname,
                     'username'=>$this->user->username,
-                    'avater'=>Storage::url($this->user->avater),
+                    'avater'=>env('APP_URL')."/".$this->user->avater,
                     'email'=>$this->user->email,
             ],
         ];
