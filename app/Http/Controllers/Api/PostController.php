@@ -66,8 +66,7 @@ class PostController extends Controller
     {
         // Validate data from request
         $validator = Validator($request->all(),[
-            // 'user_id' => 'required',
-            'comment' => 'required',
+            'comment' => 'required|string|max:50',
         ]);
         if (!$validator->fails()) {
             $comment = new Comment();
@@ -86,31 +85,41 @@ class PostController extends Controller
     public function updateComment(Request $request,$id,Comment $comment){
 
         $validator = Validator($request->all(),[
-
-            'comment' => 'required',
+            'comment' => 'required|string|max:50',
         ]);
         if (!$validator->fails()) {
-
-            $comment->user_id = auth()->user()->id;
-            $comment->post_id = $id;
+            /// Cheack User owner this Comment
+            if($comment->user_id == auth()->user()->id){
+            // $comment->user_id = auth()->user()->id;
+            // $comment->post_id = $id;
             $comment->content = $request->comment;
             $isSaved = $comment->save();
             $dataOfPost = Comment::where('post_id',$id)->get();
             return $isSaved
-            ? new MainResource(PostCommentResource::collection($dataOfPost),Response::HTTP_OK,'Success Create Comment')
-            : response()->json(['error' => 'Error Create Comment'], Response::HTTP_BAD_REQUEST);
+            ? new MainResource(PostCommentResource::collection($dataOfPost),Response::HTTP_OK,'تم التعليق بنجاح')
+            : response()->json(['error' => 'حدث خطأ في انشاء التعليق'], Response::HTTP_BAD_REQUEST);
+
+            }else{
+                response()->json(['status'=>false , 'error' => 'لست صاحب التعليق'], Response::HTTP_BAD_REQUEST);
+            }
+        }else{
+            response()->json(['status'=>false , 'error' => $validator->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
         }
     }
 
     // Delete Comment For Mobara
     public function deleteComment(Comment $comment){
-        $isSaved = $comment->delete();
-        return response()->json([
-            'status' => $isSaved,
-            'message' => $isSaved ? 'Success Delete Comment' : 'Error Delete Comment'
-        ]);
+        /// Cheack User owner this Comment
+            if($comment->user_id == auth()->user()->id){
+                $isSaved = $comment->delete();
+                return response()->json([
+                    'status' => $isSaved,
+                    'message' => $isSaved ? 'تم حذف التعليق' : 'حدث خطأ اثناء حذف التعليق'
+                ]);
+            }else{
+                response()->json(['status'=>false , 'error' => 'لست صاحب التعليق'], Response::HTTP_BAD_REQUEST);
+            }
     }
-
 
     // Create and Update Like For Mobara
     public function createLike(Request $request,$id)
@@ -158,15 +167,6 @@ class PostController extends Controller
             ],Response::HTTP_BAD_REQUEST);
         }
 
-    }
-
-    // Check User Like For Post
-    public function checkUserLike(Post $post){
-        $checkLiked = Like::where('post_id',$post->id)->where('user_id',auth()->user()->id)->first();
-        return response()->json([
-            "status"=> true,
-            "is_like"=>!is_null($checkLiked) ? boolval($checkLiked->is_like) : null
-        ],Response::HTTP_OK);
     }
 
 
