@@ -35,13 +35,13 @@ class ClubController extends Controller
 
         $club['post'] = Post::where('title','like','%'.$club->name.'%')
         ->orWhere('content','like','%'.$club->name.'%')->get();
-        return new MainResource(new ClubResource($club),Response::HTTP_OK,'Success Get Club Data');
+        return new MainResource(new ClubResource($club),Response::HTTP_OK,'تم جلب الفرق بنجاح');
     }
 
     public function getFavorites()
     {
         $user = User::where('id',auth()->user()->id)->with('clubs')->get();
-        return new MainResource(ClubResource::collection($user),Response::HTTP_OK,'Success Get Club Data');
+        return new MainResource(ClubResource::collection($user),Response::HTTP_OK,'تم جلب الفرق المفضلة بنجاح');
     }
 
     public function createFavorite(Request $request)
@@ -60,6 +60,19 @@ class ClubController extends Controller
                 $follower->user_id = auth()->user()->id;
                 $follower->save();
                 return response()->json(['message'=>'Success Add Favorite'],Response::HTTP_OK);
+            }
+        }
+    }
+    public function removeFavorite(Request $request)
+    {
+        $validator = Validator($request->all(),[
+            'club_id' => 'required|exists:clubs,id',
+        ]);
+        if(!$validator->fails()){
+            $follower = ClubFollower::where('club_id',$request->club_id)->where('user_id',auth()->user()->id)->first();
+            if($follower != null){
+                $follower->delete();
+                return response()->json(['message'=>'تم حذف الفرق بنجاح'],Response::HTTP_OK);
             }
         }
     }
