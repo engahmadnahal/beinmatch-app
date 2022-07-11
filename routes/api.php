@@ -46,7 +46,6 @@ Route::prefix('v1')->group(function(){
         return response()->json(["user_id" => $request->ip()],200);
 
     });
-
     Route::get('/setting',[SettingController::class,'getSetting']);
     Route::post('/log',[LogController::class,'sendLogs']);
     // Auth
@@ -67,6 +66,7 @@ Route::prefix('v1')->group(function(){
     // // Register View For Post
     // Route::post('post/{id}/view', [PostController::class , 'registerView']);
 
+Route::middleware('auth:sanctum')->group(function(){
 
     /**
      *
@@ -77,6 +77,8 @@ Route::prefix('v1')->group(function(){
     Route::get('/mobara', [MobaraController::class , 'index']);
     // Get All Mobara Api For non Auth users
     Route::get('/mobara/today', [MobaraController::class , 'today']);
+    Route::get('/mobara/tomorrow', [MobaraController::class , 'tomorrow']);
+    Route::get('/mobara/ysetday', [MobaraController::class , 'ysetday']);
     // Get Single Mobara Api For non Auth users
     Route::get('/mobara/{id}', [MobaraController::class , 'show']);
     // Get All Comments For Mobara
@@ -107,8 +109,16 @@ Route::prefix('v1')->group(function(){
 
 
 
+
+
+
+
+/**-------------- {Auth Controller} ---------------------  */
+
+
+
+
     // Auth route
-    Route::middleware('auth:sanctum')->group(function(){
         Route::post('/user/logout', [UserAuthController::class , 'logout']);
         // Send Comment Api For  Auth users
         Route::post('mobara/{id}/comment', [MobaraController::class , 'createComment']);

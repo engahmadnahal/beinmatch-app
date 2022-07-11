@@ -40,11 +40,33 @@ class MobaraController extends Controller
      */
     public function today()
     {
-        // dd(Carbon::today());
-        // id employee_id club_one_id club_two_id start botola channel_id voice_over publish_at
-        // Get All Mobara for Api
-        $mobara = Mobara::where('publish_at','<>',null)->where('created_at',Carbon::today())->get();
-        return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'Success Get Mobara');
+        // check data today equal created_at
+        $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::today())->get();
+        return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات اليوم بنجاح');
+
+    }
+
+    /**
+     *
+     * Get Match for tomorrow
+     */
+    public function tomorrow()
+    {
+        // check data tomorrow equal created_at
+        $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::tomorrow())->get();
+        return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات الغد بنجاح');
+
+    }
+
+    /**
+     *
+     * Get Match for ysetday
+     */
+    public function ysetday()
+    {
+        // check data ysetday equal created_at
+        $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::yesterday())->get();
+        return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات الامس بنجاح');
 
     }
 

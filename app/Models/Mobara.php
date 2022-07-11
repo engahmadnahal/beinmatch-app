@@ -43,6 +43,10 @@ class Mobara extends Model
         return $this->belongsToMany(User::class,'matchlikes','mobara_id','user_id');
     }
 
+    public function like(){
+        return $this->hasMany(Matchlike::class,'mobara_id','id');
+    }
+
     public function commentForUserToMatch(){
         return $this->hasMany(Commentlive::class,'mobara_id','id');
     }
