@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserAuthController extends Controller
 {
-    //
 
     /**
      * Function to login a user
@@ -50,27 +49,6 @@ class UserAuthController extends Controller
             return response()->json(['status'=>false,'message'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
         }
 
-        // $user = User::where('email', $request->email)->first();
-        // if(!is_null($user)){
-        //     if(Hash::check($request->password, $user->password)){
-        //         $token = $user->createToken('beinmatchapp');
-        //         // Set Token To User Resource
-        //         $user['token'] = $token->plainTextToken;
-        //         return response()->json([
-        //             'message' => 'Login Successful',
-        //             'data' => $user,
-        //         ], Response::HTTP_OK);
-        //         // return new MainResource((new UserResource($user))->token = ,Response::HTTP_OK,'Login is success');
-        //     }else{
-        //         return response()->json([
-        //             'message' => 'Invalid Password'
-        //         ], Response::HTTP_BAD_REQUEST);
-        //     }
-        // }else{
-        //     return response()->json([
-        //         'message' => 'Invalid Email'
-        //     ], Response::HTTP_BAD_REQUEST);
-        // }
     }
 
 
@@ -90,7 +68,7 @@ class UserAuthController extends Controller
                 $user->email = $request->email;
                 $user->username = 'bein_user_'.Random::generate(5);
                 $user->password = Hash::make($request->password);
-                $user->avater = "assets/img/upload/media/login.png";
+                $user->avater = env('APP_URL')."/assets/img/upload/media/login.png";
                 $user->ip_address = $request->ip();
                 $isSaved = $user->save();
 
@@ -99,7 +77,6 @@ class UserAuthController extends Controller
                 return response()->json([
                     'message' => $isSaved  ? 'تم التسجيل بنجاح' : 'حدث خطأ أثناء التسحيل حاول مجدداً',
                     'data' => $user,
-                    // 'token' => $token->plainTextToken
                 ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
             }catch(Exception $e){
                 return response()->json([
