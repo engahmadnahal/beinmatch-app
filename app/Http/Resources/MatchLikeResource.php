@@ -15,7 +15,7 @@ class MatchLikeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'mobara_id'=>$this->mobara_id,
+            'mobara_id'=>intval($this->mobara_id),
             'is_like'=>$this->is_like,
         ];
     }
