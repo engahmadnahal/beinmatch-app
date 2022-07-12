@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ClubResource;
 use App\Http\Resources\MainResource;
+use App\Http\Resources\MobaraResource;
+use App\Http\Resources\PostResource;
 use App\Models\Club;
 use App\Models\ClubFollower;
 use App\Models\Mobara;
@@ -30,11 +32,11 @@ class ClubController extends Controller
         $club['clubs'] = Club::where('playing','<>',null)
         ->where('dawry_id',$club->dawry_id)->orderBy('points','desc')->get();
 
-        $club['matches'] = Mobara::where('club_one_id',$club->id)
-        ->orWhere('club_two_id',$club->id)->get();
+        $club['matches'] = MobaraResource::collection(Mobara::where('club_one_id',$club->id)
+        ->orWhere('club_two_id',$club->id)->get());
 
-        $club['post'] = Post::where('title','like','%'.$club->name.'%')
-        ->orWhere('content','like','%'.$club->name.'%')->get();
+        $club['post'] = PostResource::collection(Post::where('title','like','%'.$club->name.'%')
+        ->orWhere('content','like','%'.$club->name.'%')->get());
         return new MainResource(new ClubResource($club),Response::HTTP_OK,'تم جلب الفرق بنجاح');
     }
 
