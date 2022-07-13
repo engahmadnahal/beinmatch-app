@@ -55,14 +55,16 @@ class ClubController extends Controller
             $follower = ClubFollower::where('club_id',$request->club_id)->where('user_id',auth()->user()->id)->first();
             if($follower != null){
                 $follower->delete();
-                return response()->json(['message'=>'Success Delete Favorite'],Response::HTTP_OK);
+                return response()->json(['message'=>'Success Delete Favorite','favorite'=>false],Response::HTTP_OK);
             }else{
                 $follower = new ClubFollower();
                 $follower->club_id = $request->club_id;
                 $follower->user_id = auth()->user()->id;
                 $follower->save();
-                return response()->json(['message'=>'Success Add Favorite'],Response::HTTP_OK);
+                return response()->json(['message'=>'Success Add Favorite','favorite'=>true],Response::HTTP_OK);
             }
+        }else{
+            return response()->json(['message'=>'Error Add Favorite','favorite'=>false],Response::HTTP_BAD_REQUEST);
         }
     }
     public function removeFavorite(Request $request)
