@@ -58,6 +58,7 @@ class UserAuthController extends Controller
             'lname' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|max:12',
+            'os_mobile'=>'required|string',
         ]);
 
         if(! $validator->fails()) {
@@ -70,6 +71,7 @@ class UserAuthController extends Controller
                 $user->password = Hash::make($request->password);
                 $user->avater = env('APP_URL')."/assets/img/upload/media/login.png";
                 $user->ip_address = $request->ip();
+                $user->os_mobile = $request->os_mobile;
                 $isSaved = $user->save();
 
                 $token = $user->createToken('beinmatchapp');
