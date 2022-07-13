@@ -90,6 +90,7 @@ class PostController extends Controller
         if (!$validator->fails()) {
             /// Cheack User owner this Comment
             if($comment->user_id == auth()->user()->id){
+                dd(22222);
             // $comment->user_id = auth()->user()->id;
             // $comment->post_id = $id;
             $comment->content = $request->comment;
@@ -100,10 +101,10 @@ class PostController extends Controller
             : response()->json(['error' => 'حدث خطأ في انشاء التعليق'], Response::HTTP_BAD_REQUEST);
 
             }else{
-                response()->json(['status'=>false , 'error' => 'لست صاحب التعليق'], Response::HTTP_BAD_REQUEST);
+                return response()->json(['status'=>false , 'error' => 'لست صاحب التعليق'], Response::HTTP_BAD_REQUEST);
             }
         }else{
-            response()->json(['status'=>false , 'error' => $validator->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
+            return response()->json(['status'=>false , 'error' => $validator->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -117,7 +118,7 @@ class PostController extends Controller
                     'message' => $isSaved ? 'تم حذف التعليق' : 'حدث خطأ اثناء حذف التعليق'
                 ]);
             }else{
-                response()->json(['status'=>false , 'error' => 'لست صاحب التعليق'], Response::HTTP_BAD_REQUEST);
+                return response()->json(['status'=>false , 'error' => 'لست صاحب التعليق'], Response::HTTP_BAD_REQUEST);
             }
     }
 
