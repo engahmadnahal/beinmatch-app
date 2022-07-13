@@ -90,9 +90,6 @@ class PostController extends Controller
         if (!$validator->fails()) {
             /// Cheack User owner this Comment
             if($comment->user_id == auth()->user()->id){
-                dd(22222);
-            // $comment->user_id = auth()->user()->id;
-            // $comment->post_id = $id;
             $comment->content = $request->comment;
             $isSaved = $comment->save();
             $dataOfPost = Comment::where('post_id',$id)->orderBy('created_at','desc')->get();
