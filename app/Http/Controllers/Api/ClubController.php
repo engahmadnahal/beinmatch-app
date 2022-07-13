@@ -79,4 +79,21 @@ class ClubController extends Controller
         }
     }
 
+    public function checkFavorite($id){
+        $follower = Club::where('id',$id)->whereHas('users',function($query){
+            $query->where('user_id',auth()->user()->id);
+        })->first();
+
+        if(!is_null($follower)){
+            return response()->json([
+                'message'=>'تم التحقق بنجاح',
+                'favorite'=>true
+            ],Response::HTTP_OK);
+        }else{
+            return response()->json(['message'=>'لايوجد اي تطابق',
+                'favorite'=>false
+        ],Response::HTTP_OK);
+        }
+    }
+
 }
