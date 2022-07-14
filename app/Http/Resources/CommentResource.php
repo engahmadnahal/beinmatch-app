@@ -16,11 +16,12 @@ class CommentResource extends JsonResource
     {
         return [
             'id' => intval($this->id),
-            'user_id' => $this->user_id,
-            'mobara_id' => $this->mobara_id,
+            'user_id' => intval($this->user_id),
+            'mobara_id' => intval($this->mobara_id),
             'comment' => $this->comment,
             'created_at' => $this->created_at->diffForHumans(),
             'updated_at' => $this->updated_at->diffForHumans(),
+            'user' => new UserResource($this->whenLoaded('commentUserForMatch')),
         ];
     }
 }

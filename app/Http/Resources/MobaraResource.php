@@ -78,7 +78,9 @@ class MobaraResource extends JsonResource
 
             'comments'=>[
                 'count'=>$this->commentForUserToMatch->count(),
-                'data'=>$this->commentForUserToMatch,
+                'data'=>$this->when($this->has('commentForUserToMatch'), function () {
+                    return CommentResource::collection($this->commentForUserToMatch);
+                }),
             ],
         ];
     }

@@ -13,15 +13,18 @@ class UserResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->fname . ' ' . $this->lname,
+            'id' => intval($this->id),
+            'fname' => $this->fname ,
+            'lname' => $this->lname,
             'email' => $this->email,
             'username' => $this->username,
+            'avater' => env('APP_URL')."/".$this->avater,
             'status' => $this->status,
-            'token'=> $this->token
+            'os_mobile'=>$this->os_mobile
         ];
     }
 }

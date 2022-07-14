@@ -156,9 +156,11 @@ class MobaraController extends Controller
     public function getAllComments($id)
     {
         // Get All Comments for Api
-        $comments = Commentlive::where('mobara_id',$id)->get();
+        $comments = Commentlive::where('mobara_id',$id)->with('commentUserForMatch')->get();
         return new MainResource(CommentResource::collection($comments),Response::HTTP_OK,'Success Get Comments');
     }
+
+
     // Create Comment for mobara
     public function createComment(Request $request,$id)
     {
@@ -174,10 +176,12 @@ class MobaraController extends Controller
             $comment->mobara_id = $id;
             $comment->comment = $request->comment;
             $isSaved = $comment->save();
-            $dataOfMobara = Commentlive::where('mobara_id',$id)->get();
+            $dataOfMobara = Commentlive::where('mobara_id',$id)->with('commentUserForMatch')->get();
             return $isSaved
             ? new MainResource(CommentResource::collection($dataOfMobara),Response::HTTP_OK,'Success Create Comment')
             : response()->json(['error' => 'Error Create Comment'], Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json(['error' => 'Error Create Comment'], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -194,7 +198,7 @@ class MobaraController extends Controller
             $commentlive->mobara_id = $id;
             $commentlive->comment = $request->comment;
             $isSaved = $commentlive->save();
-            $dataOfMobara = Commentlive::where('mobara_id',$id)->get();
+            $dataOfMobara = Commentlive::where('mobara_id',$id)->with('commentUserForMatch')->get();
             return $isSaved
             ? new MainResource(CommentResource::collection($dataOfMobara),Response::HTTP_OK,'Success Create Comment')
             : response()->json(['error' => 'Error Create Comment'], Response::HTTP_BAD_REQUEST);
