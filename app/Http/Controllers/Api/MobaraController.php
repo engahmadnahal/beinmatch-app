@@ -227,7 +227,7 @@ class MobaraController extends Controller
                 'user_id' => auth()->user()->id,
                 'mobara_id' => $id,
             ],[
-                'is_like' => $request->is_like == "true" ? 1 : 0,
+                'is_like' => $request->is_like,
             ]);
             $dataOfMobara = Matchlike::where('mobara_id',$id)->get();
             return $isSaved

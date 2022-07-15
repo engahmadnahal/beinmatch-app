@@ -16,7 +16,7 @@ class MatchLikeResource extends JsonResource
     {
         return [
             'mobara_id'=>intval($this->mobara_id),
-            'is_like'=>$this->is_like,
+            'is_like'=>intval($this->is_like),
         ];
     }
 }
