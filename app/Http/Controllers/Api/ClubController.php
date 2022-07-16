@@ -81,6 +81,12 @@ class ClubController extends Controller
         }
     }
 
+    public function removeAllFavorite(Request $request){
+        $user = User::where('id',auth()->user()->id)->first();
+        $user->clubs()->detach();
+        return response()->json(['status'=>true,'message'=>'تم حذف الفرق بنجاح'],Response::HTTP_OK);
+    }
+
     public function checkFavorite($id){
         $follower = Club::where('id',$id)->whereHas('users',function($query){
             $query->where('user_id',auth()->user()->id);

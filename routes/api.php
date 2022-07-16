@@ -169,6 +169,7 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::get('/clubs/{id}/favorite', [ClubController::class , 'checkFavorite']);
         Route::post('/clubs/favorite/create', [ClubController::class , 'createFavorite']);
         Route::post('/clubs/favorite/remove', [ClubController::class , 'removeFavorite']);
+        Route::post('/clubs/favorite/remove-all', [ClubController::class , 'removeAllFavorite']);
 
     });
 
