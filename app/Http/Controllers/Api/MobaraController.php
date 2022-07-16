@@ -143,9 +143,11 @@ class MobaraController extends Controller
                 'club_two' => $request->club_two,
                 'darw' => $request->darw,
             ]);
-            $dataOfMobara = Poll::where('mobara_id',$id)->get();
+            $dataOfMobara = Mobara::where('publish_at','<>',null)->where('id',$id)->first();
+            // return new MainResource(new MobaraResource($dataOfMobara),Response::HTTP_OK,'تم جلب مباريات الغد بنجاح')
+            // $dataOfMobara = Poll::where('mobara_id',$id)->get();
             return $isSaved
-            ? new MainResource(PollResource::collection($dataOfMobara),Response::HTTP_OK,'Success Poll')
+            ? new MainResource(new PollResource($dataOfMobara),Response::HTTP_OK,'Success Poll')
             : response()->json(['error' => 'Error Poll'], Response::HTTP_BAD_REQUEST);
         }
     }

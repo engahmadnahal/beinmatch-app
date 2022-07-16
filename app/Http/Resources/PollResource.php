@@ -15,10 +15,9 @@ class PollResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'mobara_id'=>$this->mobara_id,
-            'club_one'=>$this->club_one,
-            'darw'=>$this->darw,
-            'club_two'=>$this->club_two,
+            'poll_to_club_one' => $this->poll->where('club_one',1)->count(),
+            'poll_to_darw' => $this->poll->where('darw',1)->count(),
+            'poll_to_club_two' => $this->poll->where('club_two',1)->count(),
             // 'numOfUser'=>$this->where('user_id','<>',null)->count(),
         ];
     }
