@@ -29,7 +29,7 @@ class SearchController extends Controller
 
             $data = [
                 'posts' => PostResource::collection(Post::where('title','like','%'.$request->search.'%')
-                            ->orWhere('content','like','%'.$request->search.'%')->get()),
+                            ->where('status', 'done')->orderBy('created_at','desc')->orWhere('content','like','%'.$request->search.'%')->get()),
                 'clubs' => Club::where('name', 'like', '%' . $request->search . '%')->get(),
             ];
             $search = new Search();

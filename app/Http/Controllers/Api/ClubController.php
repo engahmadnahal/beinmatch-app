@@ -36,7 +36,7 @@ class ClubController extends Controller
         ->orWhere('club_two_id',$club->id)->get());
 
         $club['post'] = PostResource::collection(Post::where('title','like','%'.$club->name.'%')
-        ->orWhere('content','like','%'.$club->name.'%')->get());
+        ->where('status', 'done')->orderBy('created_at','desc')->orWhere('content','like','%'.$club->name.'%')->get());
         return new MainResource(new ClubResource($club),Response::HTTP_OK,'تم جلب الفرق بنجاح');
     }
 
