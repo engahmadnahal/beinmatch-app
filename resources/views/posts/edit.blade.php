@@ -61,7 +61,7 @@
                                 <span></span>
                             </div>
 
-                            @can('Create-Notifcation')
+                            {{-- @can('Create-Notifcation')
                             <label class="form-label">ارسال اشعارات</label>
                             <div class="nofication main-toggle main-toggle-secondary
                                 @if (!is_null($post->send_notfi))
@@ -75,7 +75,7 @@
                                 >
                                 <span></span>
                             </div>
-                            @endcan
+                            @endcan --}}
                             <br>
                             @can('Publish-Post')
                             <label class="form-label">اعدادات الادمن</label>

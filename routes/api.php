@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ClubController;
 use App\Http\Controllers\Api\DawryController;
 use App\Http\Controllers\Api\LogController;
 use App\Http\Controllers\Api\MobaraController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SettingController;
@@ -163,7 +164,7 @@ Route::middleware('auth:sanctum')->group(function(){
          Route::post('/support', [SupportController::class , 'sendSupport']);
         /**
          *
-         * @Routes For Club Controller
+         * @Routes For Favorite Controller
          */
         Route::get('/clubs/favorite', [ClubController::class , 'getFavorites']);
         Route::get('/clubs/{id}/favorite', [ClubController::class , 'checkFavorite']);
@@ -171,10 +172,14 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('/clubs/favorite/remove', [ClubController::class , 'removeFavorite']);
         Route::post('/clubs/favorite/remove-all', [ClubController::class , 'removeAllFavorite']);
 
+        /**
+         *
+         * @Routes For Notification Controller
+         */
+        Route::get('/notification', [NotificationController::class , 'getNotifications']);
+        Route::post('/notification/read', [NotificationController::class , 'readAll']);
+
     });
-
-
-
 
 
 });

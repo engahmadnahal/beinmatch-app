@@ -9,6 +9,7 @@ use App\Http\Controllers\ClubController;
 use App\Http\Controllers\DawryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MangerFileController;
 use App\Http\Controllers\MobaraController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Scraping\GetClubController;
 use App\Http\Controllers\Scraping\GetDawryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Jobs\SendUserNotifyJob;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -104,6 +106,8 @@ Route::middleware(['auth:admin','verified'])->group(function(){
 
     // notifications
     Route::resource('/notifications',NotificationController::class);
+    // mangerFile
+    Route::resource('/manger_files',MangerFileController::class);
 
 
 
@@ -147,4 +151,14 @@ Route::get('/get-data-club',[GetClubController::class , 'getDataClub']);
 // Route::get('/test-mail',function(){
 
 //    return new EmployeeAdminEmail(Employee::first());
+// });
+
+// Route::get('/send-notfiy',function(){
+//     $data = [
+//                 "title"=>"Hello User",
+//                 "content"=>"Watchin Now",
+//                 "img"=>"Img URL",
+//         ];
+//     SendUserNotifyJob::dispatch($data);
+//     return "Success";
 // });

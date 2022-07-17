@@ -17,7 +17,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">انشاء اشعار جديد</h2>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">تعديل ملف </h2>
             </div>
         </div>
 
@@ -34,11 +34,11 @@
                 <div class="card-body pb-0">
                     <div class="form-group">
                         <label class="form-label">التصنيفات</label>
-                        <select id="typeNofty" id="select-beast" class="form-control nice-select custom-select"
+                        <select id="typeFile" id="select-beast" class="form-control nice-select custom-select"
                             style="display: none;" >
-                            <option value="0">--تحديد--</option>
-                            <option value="fcm">اشعار</option>
-                            <option value="box">صندوق المستخدم</option>
+                            <option >--تحديد--</option>
+                            <option value="image" @if($mangerFile->type == "image") selected @endif>صورة</option>
+                            <option value="video" @if($mangerFile->type == "video") selected @endif>فديو</option>
                         </select>
 
 
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="py-2 px-3">
-                    <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="button" onclick="performStore()">نشر الأن</button>
+                    <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="button" onclick="performUpdate()">نشر الأن</button>
                 </div>
             </div>
             </form>
@@ -58,13 +58,12 @@
 
                 <div class="wd-xl-100p ht-350">
                     <div class="ql-scrolling-demo bg-gray-100 ps" id="scrolling-container">
-                        <input type="text" id="title" placeholder="عنوان الاشعار" style=" font-size: 25px; width: 100%; padding: 7px; outline: 0; background: transparent; border: 0; ">
-                        <textarea id="content" cols="30" rows="10" class="ql-container ql-bubble rtl" placeholder="أكتب الأن.." style="font-family: inherit; background: transparent; width: 100%; height: 100%; outline: 0;font-size: 19px; "></textarea>
+                        <input type="text" id="title" placeholder="عنوان الاشعار" style=" font-size: 25px; width: 100%; padding: 7px; outline: 0; background: transparent; border: 0; " value="{{$mangerFile->title}}">
                     </div>
 
             </div>
              <h3 style=" margin: 20px 0; ">صورة : </h3>
-             <input type="file" class="dropify" data-height="200" id="img"/>
+             <input type="file" class="dropify" data-height="200" id="file" data-default-file="{{Storage::url($mangerFile->file)}}"/>
 
         </div>
     </div>
@@ -86,15 +85,14 @@
 
     <script src="{{asset('assets/plugins/fileuploads/js/fileupload.js')}}"></script>
     <script>
-        function performStore() {
+        function performUpdate() {
             let formData = new FormData();
-            formData.append('typeNofty', document.getElementById('typeNofty').value);
-            formData.append('content', document.getElementById('content').value);
+            formData.append('typeFile', document.getElementById('typeFile').value);
             formData.append('title', document.getElementById('title').value);
-            formData.append('img', document.getElementById('img').files[0]);
+            formData.append('file', document.getElementById('file').files[0]);
+            formData.append('_method', 'put');
 
-
-            axios.post('/notifications', formData).then(function(response) {
+            axios.post('/manger_files', formData).then(function(response) {
 
                 toastr.success(response.data.msg);
 

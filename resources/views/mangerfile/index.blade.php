@@ -12,8 +12,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="left-content">
             <div>
-                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">الاشعارات والرسائل</h2>
-                <p class="mg-b-0">عرض كل الرسائل للمستخدمين</p>
+                <h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">ادارة الملفات</h2>
+                <p class="mg-b-0">عرض كل الملفات المخزنة</p>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
                              {{-- <button class="btn btn-light disabled"><i class="bx bx-trash"></i></button> --}}
                         </div>
                         <div class="pr-1 mb-3 mb-xl-0">
-                            <a href="{{route('notifications.create')}}" class="btn btn-primary btn-icon ml-2"><i
+                            <a href="{{route('manger_files.create')}}" class="btn btn-primary btn-icon ml-2"><i
                                     class="typcn typcn-edit"></i></a>
                         </div>
                     </div>
@@ -44,34 +44,46 @@
                             <thead>
 
                                 <tr>
-                                    <th class="wd-lg-8p"><span>عنوان الاشعار</span></th>
+                                    <th class="wd-lg-8p"><span>عنوان الملف</span></th>
                                     <th class="wd-lg-20p"><span></th>
+                                    <th class="wd-lg-20p"><span>نوع الملف</span></th>
                                     <th class="wd-lg-20p"><span>تاريخ النشر</span></th>
+                                    <th class="wd-lg-20p"><span> الحدث</span></th>
                                     {{-- <th class="wd-lg-20p">الحدث</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($notifications as $n)
+                                @foreach ($mangerfiles as $file)
                                 <tr>
                                     <td colspan="2" class="title-post">
 
-                                        {{json_decode($n->data)->title}}
+                                        {{$file->title}}
+                                    </td>
+                                    <td class="title-post">
+
+
+                                        <span class="btn btn-sm bg-success" style="color:#fff">{{$file->type_file}}</span>
                                     </td>
                                     <td>
-                                        {{$n->created_at->diffForHumans()}}
+                                        {{$file->created_at->diffForHumans()}}
                                     </td>
-{{--
+
                                     <td>
 
-                                        <a href="#" class="btn btn-sm btn-info">
+                                        <a href="{{Storage::url($file->file)}}"   target="_blank" class="btn btn-sm btn-info">
                                             <i class="las la-pen"></i>
                                         </a>
-                                        <a href="#" class="btn btn-sm btn-danger">
-                                            <i class="las la-trash"></i>
-                                        </a>
-                                    </td> --}}
+                                        <form action="{{route('manger_files.destroy',$file->id)}}" method="post" class="btn btn-sm btn-danger">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn-empty">
+                                                <i class="las la-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     </div>

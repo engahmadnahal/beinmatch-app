@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helper\CustomTrait;
+use App\Jobs\SendUserFcmJob;
+use App\Jobs\SendUserNotifyJob;
 use App\Models\Dawry;
 use App\Models\Like;
 use App\Models\Post;
@@ -14,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
 {
+    use CustomTrait;
     public function __construct()
     {
         $this->authorizeResource(Post::class,'post');
@@ -75,18 +79,36 @@ class PostController extends Controller
         ]);
         if(!$validator->fails()){
             if ($request->hasFile('post_img')) {
-                $fileName = time() . ".". $request->file('post_img')->getClientOriginalExtension();
-                $request->file("post_img")->storePubliclyAs("upload",$fileName);
+                // Using custom trait for uplading files
+                $fileName = $this->uploadFile($request->file('post_img'));
             }
             $post = new Post();
             $post->employee_id = auth()->user()->id;
             $post->dawry_id = $request->input('dawry_id');
             $post->title = $request->input('post_title');
-            $post->thumnail = 'upload/'.$fileName;
+            // $post->thumnail = 'upload/'.$fileName;
+            $post->thumnail = $fileName;
             $post->content = $request->input('post_content');
             $post->send_notfi = $request->input('send_notfi') == "true" ? Carbon::createFromTimestamp(time()) : null;
             $post->publish_at = $request->input('publish_at') == "true" ? Carbon::createFromTimestamp(time()) : null;
             $isSaved = $post->save();
+
+            /// Send Notification for all users When post is created
+            $data = [
+                'title'=>$request->post_title,
+                'content'=>substr($request->post_content,0,40).'...',
+                'img'=>$fileName??null,
+            ];
+            if($isSaved){
+                if($request->input('send_notfi') == "true"){
+                    // Hear is code send notification using FCM Api
+                    SendUserFcmJob::dispatch($data);
+                }else{
+                    // Send Notification for all users using Job
+                    SendUserNotifyJob::dispatch($data);
+                }
+            }
+
             // $isSaved = true;
             return response()->json([
                 'msg'=>$isSaved ? 'Save this post is success' : 'Error saved this post'
@@ -185,7 +207,7 @@ class PostController extends Controller
                 "publish_at" => "nullable",
                 "cancel" => "nullable",
                 "done" => "nullable",
-                "send_notfi" => "nullable",
+                // "send_notfi" => "nullable",
                 "post_title" => "required|string|min:15:max:40",
                 "post_content" => "required|string",
                 "post_img" => "nullable|image|mimes:png,jpg,jpeg"
@@ -194,7 +216,7 @@ class PostController extends Controller
             $validator = Validator($request->all(),[
                 "dawry_id" => "required|numeric|exists:dawries,id",
                 "publish_at" => "nullable",
-                "send_notfi" => "nullable",
+                // "send_notfi" => "nullable",
                 "post_title" => "required|string|min:15:max:40",
                 "post_content" => "required|string",
                 "cancel" => "nullable",
@@ -214,7 +236,7 @@ class PostController extends Controller
             $post->dawry_id = $request->input('dawry_id');
             $post->title = $request->input('post_title');
             $post->content = $request->input('post_content');
-            $post->send_notfi = $request->input('send_notfi') == "true" ? Carbon::createFromTimestamp(time()) : null;
+            // $post->send_notfi = $request->input('send_notfi') == "true" ? Carbon::createFromTimestamp(time()) : null;
             $post->publish_at = $request->input('publish_at') == "true" ? Carbon::createFromTimestamp(time()) : null;
             if($request->done == "true"){
                 $post->status = "done";
@@ -222,6 +244,7 @@ class PostController extends Controller
                 $post->status = "cancel";
             }
             $isSaved = $post->save();
+
             // $isSaved = true;
             return response()->json([
                 'msg'=>$isSaved ? 'Save this post is success' : 'Error saved this post'
