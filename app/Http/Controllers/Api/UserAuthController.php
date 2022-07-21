@@ -110,5 +110,25 @@ class UserAuthController extends Controller
         ], Response::HTTP_OK);
     }
 
+
+    /// Update Setting [isOnline User]
+    /**
+     * @param Request $request
+     */
+
+    public function sendOnlineUser(Request $request){
+        $validator = Validator($request->all(),[
+            'isOnline' => 'required|boolean'
+        ]);
+        if(!$validator->fails()){
+            $user = User::findOrFail(auth()->user()->id);
+            $user->is_online = $request->isOnline;
+            $isSave = $user->save();
+            return response()->json(['status'=>boolval($isSave),'message'=>$isSave ? "تم الارسال بنجاح" : 'حدث خطأ ما'],Response::HTTP_OK);
+        }else{
+            return response()->json(['message'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
+        }
+    }
+
 }
 

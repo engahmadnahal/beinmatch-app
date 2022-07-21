@@ -12,6 +12,7 @@ use App\Models\ClubFollower;
 use App\Models\Mobara;
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 use Database\Factories\ClubFactory;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,7 @@ class ClubController extends Controller
         $club['clubs'] = Club::where('playing','<>',null)
         ->where('dawry_id',$club->dawry_id)->orderBy('points','desc')->get();
 
-        $club['matches'] = MobaraResource::collection(Mobara::where('club_one_id',$club->id)
+        $club['matches'] = MobaraResource::collection(Mobara::whereDate('created_at','>',Carbon::yesterday())->where('club_one_id',$club->id)
         ->orWhere('club_two_id',$club->id)->get());
 
         $club['post'] = PostResource::collection(Post::where('title','like','%'.$club->name.'%')

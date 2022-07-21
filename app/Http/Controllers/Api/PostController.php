@@ -26,7 +26,7 @@ class PostController extends Controller
     {
         //
         $posts = Post::where('status', 'done')->orderBy('created_at','desc')->paginate(10);
-        return PostResource::collection($posts);
+        return new MainResource(PostResource::collection($posts),Response::HTTP_OK,'تم جلب الأخبار بنجاح');
     }
 
 

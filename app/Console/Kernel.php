@@ -18,8 +18,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->job(new ClubDataJob)->everyMinute();
-        $schedule->command('queue:work')->everyFiveMinutes();
-        $schedule->command('queue:restart')->everyFiveMinutes();
+        // $schedule->command('queue:work')->everyFiveMinutes();
+        // $schedule->command('queue:restart')->everyFiveMinutes();
     }
 
     /**
