@@ -30,7 +30,6 @@ class EmployeeFactory extends Factory
             'password'=>'$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'salary'=>$this->faker->numberBetween(300,1500),
             'jop_title'=>'Admin',
-            'type'=>"admin",
             'phone'=>$this->faker->numberBetween(000000,9999999),
             'gender'=>"M",
             'is_online'=>$this->faker->boolean(),

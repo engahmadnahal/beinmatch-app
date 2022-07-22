@@ -144,7 +144,13 @@ Route::middleware(['auth:admin','verified'])->group(function(){
 
 Route::get('/get-dawry',[GetDawryController::class , 'getDawry']);
 Route::get('/get-club',[GetClubController::class , 'getClub']);
-Route::get('/get-data-club',[GetClubController::class , 'getDataClub']);
+// Route::get('/get-data-club',[GetClubController::class , 'getDataClub']);
+Route::get('/get-data-club',function(){
+    $urlScraping = ["https://jdwel.com/2021-2022-spanish-primera-division/"];
+    (new GetClubController)->getDataClub($urlScraping);
+    return "Done!";
+});
+
 
 
 
