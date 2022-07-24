@@ -71,9 +71,9 @@ class DatabaseSeeder extends Seeder
         Post::factory(20)->create();
         // ClubFollower::factory(30)->create();
         // DawryFollower::factory(30)->create();
-        Comment::factory(40)->create();
-        View::factory(25)->create();
-        Like::factory(20)->create();
+        // Comment::factory(40)->create();
+        // View::factory(25)->create();
+        // Like::factory(20)->create();
 
         /*
             Create A Guset User

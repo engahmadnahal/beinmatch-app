@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Helper\CustomTrait;
 use App\Jobs\SendUserFcmJob;
 use App\Jobs\SendUserNotifyJob;
+use App\Models\MobileToken;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,13 +50,13 @@ class NotificationController extends Controller
         $validator = Validator($request->all(),[
             'title'=>'required|string|min:15:max:40',
             'content'=>'required|string|min:15:max:40',
-            'img'=>'required|image|mimes:png,jpg,jpeg',
+            // 'img'=>'required|image|mimes:png,jpg,jpeg',
             'typeNofty'=>'required|string'
         ]);
         if(!$validator->fails()){
-            if($request->hasFile('img')){
-                $fileName = $this->uploadFile($request->file('img'));
-            }
+            // if($request->hasFile('img')){
+            //     $fileName = $this->uploadFile($request->file('img'));
+            // }
             $data = [
                 "title"=>$request->title,
                 "content"=>$request->content,
@@ -63,7 +64,8 @@ class NotificationController extends Controller
             ];
             if($request->typeNofty == "fcm"){
                 // Hear is code send notification using FCM Api
-                SendUserFcmJob::dispatch($data);
+                $this->sendFCM($data);
+                // SendUserFcmJob::dispatch($data);
             }else if($request->typeNofty == "box"){
                 // Send Notification for all users using Job
                 SendUserNotifyJob::dispatch($data);
@@ -126,5 +128,68 @@ class NotificationController extends Controller
     public function destroy(Notification $notification)
     {
         //
+    }
+
+
+
+    //************** For test after than change place to job class *********************/
+
+    public function sendFCM($data){
+        $mobileToken = MobileToken::all('token');
+        $arrayToken = [];
+        foreach($mobileToken as $token){
+            array_push($arrayToken,$token->token);
+        }
+        $SERVER_API_KEY = 'AAAAZaHDTLk:APA91bEM4ci7DwR6v-xGvhaiedOdpiRCIWOfybH8fgs1q0B6Xw7w_lbtBz-30NXiQDRn7eRETSNIjBcz18-fUKSHuBv5k0eX0Pzg4GhEj-OutYr6Pb3WrzyqYEglqSjv-vsaIOmsXaxZ';
+
+        // $token_1 = 'Test Token';
+
+        $data = [
+
+            // "registration_ids" => [
+            //     $token_1
+            // ],
+
+            "registration_ids" => $arrayToken,
+
+            // Image Notification is not ready using now
+            "notification" => [
+
+                "title" => $data['title'],
+
+                "body" => $data['content'],
+
+                "sound"=> "default" // required for sound on ios
+
+            ],
+
+        ];
+
+        $dataString = json_encode($data);
+
+        $headers = [
+
+            'Authorization: key=' . $SERVER_API_KEY,
+
+            'Content-Type: application/json',
+
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+
+        curl_setopt($ch, CURLOPT_POST, true);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        $response = curl_exec($ch);
+
     }
 }

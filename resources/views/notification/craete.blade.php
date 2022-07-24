@@ -63,8 +63,8 @@
                     </div>
 
             </div>
-             <h3 style=" margin: 20px 0; ">صورة : </h3>
-             <input type="file" class="dropify" data-height="200" id="img"/>
+             {{-- <h3 style=" margin: 20px 0; ">صورة : </h3>
+             <input type="file" class="dropify" data-height="200" id="img"/> --}}
 
         </div>
     </div>
@@ -91,7 +91,7 @@
             formData.append('typeNofty', document.getElementById('typeNofty').value);
             formData.append('content', document.getElementById('content').value);
             formData.append('title', document.getElementById('title').value);
-            formData.append('img', document.getElementById('img').files[0]);
+            // formData.append('img', document.getElementById('img').files[0]);
 
 
             axios.post('/notifications', formData).then(function(response) {

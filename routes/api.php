@@ -179,6 +179,7 @@ Route::middleware('auth:sanctum')->group(function(){
          */
         Route::get('/notification', [NotificationController::class , 'getNotifications']);
         Route::post('/notification/read', [NotificationController::class , 'readAll']);
+        Route::post('notification/token-mobile',[NotificationController::class , 'saveTokenMobile']);
 
     });
 
