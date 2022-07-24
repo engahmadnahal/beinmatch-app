@@ -14,6 +14,8 @@ use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
+// use Str;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -56,19 +58,6 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
-        /*
-        employee_id
-        dawry_id
-        title
-        thumnail
-        content
-        publish_at
-        send_notfi
-        status
-        deleted_at
-        created_at
-        updated_at
-    */
         $validator = Validator($request->all(),[
             "dawry_id" => "required|numeric|exists:dawries,id",
             "publish_at" => "nullable",
@@ -78,11 +67,14 @@ class PostController extends Controller
             "post_img" => "required|image|mimes:png,jpg,jpeg"
         ]);
         if(!$validator->fails()){
+
             if ($request->hasFile('post_img')) {
                 // Using custom trait for uplading files
                 $fileName = $this->uploadFile($request->file('post_img'));
+                
             }
             $post = new Post();
+
             $post->employee_id = auth()->user()->id;
             $post->dawry_id = $request->input('dawry_id');
             $post->title = $request->input('post_title');
@@ -96,7 +88,8 @@ class PostController extends Controller
             /// Send Notification for all users When post is created
             $data = [
                 'title'=>$request->post_title,
-                'content'=>substr($request->post_content,0,40).'...',
+                // 'content'=>$request->post_content,
+                'content'=>Str::substr($request->post_content, 0, 40).'...',
                 'img'=>$fileName??null,
             ];
             if($isSaved){
@@ -106,6 +99,7 @@ class PostController extends Controller
                 }else{
                     // Send Notification for all users using Job
                     SendUserNotifyJob::dispatch($data);
+
                 }
             }
 
