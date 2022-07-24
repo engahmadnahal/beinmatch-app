@@ -140,7 +140,7 @@
             formData.append('publish_at', document.getElementById('publish').checked);
             formData.append('done', document.getElementById('done').checked);
             formData.append('cancel', document.getElementById('cancel').checked);
-            formData.append('send_notfi', document.getElementById('sendNotfi').checked);
+            // formData.append('send_notfi', document.getElementById('sendNotfi').checked);
             formData.append('post_title', document.getElementById('post_title').value);
             formData.append('post_content', document.getElementById('post_content').value);
             formData.append('post_img', document.getElementById('post_img').files[0]);
