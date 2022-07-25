@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'lname' => $this->lname,
             'email' => $this->email,
             'username' => $this->username,
-            'avater' => env('APP_URL')."/".$this->avater,
+            'avater' => $this->avater,
             'status' => $this->status,
             'os_mobile'=>$this->os_mobile
         ];

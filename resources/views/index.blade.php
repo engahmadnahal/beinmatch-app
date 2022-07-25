@@ -17,17 +17,19 @@
 
 						<div>
 							<label class="tx-13">نشط الأن</label>
-							<h5>1093</h5>
+							<h5>{{$users->where('is_online',true)->count()}}</h5>
 						</div>
 						<div>
 							<label class="tx-13">غير نشط</label>
-							<h5>2,569</h5>
+							<h5>{{$users->where('is_online',false)->count()}}</h5>
 						</div>
 					</div>
 				</div>
 				<!-- /breadcrumb -->
 @endsection
 @section('content')
+
+
 				<!-- row -->
 				<div class="row">
 					<div class="col-lg-3 col-md-6">
@@ -39,7 +41,7 @@
 									</div>
 									<div class="mr-auto">
 										<h5 class="tx-13 tx-white-8 mb-3">كل المستخدمين</h5>
-										<h2 class="counter mb-0 text-white">2569</h2>
+										<h2 class="counter mb-0 text-white">{{$users->count()}}</h2>
 									</div>
 								</div>
 							</div>
@@ -54,7 +56,7 @@
 									</div>
 									<div class="mr-auto">
 										<h5 class="tx-13 tx-white-8 mb-3">مشاهدات اليوم</h5>
-										<h2 class="counter mb-0 text-white">1765</h2>
+										<h2 class="counter mb-0 text-white">{{$views}}</h2>
 									</div>
 								</div>
 							</div>
@@ -69,7 +71,7 @@
 									</div>
 									<div class="mr-auto">
 										<h5 class="tx-13 tx-white-8 mb-3"> مباريات اليوم</h5>
-										<h2 class="counter mb-0 text-white">15</h2>
+										<h2 class="counter mb-0 text-white">{{$mobara->count()}}</h2>
 									</div>
 								</div>
 							</div>
@@ -84,7 +86,7 @@
 									</div>
 									<div class="mr-auto">
 										<h5 class="tx-13 tx-white-8 mb-3">جميع الموظفين</h5>
-										<h2 class="counter mb-0 text-white">7253</h2>
+										<h2 class="counter mb-0 text-white">{{$employees->count()}}</h2>
 									</div>
 								</div>
 							</div>
@@ -116,14 +118,15 @@
 							</div>
 							<div class="card-body p-0 customers mt-1">
 								<div class="list-group list-lg-group list-group-flush">
+									@foreach($users->take(5) as $user)
 									<div class="list-group-item list-group-item-action" href="#">
 										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="http://127.0.0.1:8000/assets/img/faces/3.jpg" alt="Image description">
+											{{-- <img class="avatar-lg rounded-circle ml-3 my-auto" src="{{Storage::url($user->avater)}}" alt="Image description"> --}}
 											<div class="media-body">
 												<div class="d-flex align-items-center">
 													<div class="mt-0">
-														<h5 class="mb-1 tx-15">أسامة سعيد</h5>
-														<p class="mb-0 tx-13 text-muted">User ID: #1234</p>
+														<h5 class="mb-1 tx-15">{{$user->full_name}}</h5>
+														<p class="mb-0 tx-13 text-muted">User ID: #{{$user->id}}</p>
 													</div>
 													<span class="mr-auto wd-45p fs-16 mt-2">
 														<div id="spark1" class="wd-100p"></div>
@@ -132,70 +135,9 @@
 											</div>
 										</div>
 									</div>
-									<div class="list-group-item list-group-item-action" href="#">
-										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="http://127.0.0.1:8000/assets/img/faces/11.jpg" alt="Image description">
-											<div class="media-body">
-												<div class="d-flex align-items-center">
-													<div class="mt-1">
-														<h5 class="mb-1 tx-15">Jimmy Changa</h5>
-														<p class="mb-0 tx-13 text-muted">User ID: #1234</p>
-													</div>
-													<span class="mr-auto wd-45p fs-16 mt-2">
-														<div id="spark2" class="wd-100p"></div>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="list-group-item list-group-item-action" href="#">
-										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="http://127.0.0.1:8000/assets/img/faces/17.jpg" alt="Image description">
-											<div class="media-body">
-												<div class="d-flex align-items-center">
-													<div class="mt-1">
-														<h5 class="mb-1 tx-15">Gabe Lackmen</h5>
-														<p class="mb-0 tx-13 text-muted">User ID: #1234</p>
-													</div>
-													<span class="mr-auto wd-45p fs-16 mt-2">
-														<div id="spark3" class="wd-100p"></div>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="list-group-item list-group-item-action" href="#">
-										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="http://127.0.0.1:8000/assets/img/faces/15.jpg" alt="Image description">
-											<div class="media-body">
-												<div class="d-flex align-items-center">
-													<div class="mt-1">
-														<h5 class="mb-1 tx-15">Manuel Labor</h5>
-														<p class="mb-0 tx-13 text-muted">User ID: #1234</p>
-													</div>
-													<span class="mr-auto wd-45p fs-16 mt-2">
-														<div id="spark4" class="wd-100p"></div>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="list-group-item list-group-item-action br-br-7 br-bl-7" href="#">
-										<div class="media mt-0">
-											<img class="avatar-lg rounded-circle ml-3 my-auto" src="http://127.0.0.1:8000/assets/img/faces/6.jpg" alt="Image description">
-											<div class="media-body">
-												<div class="d-flex align-items-center">
-													<div class="mt-1">
-														<h5 class="mb-1 tx-15">Sharon Needles</h5>
-														<p class="b-0 tx-13 text-muted mb-0">User ID: #1234</p>
-													</div>
-													<span class="mr-auto wd-45p fs-16 mt-2">
-														<div id="spark5" class="wd-100p"></div>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
+									@endforeach
+									
+									
 								</div>
 							</div>
 						</div>
@@ -211,30 +153,15 @@
 						<div class="card card-dashboard-eight pb-2">
 							<h6 class="card-title">أكثر المستخدمين المتفاعلين</h6><span class="d-block mg-b-10 text-muted tx-12">عرض اكثر المستخدمين تفاعلاً على التطبيق</span>
 							<div class="list-group">
+								@foreach ($users->skip(5)->take(5) as $user)
+									
 								<div class="list-group-item border-top-0">
-									<i class="flag-icon flag-icon-us flag-icon-squared"></i>
-									<p>أحمد سعيد</p><span><a href="#"><i class="far fa-eye"></i></a></span>
+									{{-- <i class="flag-icon flag-icon-us flag-icon-squared"></i> --}}
+									<p>{{$user->full_name}}</p><span><a href="{{route('users.show',$user->id)}}"><i class="far fa-eye"></i></a></span>
 								</div>
-								<div class="list-group-item">
-									<i class="flag-icon flag-icon-nl flag-icon-squared"></i>
-									<p>أسامة محمد</p><span><a href="#"><i class="far fa-eye"></i></a></span>
-								</div>
-								<div class="list-group-item">
-									<i class="flag-icon flag-icon-gb flag-icon-squared"></i>
-									<p>سعد عبدالله</p><span><a href="#"><i class="far fa-eye"></i></a></span>
-								</div>
-								<div class="list-group-item">
-									<i class="flag-icon flag-icon-ca flag-icon-squared"></i>
-									<p>حنان رعيتر</p><span><a href="#"><i class="far fa-eye"></i></a></span>
-								</div>
-								<div class="list-group-item">
-									<i class="flag-icon flag-icon-in flag-icon-squared"></i>
-									<p>محمود يوسف</p><span><a href="#"><i class="far fa-eye"></i></a></span>
-								</div>
-								<div class="list-group-item border-bottom-0 mb-0">
-									<i class="flag-icon flag-icon-au flag-icon-squared"></i>
-									<p>علي الخالدي</p><span><a href="#"><i class="far fa-eye"></i></a></span>
-								</div>
+
+								@endforeach
+	
 							</div>
 						</div>
 					</div>
@@ -256,36 +183,16 @@
 										</tr>
 									</thead>
 									<tbody>
+										@foreach ($search  as $s)
 										<tr>
-											<td>05 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">9:30 مساءً</td>
-											<td class="tx-right tx-medium tx-inverse">فريق برشلونة</td>
-											<td class="tx-right tx-medium tx-inverse">محمد سعيد (59664)</td>
+											<td>{{$s->created_at->format('YYYY DD mm')}}</td>
+											<td class="tx-right tx-medium tx-inverse">{{$s->created_at->diffForhumans()}}</td>
+											<td class="tx-right tx-medium tx-inverse">{{$s->content}}</td>
+											<td class="tx-right tx-medium tx-inverse">{{$s->user->full_name}}({{$s->user->id}})</td>
 										</tr>
-                                        <tr>
-											<td>05 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">9:30 مساءً</td>
-											<td class="tx-right tx-medium tx-inverse">فريق برشلونة</td>
-											<td class="tx-right tx-medium tx-inverse">محمد سعيد (59664)</td>
-										</tr>
-                                        <tr>
-											<td>05 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">9:30 مساءً</td>
-											<td class="tx-right tx-medium tx-inverse">فريق برشلونة</td>
-											<td class="tx-right tx-medium tx-inverse">محمد سعيد (59664)</td>
-										</tr>
-                                        <tr>
-											<td>05 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">9:30 مساءً</td>
-											<td class="tx-right tx-medium tx-inverse">فريق برشلونة</td>
-											<td class="tx-right tx-medium tx-inverse">محمد سعيد (59664)</td>
-										</tr>
-                                        <tr>
-											<td>05 Dec 2019</td>
-											<td class="tx-right tx-medium tx-inverse">9:30 مساءً</td>
-											<td class="tx-right tx-medium tx-inverse">فريق برشلونة</td>
-											<td class="tx-right tx-medium tx-inverse">محمد سعيد (59664)</td>
-										</tr>
+										@endforeach
+										
+                                
 									</tbody>
 								</table>
 							</div>

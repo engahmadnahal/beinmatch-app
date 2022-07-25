@@ -254,7 +254,7 @@ class EmployeeController extends Controller
             }else{
                 $employee->givePermissionTo($permission);
             }
-            return response()->json(['msg'=>'Success add this permission'],Response::HTTP_OK);
+            return response()->json(['msg'=>'تم اعطاء الصلاحية بنجاح'],Response::HTTP_OK);
         }else{
         return response()->json(['msg'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
         }

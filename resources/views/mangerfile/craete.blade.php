@@ -58,7 +58,7 @@
 
                 <div class="wd-xl-100p ht-350">
                     <div class="ql-scrolling-demo bg-gray-100 ps" id="scrolling-container">
-                        <input type="text" id="title" placeholder="عنوان الاشعار" style=" font-size: 25px; width: 100%; padding: 7px; outline: 0; background: transparent; border: 0; ">
+                        <input type="text" id="title" placeholder="عنوان الملف" style=" font-size: 25px; width: 100%; padding: 7px; outline: 0; background: transparent; border: 0; ">
                     </div>
 
             </div>

@@ -32,7 +32,11 @@ class UserAuthController extends Controller
         ]);
         if(!$validator->fails()){
             if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password],true)){
-                $user = User::where('email',$request->email)->first();
+                $user = User::where('email',$request->email)->where('status','active')->first();
+                // For check staus user [active,delete,block]
+                if(is_null($user)){
+                    return response()->json(['status'=>false,'message'=>"الحساب غير موجود او محظور"],Response::HTTP_BAD_REQUEST);
+                }
                 $token = $user->createToken('beinmatchapp');
                 // Set Token To User Resource
                 $user['token'] = $token->plainTextToken;

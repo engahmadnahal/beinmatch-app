@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Mobara;
+use App\Models\Search;
 use App\Models\User;
+use App\Models\View;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,10 +18,18 @@ class HomeController extends Controller
         if($emp->status == 'block' || !is_null($emp->deleted_at)){
             return abort(403,'You have been blocked by your line manager !');
         }else{
-            $users = User::all();
-            $usersOnline = User::where('is_online',true)->count();
-            $usersOffline = User::where('is_online',false)->count();
-            return view('index');
+            $users = User::where('status','active')->get();
+            $views = View::whereDate('created_at',Carbon::today())->count();
+            $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::today())->get();
+            $employees = Employee::where('status','active')->get();
+            $search = Search::take(5)->orderBy('created_at','desc')->get();
+            return view('index',[
+                'users'=>$users,
+                'views'=>$views,
+                'employees'=>$employees,
+                'mobara'=>$mobara,
+                'search'=>$search
+            ]);
         }
     }
 }
