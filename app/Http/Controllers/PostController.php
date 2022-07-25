@@ -99,7 +99,6 @@ class PostController extends Controller
                 }else{
                     // Send Notification for all users using Job
                     SendUserNotifyJob::dispatch($data);
-
                 }
             }
 

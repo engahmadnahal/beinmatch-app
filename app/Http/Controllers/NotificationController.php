@@ -140,7 +140,7 @@ class NotificationController extends Controller
         foreach($mobileToken as $token){
             array_push($arrayToken,$token->token);
         }
-        $SERVER_API_KEY = 'AAAAZaHDTLk:APA91bEM4ci7DwR6v-xGvhaiedOdpiRCIWOfybH8fgs1q0B6Xw7w_lbtBz-30NXiQDRn7eRETSNIjBcz18-fUKSHuBv5k0eX0Pzg4GhEj-OutYr6Pb3WrzyqYEglqSjv-vsaIOmsXaxZ';
+        $SERVER_API_KEY = 'AAAAtbcGYVE:APA91bEi0dFC9gea1bH-AIPkOpaBKoeskckmTnA2R1OlIiy59nw1loM9s95Y-4THK2x8PihDlOZNh6MdIx76zi1zpJcFs8BbRhMuJmIKOWgwlMZnl6EbKl8195YfoiSXsUJ83lOvC5xZ';
 
         // $token_1 = 'Test Token';
 
