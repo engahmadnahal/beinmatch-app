@@ -18,6 +18,7 @@ use App\Http\Controllers\Scraping\GetDawryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use App\Jobs\SendUserNotifyJob;
+use App\Models\MobileToken;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -168,3 +169,70 @@ Route::get('/get-data-club',function(){
 //     SendUserNotifyJob::dispatch($data);
 //     return "Success";
 // });
+
+Route::get('test-noty',function(){
+
+        // Hear is code send notification using FCM Api
+        $mobileToken = MobileToken::all('token');
+        $arrayToken = [];
+        foreach($mobileToken as $token){
+            array_push($arrayToken,$token->token);
+        }
+        $SERVER_API_KEY = env('SERVER_API_KEY');
+
+        // $token_1 = 'Test Token';
+
+        $d = [
+            'title'=>'test Title',
+            'content' => 'test content notifi'
+        ];
+        $data = [
+
+            // "registration_ids" => [
+            //     $token_1
+            // ],
+
+            "registration_ids" => $arrayToken,
+
+            // Image Notification is not ready using now
+            "notification" => [
+
+                "title" => $d['title'],
+
+                "body" => $d['content'],
+
+                "sound"=> "default" // required for sound on ios
+
+            ],
+
+        ];
+
+        $dataString = json_encode($data);
+
+        $headers = [
+
+            'Authorization: key=' . $SERVER_API_KEY,
+
+            'Content-Type: application/json',
+
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+
+        curl_setopt($ch, CURLOPT_POST, true);
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+
+        $response = curl_exec($ch);
+
+
+    return $response;
+});
