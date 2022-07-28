@@ -170,69 +170,69 @@ Route::get('/get-data-club',function(){
 //     return "Success";
 // });
 
-Route::get('test-noty',function(){
+// Route::get('test-noty',function(){
 
-        // Hear is code send notification using FCM Api
-        $mobileToken = MobileToken::all('token');
-        $arrayToken = [];
-        foreach($mobileToken as $token){
-            array_push($arrayToken,$token->token);
-        }
-        $SERVER_API_KEY = env('SERVER_API_KEY');
+//         // Hear is code send notification using FCM Api
+//         $mobileToken = MobileToken::all('token');
+//         $arrayToken = [];
+//         foreach($mobileToken as $token){
+//             array_push($arrayToken,$token->token);
+//         }
+//         $SERVER_API_KEY = env('SERVER_API_KEY');
 
-        // $token_1 = 'Test Token';
+//         // $token_1 = 'Test Token';
 
-        $d = [
-            'title'=>'test Title',
-            'content' => 'test content notifi'
-        ];
-        $data = [
+//         $d = [
+//             'title'=>'test Title',
+//             'content' => 'test content notifi'
+//         ];
+//         $data = [
 
-            // "registration_ids" => [
-            //     $token_1
-            // ],
+//             // "registration_ids" => [
+//             //     $token_1
+//             // ],
 
-            "registration_ids" => $arrayToken,
+//             "registration_ids" => $arrayToken,
 
-            // Image Notification is not ready using now
-            "notification" => [
+//             // Image Notification is not ready using now
+//             "notification" => [
 
-                "title" => $d['title'],
+//                 "title" => $d['title'],
 
-                "body" => $d['content'],
+//                 "body" => $d['content'],
 
-                "sound"=> "default" // required for sound on ios
+//                 "sound"=> "default" // required for sound on ios
 
-            ],
+//             ],
 
-        ];
+//         ];
 
-        $dataString = json_encode($data);
+//         $dataString = json_encode($data);
 
-        $headers = [
+//         $headers = [
 
-            'Authorization: key=' . $SERVER_API_KEY,
+//             'Authorization: key=' . $SERVER_API_KEY,
 
-            'Content-Type: application/json',
+//             'Content-Type: application/json',
 
-        ];
+//         ];
 
-        $ch = curl_init();
+//         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+//         curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
 
-        curl_setopt($ch, CURLOPT_POST, true);
+//         curl_setopt($ch, CURLOPT_POST, true);
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+//         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+//         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+//         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
 
-        $response = curl_exec($ch);
+//         $response = curl_exec($ch);
 
 
-    return $response;
-});
+//     return $response;
+// });
