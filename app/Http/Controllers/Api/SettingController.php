@@ -13,6 +13,6 @@ class SettingController extends Controller
     public function getSetting()
     {
         $setting = Setting::findOrFail(1)->first();
-        return response()->json($setting,Response::HTTP_OK);
+        return response()->json($setting->settings,Response::HTTP_OK);
     }
 }

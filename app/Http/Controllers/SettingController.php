@@ -16,7 +16,7 @@ class SettingController extends Controller
         $mobSetting = Setting::findOrFail(1);
 
         return view('setting.mobile',[
-            'mobSetting' => $mobSetting
+            'mobSetting' => json_decode($mobSetting->settings)
         ]);
     }
 
@@ -31,13 +31,27 @@ class SettingController extends Controller
             "slide_active"=>"nullable",
             "match_active"=>"nullable",
             "ads_active"=>"nullable",
+            "facebook"=>"required|string",
+            "youtube"=>"required|string",
+            "twitter"=>"required|string",
         ]);
 
+        $dataSetting = [
+            "slide_active"=>$request->slide_active == "on" ? true : false,
+            "match_active"=>$request->match_active == "on" ? true : false,
+            "ads_active"=>$request->ads_active == "on" ? true : false,
+            "facebook"=>$request->facebook,
+            "youtube"=>$request->youtube,
+            "twitter"=>$request->twitter,
+        ];
+
         $mobSetting = Setting::findOrFail(1);
-        $mobSetting->slide_active = !is_null($request->input('slide_active')) ? 1 : 0;
-        $mobSetting->match_active = !is_null($request->input('match_active')) ? 1 : 0;
-        $mobSetting->ads_active = !is_null($request->input('ads_active')) ? 1 : 0;
+        $mobSetting->settings = json_encode($dataSetting);
+        // $mobSetting->type = "mobile";
         $mobSetting->save();
         return redirect()->route('settings.mobile');
     }
+
+
+    
 }

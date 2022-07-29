@@ -56,6 +56,7 @@
 
                 </div>
             </div>
+            
             <hr>
             <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
@@ -86,7 +87,9 @@
 
                 </div>
             </div>
+
             <hr>
+
             <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
                 <div class="card  box-shadow-0">
                     <div class="card-header">
@@ -110,19 +113,104 @@
                                 </div>
                             </div>
                         </div>
+
+                      
                         <div class="form-group mb-0 mt-3 justify-content-end">
                         </div>
                     </div>
 
+                    
                 </div>
             </div>
-            <hr>
+
+            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+                <div class="card  box-shadow-0">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body pt-0">
+
+                        <div class="form-group mb-0 justify-content-end">
+                            <div class="checkbox">
+                                <div class="custom-checkbox custom-control">
+                                    <p class="mb-2">اضافة رابط الفيسبوك للتطبيق</p>
+                                        <input type="text"  id="facebook" name="facebook" class="form-control"
+                                        value="{{$mobSetting->facebook}}"
+                                        />
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                      
+                        <div class="form-group mb-0 mt-3 justify-content-end">
+                        </div>
+                    </div>
+
+                    
+                </div>
+              
+
+            </div>
+
+            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+                <div class="card  box-shadow-0">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body pt-0">
+
+                        <div class="form-group mb-0 justify-content-end">
+                            <div class="checkbox">
+                                <div class="custom-checkbox custom-control">
+                                    <p class="mb-2">اضافة رابط تويتر للتطبيق</p>
+                                        <input type="text"  id="twitter" name="twitter" class="form-control"
+                                        value="{{$mobSetting->twitter}}"
+                                        />
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-0 mt-3 justify-content-end">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12">
+                <div class="card  box-shadow-0">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body pt-0">
+
+                        <div class="form-group mb-0 justify-content-end">
+                            <div class="checkbox">
+                                <div class="custom-checkbox custom-control">
+                                    <p class="mb-2">اضافة رابط يوتيوب للتطبيق</p>
+                                        <input type="text"  id="youtube" name="youtube" class="form-control"
+                                        value="{{$mobSetting->youtube}}"
+                                        />
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                      
+                        <div class="form-group mb-0 mt-3 justify-content-end">
+                        </div>
+                    </div>
+
+                    <div class="py-2 px-3">
+                        <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">حفظ الأن</button>
+                    </div>
+                </div>
+            </div>
 
 
         </div>
-        <div class="py-2 px-3">
-            <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">حفظ الأن</button>
-        </div>
+       
     </form>
     <!-- End Row Contetnt -->
     </div>

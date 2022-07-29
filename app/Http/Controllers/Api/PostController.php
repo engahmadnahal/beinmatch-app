@@ -58,7 +58,10 @@ class PostController extends Controller
     public function getAllComments($id)
     {
         // Get All Comments for Api
-        $comments = Comment::where('post_id',$id)->orderBy('created_at','desc')->get();
+        // $comments = Comment::where('post_id',$id)->orderBy('created_at','desc')->get();
+        $comments = Comment::whereHas('post',function($q) use($id){
+            return $q->where('post_id',$id);
+        })->orderBy('created_at','desc')->get();
         return new MainResource(PostCommentResource::collection($comments),Response::HTTP_OK,'تم جلب التعليقات بنجاح');
     }
     // Create Comment for Post
@@ -74,10 +77,14 @@ class PostController extends Controller
             $comment->post_id = $id;
             $comment->content = $request->comment;
             $isSaved = $comment->save();
-            $dataOfPost = Comment::where('post_id',$id)->orderBy('created_at','desc')->get();
+            $dataOfPost = Comment::whereHas('post',function($q) use($id){
+                return $q->where('post_id',$id);
+            })->orderBy('created_at','desc')->get();
             return $isSaved
-            ? new MainResource(PostCommentResource::collection($dataOfPost),Response::HTTP_OK,'Success Create Comment')
-            : response()->json(['error' => 'Error Create Comment'], Response::HTTP_BAD_REQUEST);
+            ? new MainResource(PostCommentResource::collection($dataOfPost),Response::HTTP_OK,'تم انشاء التعليق بنجاح')
+            : response()->json(['error' => 'حدث خطأ ما !'], Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json(['status'=>false,'message'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -92,7 +99,9 @@ class PostController extends Controller
             if($comment->user_id == auth()->user()->id){
             $comment->content = $request->comment;
             $isSaved = $comment->save();
-            $dataOfPost = Comment::where('post_id',$id)->orderBy('created_at','desc')->get();
+            $dataOfPost = Comment::whereHas('post',function($q) use($id){
+                return $q->where('post_id',$id);
+            })->orderBy('created_at','desc')->get();
             return $isSaved
             ? new MainResource(PostCommentResource::collection($dataOfPost),Response::HTTP_OK,'تم التعليق بنجاح')
             : response()->json(['error' => 'حدث خطأ في انشاء التعليق'], Response::HTTP_BAD_REQUEST);

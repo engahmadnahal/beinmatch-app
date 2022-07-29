@@ -85,10 +85,17 @@ class DatabaseSeeder extends Seeder
          * id	slide_active	match_active	ads_active	created_at	updated_at
          */
         if(Setting::find(1) == null){
+            $dataSetting = [
+                "slide_active"=>true,
+                "match_active"=>false,
+                "ads_active"=>false,
+                "facebook"=>"www.facebook.com",
+                "youtube"=>"www.youtube.com",
+                "twitter"=>"www.twitter.com",
+            ];
             Setting::create([
-                "slide_active" => 0,
-                "match_active" => 1,
-                "ads_active" => 0,
+                'settings'=>json_encode($dataSetting),
+                'type'=>'mobile'
             ]);
         }
 
