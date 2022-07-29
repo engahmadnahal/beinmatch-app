@@ -25,7 +25,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::where('status', 'done')->orderBy('created_at','desc')->paginate(10);
+        $posts = Post::where('status', 'done')->orderBy('created_at','desc')->paginate(20);
         return new MainResource(PostResource::collection($posts),Response::HTTP_OK,'تم جلب الأخبار بنجاح');
     }
 
