@@ -15,8 +15,10 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Scraping\GetClubController;
 use App\Http\Controllers\Scraping\GetDawryController;
+use App\Http\Controllers\Scraping\GetMatchController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
+use App\Jobs\GetMatchJob;
 use App\Jobs\SendUserNotifyJob;
 use App\Models\MobileToken;
 use Illuminate\Support\Facades\Route;
@@ -133,7 +135,6 @@ Route::middleware(['auth:admin','verified'])->group(function(){
 
 
 
-
 });
 
 
@@ -152,6 +153,9 @@ Route::get('/get-data-club',function(){
     return "Done!";
 });
 
+Route::get('/test-matches',function(){
+    GetMatchJob::dispatch();
+});
 
 
 

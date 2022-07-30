@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Jobs\ClubDataJob;
+use App\Jobs\GetMatchJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,9 +18,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->job(new ClubDataJob)->everyMinute();
-        // $schedule->command('queue:work')->everyFiveMinutes();
-        // $schedule->command('queue:restart')->everyFiveMinutes();
+        $schedule->job(new ClubDataJob)->dailyAt('2:00');
+        $schedule->job(new GetMatchJob)->dailyAt('2:00');
+        $schedule->command('queue:work');
+        $schedule->command('queue:restart')->everyFiveMinutes();
     }
 
     /**
