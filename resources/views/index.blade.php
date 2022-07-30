@@ -185,7 +185,7 @@
 									<tbody>
 										@foreach ($search  as $s)
 										<tr>
-											<td>{{$s->created_at->format('Y/D/m')}}</td>
+											<td>{{$s->created_at->format('Y/m/d')}}</td>
 											<td class="tx-right tx-medium tx-inverse">{{$s->created_at->diffForhumans()}}</td>
 											<td class="tx-right tx-medium tx-inverse">{{$s->content}}</td>
 											<td class="tx-right tx-medium tx-inverse">{{$s->user->full_name}}({{$s->user->id}})</td>
