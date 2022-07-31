@@ -122,6 +122,7 @@ Route::middleware('auth:sanctum')->group(function(){
         // Auth route
         Route::post('/user/logout', [UserAuthController::class , 'logout']);
         Route::post('/user/isonline', [UserAuthController::class , 'sendOnlineUser']);
+        Route::get('/user/status', [UserAuthController::class , 'statusUser']);
         // Send Comment Api For  Auth users
         Route::post('mobara/{id}/comment', [MobaraController::class , 'createComment']);
         // Update Comment Api For  Auth users

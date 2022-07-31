@@ -134,5 +134,9 @@ class UserAuthController extends Controller
         }
     }
 
+    public function statusUser(){
+        return response()->json(['status'=>auth()->user()->status],Response::HTTP_OK);
+    }
+
 }
 
