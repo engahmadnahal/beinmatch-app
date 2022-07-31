@@ -51,6 +51,10 @@ class SendUserFcmJob implements ShouldQueue
                 // ],
     
                 "registration_ids" => $arrayToken,
+                "data" => [
+                    "v1" => $this->data['title'],
+                    "v2" => $this->data['content'],
+                ],
     
                 // Image Notification is not ready using now
                 "notification" => [
