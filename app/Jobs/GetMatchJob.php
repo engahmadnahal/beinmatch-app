@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Mockery\Expectation;
 
 class GetMatchJob implements ShouldQueue
 {
@@ -33,11 +34,14 @@ class GetMatchJob implements ShouldQueue
      */
     public function handle()
     {
-        //
-        $allMatch = Mobara::all();
-        foreach($allMatch as $m){
-            $m->delete();
-        }
+        
+         foreach(Mobara::all() as $match){
+            try{
+                $match->delete();
+            }catch(Expectation $ex){
+                continue;
+            }
+         }
         (new GetMatchController)->getMatch();
     }
 }

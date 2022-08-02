@@ -156,7 +156,7 @@ Route::get('/get-data-club',function(){
 Route::get('/test-matches',function(){
     GetMatchJob::dispatch();
 });
-
+// Route::get('/test-matches',[GetMatchController::class , 'getMatch']);
 
 
 // Route::get('/test-mail',function(){

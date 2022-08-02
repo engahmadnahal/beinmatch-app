@@ -30,12 +30,6 @@ use Symfony\Component\HttpFoundation\Response;
 */
 
 
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return auth()->user();
-// });
-
-
 Route::prefix('v1')->group(function(){
     /**
      * Change Lang For All Route
@@ -53,19 +47,6 @@ Route::prefix('v1')->group(function(){
     Route::post('/user/login', [UserAuthController::class , 'login']);
     Route::post('/user/signup', [UserAuthController::class , 'signup']);
 
-    /**
-     *
-     *  @Routes For Post Controller
-     */
-
-    // // Get Posts Api For non Auth users
-    // Route::get('/posts', [PostController::class , 'index']);
-    // // Get Single Post Api For non Auth users
-    // Route::get('/posts/{id}', [PostController::class , 'show']);
-    // // Get All Comments For Post
-    // Route::get('/post/{id}/comments',[PostController::class , 'getAllComments']);
-    // // Register View For Post
-    // Route::post('post/{id}/view', [PostController::class , 'registerView']);
 
 Route::middleware('auth:sanctum')->group(function(){
 
@@ -123,6 +104,8 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('/user/logout', [UserAuthController::class , 'logout']);
         Route::post('/user/isonline', [UserAuthController::class , 'sendOnlineUser']);
         Route::get('/user/status', [UserAuthController::class , 'statusUser']);
+
+
         // Send Comment Api For  Auth users
         Route::post('mobara/{id}/comment', [MobaraController::class , 'createComment']);
         // Update Comment Api For  Auth users

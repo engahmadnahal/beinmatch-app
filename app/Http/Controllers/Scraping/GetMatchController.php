@@ -63,16 +63,6 @@ class GetMatchController extends Controller
 
                 });
 
-                // $node->filter('table:last-child tr')->each(function ($node) use($index,&$matches){
-                //     // $matches[$index]['botola'] = "aaaa";
-                //     // $matches[$index]['channel_id'] = "4";
-                //     // $matches[$index]['voice_over'] = $node->filter('td:nth-child(2) p')->text();
-                //     $matches[$index] = [
-                //         'data' => $node->filter('td:nth-child(2) p')->text()
-                //     ];
-                //     $index++;
-
-                // });
             });
 
         });

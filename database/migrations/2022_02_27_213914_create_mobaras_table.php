@@ -20,7 +20,6 @@ class CreateMobarasTable extends Migration
             $table->integer('club_one_id');
             $table->integer('club_two_id');
             $table->timestamp('start');
-
             $table->foreignId('botola')->references('id')->on('dawries')->cascadeOnDelete();
             $table->foreignId('channel_id')->constrained()->cascadeOnDelete();
             $table->string('voice_over');
