@@ -65,6 +65,18 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/mobara/{id}', [MobaraController::class , 'show']);
     // Get All Comments For Mobara
     Route::get('/mobara/{id}/comments',[MobaraController::class , 'getAllComments']);
+    // Send Comment Api For  Auth users
+    Route::post('mobara/{id}/comment', [MobaraController::class , 'createComment']);
+    // Update Comment Api For  Auth users
+    Route::post('mobara/{id}/comment/{commentlive}/edit', [MobaraController::class , 'updateComment']);
+    // Delete Comment Api For  Auth users
+    Route::post('mobara/comment/{commentlive}/delete', [MobaraController::class , 'deleteComment']);
+    // Send Poll Api For  Auth users
+    Route::post('mobara/{id}/poll', [MobaraController::class , 'createPoll']);
+    // Send Like For Mobara
+    Route::post('mobara/{id}/like', [MobaraController::class , 'createLike']);
+    // Register View For Post
+    Route::post('mobara/{id}/view', [MobaraController::class , 'registerView']);
 
     /**
      *
@@ -89,12 +101,6 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/dawries/{id}/show', [DawryController::class , 'show']);
 
 
-
-
-
-
-
-
 /**-------------- {Auth Controller} ---------------------  */
 
 
@@ -105,17 +111,6 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('/user/isonline', [UserAuthController::class , 'sendOnlineUser']);
         Route::get('/user/status', [UserAuthController::class , 'statusUser']);
 
-
-        // Send Comment Api For  Auth users
-        Route::post('mobara/{id}/comment', [MobaraController::class , 'createComment']);
-        // Update Comment Api For  Auth users
-        Route::post('mobara/{id}/comment/{commentlive}/edit', [MobaraController::class , 'updateComment']);
-        // Delete Comment Api For  Auth users
-        Route::post('mobara/comment/{commentlive}/delete', [MobaraController::class , 'deleteComment']);
-        // Send Poll Api For  Auth users
-        Route::post('mobara/{id}/poll', [MobaraController::class , 'createPoll']);
-        // Send Like For Mobara
-        Route::post('mobara/{id}/like', [MobaraController::class , 'createLike']);
 
         /**
          *

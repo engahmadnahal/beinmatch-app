@@ -38,6 +38,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Post::class,'views','user_id','post_id');
     }
 
+    public function viewMatch(){
+        return $this->belongsToMany(Mobara::class,'view_mobaras','user_id','mobara_id');
+    }
+
+
+
     public function commentsLive(){
         return $this->belongsToMany(Mobara::class,'commentlives','user_id','mobara_id');
     }

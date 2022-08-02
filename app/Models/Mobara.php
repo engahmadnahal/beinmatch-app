@@ -18,6 +18,11 @@ class Mobara extends Model
         'poll',
 
     ];
+
+    public function userView(){
+        return $this->belongsToMany(User::class,'view_mobaras','mobara_id','user_id');
+    }
+
     public function employee()
     {
         return $this->belongsTo(Employee::class,'employee_id','id');

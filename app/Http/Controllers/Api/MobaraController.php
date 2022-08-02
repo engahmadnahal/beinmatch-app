@@ -14,6 +14,7 @@ use App\Models\Commentlive;
 use App\Models\Matchlike;
 use App\Models\Mobara;
 use App\Models\Poll;
+use App\Models\ViewMobara;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -238,6 +239,29 @@ class MobaraController extends Controller
         }else{
             return response()->json(['message' => $validator->getMessageBag()->first()], Response::HTTP_BAD_REQUEST);
         }
+    }
+
+
+    public function registerView(Request $request,$id)
+    {
+        $validator = Validator($request->all(),[
+            'user_id' => 'required',
+        ]);
+        if(!$validator->fails()){
+            $view = new ViewMobara();
+            $view->user_id = $request->user_id;
+            $view->mobara_id = $id;
+            $isSave = $view->save();
+            return response()->json([
+                'status' => $isSave ? true : false,
+                'message' => $isSave ? 'Success Register View' : 'Error Register View'
+            ],$isSave ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+        }else{
+            return response()->json([
+                'message'=> $validator->getMessageBag()->first()
+            ],Response::HTTP_BAD_REQUEST);
+        }
+
     }
 
 
