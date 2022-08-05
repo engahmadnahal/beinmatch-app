@@ -20,8 +20,6 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->job(new ClubDataJob)->dailyAt('23:59');
         $schedule->job(new GetMatchJob)->dailyAt('23:59');
-        $schedule->command('queue:restart');
-        $schedule->command('queue:work');
 
     }
 
