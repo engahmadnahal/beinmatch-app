@@ -66,9 +66,9 @@ class DatabaseSeeder extends Seeder
          }
 
        
-        Employee::factory(50)->create();
-        User::factory(50)->create();
-        Post::factory(20)->create();
+        // Employee::factory(50)->create();
+        // User::factory(50)->create();
+        // Post::factory(20)->create();
         // ClubFollower::factory(30)->create();
         // DawryFollower::factory(30)->create();
         // Comment::factory(40)->create();
