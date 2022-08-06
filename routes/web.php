@@ -127,14 +127,6 @@ Route::middleware(['auth:admin','verified'])->group(function(){
 
 
 
-
-
-
-
-
-
-
-
 });
 
 
@@ -144,99 +136,19 @@ Route::middleware(['auth:admin','verified'])->group(function(){
 
 //// Scraping Data And Test Routes
 
-Route::get('/get-dawry',[GetDawryController::class , 'getDawry']);
-Route::get('/get-club',[GetClubController::class , 'getClub']);
-// Route::get('/get-data-club',[GetClubController::class , 'getDataClub']);
-Route::get('/get-data-club',function(){
-    $urlScraping = ["https://jdwel.com/2021-2022-spanish-primera-division/"];
-    (new GetClubController)->getDataClub($urlScraping);
-    return "Done!";
-});
+// Route::get('/get-dawry',[GetDawryController::class , 'getDawry']);
+// Route::get('/get-club',[GetClubController::class , 'getClub']);
+// // Route::get('/get-data-club',[GetClubController::class , 'getDataClub']);
+// Route::get('/get-data-club',function(){
+//     $urlScraping = ["https://jdwel.com/2021-2022-spanish-primera-division/"];
+//     (new GetClubController)->getDataClub($urlScraping);
+//     return "Done!";
+// });
 
-Route::get('/test-matches',function(){
-    GetMatchJob::dispatch();
-});
+// Route::get('/test-matches',function(){
+//     GetMatchJob::dispatch();
+// });
 // Route::get('/test-matches',[GetMatchController::class , 'getMatch']);
 
 
-// Route::get('/test-mail',function(){
 
-//    return new EmployeeAdminEmail(Employee::first());
-// });
-
-// Route::get('/send-notfiy',function(){
-//     $data = [
-//                 "title"=>"Hello User",
-//                 "content"=>"Watchin Now",
-//                 "img"=>"Img URL",
-//         ];
-//     SendUserNotifyJob::dispatch($data);
-//     return "Success";
-// });
-
-// Route::get('test-noty',function(){
-
-//         // Hear is code send notification using FCM Api
-//         $mobileToken = MobileToken::all('token');
-//         $arrayToken = [];
-//         foreach($mobileToken as $token){
-//             array_push($arrayToken,$token->token);
-//         }
-//         $SERVER_API_KEY = env('SERVER_API_KEY');
-
-//         // $token_1 = 'Test Token';
-
-//         $d = [
-//             'title'=>'test Title',
-//             'content' => 'test content notifi'
-//         ];
-//         $data = [
-
-//             // "registration_ids" => [
-//             //     $token_1
-//             // ],
-
-//             "registration_ids" => $arrayToken,
-
-//             // Image Notification is not ready using now
-//             "notification" => [
-
-//                 "title" => $d['title'],
-
-//                 "body" => $d['content'],
-
-//                 "sound"=> "default" // required for sound on ios
-
-//             ],
-
-//         ];
-
-//         $dataString = json_encode($data);
-
-//         $headers = [
-
-//             'Authorization: key=' . $SERVER_API_KEY,
-
-//             'Content-Type: application/json',
-
-//         ];
-
-//         $ch = curl_init();
-
-//         curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-
-//         curl_setopt($ch, CURLOPT_POST, true);
-
-//         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-//         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-//         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-//         curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-
-//         $response = curl_exec($ch);
-
-
-//     return $response;
-// });
