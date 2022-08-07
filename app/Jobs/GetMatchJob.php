@@ -18,7 +18,7 @@ class GetMatchJob implements ShouldQueue
 
     // public $maxExceptions = 3;
     // public $tries = 3;
-    public $backoff = 3;
+    public $backoff = 5;
 
 
     /**
@@ -39,15 +39,16 @@ class GetMatchJob implements ShouldQueue
     public function handle()
     {
         
-        //  foreach(Mobara::all() as $match){
-        //     try{
-        //         $match->delete();
-        //     }catch(Expectation $ex){
-        //         continue;
-        //     }
-        //  }
+         foreach(Mobara::all() as $match){
+            try{
+                $match->delete();
+            }catch(Expectation $ex){
+                continue;
+            }
+         }
         (new GetMatchController)->getMatch();
 
-        $this->release(10);
+        // $day = 24*60*60;
+        // $this->release($day);
     }
 }
