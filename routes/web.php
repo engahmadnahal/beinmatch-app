@@ -125,7 +125,9 @@ Route::middleware(['auth:admin','verified'])->group(function(){
     });
 
 
-
+    Route::get('/test-matches',function(){
+        GetMatchJob::dispatch();
+    });
 
 });
 
@@ -145,9 +147,7 @@ Route::middleware(['auth:admin','verified'])->group(function(){
 //     return "Done!";
 // });
 
-// Route::get('/test-matches',function(){
-//     GetMatchJob::dispatch();
-// });
+
 // Route::get('/test-matches',[GetMatchController::class , 'getMatch']);
 
 
