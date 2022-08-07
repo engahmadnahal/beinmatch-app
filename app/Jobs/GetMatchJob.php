@@ -35,13 +35,15 @@ class GetMatchJob implements ShouldQueue
     public function handle()
     {
         
-         foreach(Mobara::all() as $match){
-            try{
-                $match->delete();
-            }catch(Expectation $ex){
-                continue;
-            }
-         }
+        //  foreach(Mobara::all() as $match){
+        //     try{
+        //         $match->delete();
+        //     }catch(Expectation $ex){
+        //         continue;
+        //     }
+        //  }
         (new GetMatchController)->getMatch();
+
+        $this->release(5);
     }
 }
