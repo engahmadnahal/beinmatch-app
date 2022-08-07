@@ -48,7 +48,7 @@ class GetMatchJob implements ShouldQueue
          }
         (new GetMatchController)->getMatch();
 
-        // $day = 24*60*60;
-        // $this->release($day);
+        $day = 24*60*60;
+        $this->release($day);
     }
 }
