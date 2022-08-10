@@ -93,12 +93,13 @@ Route::middleware(['auth:admin','verified'])->group(function(){
     Route::get('/mobaras/get-publish',[MobaraController::class , 'getPublish'])->name('mobaras.publish');
     Route::get('/mobaras/get-wait',[MobaraController::class , 'getWait'])->name('mobaras.wait');
     Route::get('/mobaras/get-cancel',[MobaraController::class , 'getCancel'])->name('mobaras.cancel');
-
+    Route::post('/mobaras/get-match',[MobaraController::class ,'getMatch'])->name('mobaras.get');
 
     Route::post('/mobaras/restor/{id}',[MobaraController::class , 'restor'])->name('mobaras.restor');
     Route::resource('mobaras', MobaraController::class);
 
     //Clubs Route Resource
+    Route::post('/clubs/get-data-club',[ClubController::class ,'getDataClub']);
     Route::resource('clubs',ClubController::class);
 
     //Setting Route
@@ -125,7 +126,9 @@ Route::middleware(['auth:admin','verified'])->group(function(){
     });
 
 
-
+    Route::get('/test-matches',function(){
+        GetMatchJob::dispatch();
+    });
 
 });
 
@@ -145,9 +148,7 @@ Route::middleware(['auth:admin','verified'])->group(function(){
 //     return "Done!";
 // });
 
-// Route::get('/test-matches',function(){
-//     GetMatchJob::dispatch();
-// });
+
 // Route::get('/test-matches',[GetMatchController::class , 'getMatch']);
 
 

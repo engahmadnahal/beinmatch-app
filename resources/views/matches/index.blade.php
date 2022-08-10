@@ -25,20 +25,15 @@
 						<div class="pr-1 mb-3 mb-xl-0">
 							<button type="button" class="btn btn-danger  btn-icon ml-2">رُفض</button>
 						</div>
+
 						<div class="mb-3 mb-xl-0">
 							<div class="btn-group dropdown">
-								<button type="button" class="btn btn-primary">14 Aug 2019</button>
-								<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuDate" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="sr-only">Toggle Dropdown</span>
+								<button type="button" class="btn btn-primary" onclick="performGetMatch()">جلب المباريات</button>
 								</button>
-								<div class="dropdown-menu dropdown-menu-left" aria-labelledby="dropdownMenuDate" data-x-placement="bottom-end" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-1px, 40px, 0px);">
-									<a class="dropdown-item" href="#">2015</a>
-									<a class="dropdown-item" href="#">2016</a>
-									<a class="dropdown-item" href="#">2017</a>
-									<a class="dropdown-item" href="#">2018</a>
-								</div>
 							</div>
 						</div>
+
+						
 					</div>
 				</div>
 				<!-- /breadcrumb -->
@@ -135,6 +130,13 @@
 @endsection
 @section('js')
 <script>
+
+	function performGetMatch(){
+		axios.post('/mobaras/get-match',{}).then(function(response){
+			toastr.success(response.data.msg);
+		}).catch(function(error){
+		});
+	}
  	// $('#checkAll').on('click', function() {
  	// 	if ($(this).is(':checked')) {
  	// 		$('.ckbox input').each(function() {

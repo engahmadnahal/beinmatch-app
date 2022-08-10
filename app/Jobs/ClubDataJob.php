@@ -32,7 +32,18 @@ class ClubDataJob implements ShouldQueue
      */
     public function handle()
     {
-        $urlScraping = ["https://jdwel.com/2021-2022-spanish-primera-division/"];
+        $urlScraping = [
+            "https://jdwel.com/2022-2023-spanish-primera-division/",
+            "https://jdwel.com/2022-2023-england-premier-league/",
+            "https://jdwel.com/2022-2023-italian-league-serie-a/",
+            "https://jdwel.com/2022-2023-saudi-league/",
+            "https://jdwel.com/2022-2023-german-bundesliga/",
+            "https://jdwel.com/competition/egyptian-premier-league/",
+            "https://jdwel.com/2022-2023-jordanian-pro-league/",
+            "https://jdwel.com/2022-2023-french-ligue-1/",
+        ];
         (new GetClubController)->getDataClub($urlScraping);
+        $day = 24*60*60;
+        $this->release($day);
     }
 }

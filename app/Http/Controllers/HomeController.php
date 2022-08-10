@@ -18,7 +18,7 @@ class HomeController extends Controller
         if($emp->status == 'block' || !is_null($emp->deleted_at)){
             return abort(403,'You have been blocked by your line manager !');
         }else{
-            $users = User::where('status','active')->get();
+            $users = User::where('status','active')->orderBy('created_at','desc')->get();
             $views = View::whereDate('created_at',Carbon::today())->count();
             $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::today())->get();
             $employees = Employee::where('status','active')->get();

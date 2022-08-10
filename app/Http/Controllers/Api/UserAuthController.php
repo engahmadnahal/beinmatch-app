@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MainResource;
 use App\Http\Resources\UserResource;
+use App\Models\Employee;
 use App\Models\User;
+use App\Notifications\AdminDashNotification;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -55,7 +57,6 @@ class UserAuthController extends Controller
 
     }
 
-
     public function signup(Request $request){
         $validator = Validator($request->all(), [
             'fname' => 'required|string',
@@ -74,12 +75,19 @@ class UserAuthController extends Controller
                 $user->username = 'bein_user_'.Random::generate(5);
                 $user->password = Hash::make($request->password);
                 $user->avater = env('APP_URL')."/assets/img/upload/media/login.png";
+                // $user->avater = asset('assets/img/upload/media/login.png');
                 $user->ip_address = $request->ip();
                 $user->os_mobile = $request->os_mobile;
                 $isSaved = $user->save();
 
                 $token = $user->createToken('beinmatchapp');
                 $user['token'] = $token->plainTextToken;
+
+                // Send notification For Admin When Register new User
+                $admin = Employee::where('jop_title','Admin')->where('email','admin@admin.com')->first();
+                $data['title'] = "تم تسجيل مستخدم جديد";
+                $data['body'] = "لقد سجل المستخدم " .$request->fname . " ". $request->lname . "من خلال التطبيق ويملك الايميل  ".$request->email;
+                $admin->notify(new AdminDashNotification($data));
                 return response()->json([
                     'message' => $isSaved  ? 'تم التسجيل بنجاح' : 'حدث خطأ أثناء التسحيل حاول مجدداً',
                     'data' => $user,

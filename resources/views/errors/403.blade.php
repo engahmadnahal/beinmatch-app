@@ -5,7 +5,7 @@
 
 @section('content')
 <div id="global-loader" style="display: none;">
-			<img src="http://localhost/assets/img/loader.svg" class="loader-img" alt="Loader">
+			<img src="{{asset('assets/img/loader.svg')}}" class="loader-img" alt="Loader">
 		</div>
 
         <div class="main-error-wrapper  page page-h ">

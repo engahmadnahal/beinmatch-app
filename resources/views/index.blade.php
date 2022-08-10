@@ -119,14 +119,14 @@
 							<div class="card-body p-0 customers mt-1">
 								<div class="list-group list-lg-group list-group-flush">
 									@foreach($users->take(5) as $user)
-									<div class="list-group-item list-group-item-action" href="#">
+									<a class="list-group-item list-group-item-action" href="{{route('users.show',$user->id)}}">
 										<div class="media mt-0">
 											{{-- <img class="avatar-lg rounded-circle ml-3 my-auto" src="{{Storage::url($user->avater)}}" alt="Image description"> --}}
 											<div class="media-body">
 												<div class="d-flex align-items-center">
 													<div class="mt-0">
 														<h5 class="mb-1 tx-15">{{$user->full_name}}</h5>
-														<p class="mb-0 tx-13 text-muted">User ID: #{{$user->id}}</p>
+														<p class="mb-0 tx-13 text-muted">{{$user->created_at->diffForHumans()}}</p>
 													</div>
 													<span class="mr-auto wd-45p fs-16 mt-2">
 														<div id="spark1" class="wd-100p"></div>
@@ -134,7 +134,7 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</a>
 									@endforeach
 									
 									

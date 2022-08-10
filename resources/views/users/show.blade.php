@@ -32,29 +32,29 @@
 									<div class="col-sm-12 col-xl-12 col-lg-12">
 						<div class="card user-wideget user-wideget-widget widget-user">
 							<div class="widget-user-header bg-primary">
-								<h3 class="widget-user-username">فارس غازي</h3>
+								<h3 class="widget-user-username">{{$user->full_name}}</h3>
 							</div>
 							<div class="widget-user-image" >
-								<img src="http://bein.test/assets/img/faces/17.jpg" class="brround" alt="User Avatar " id="avater">
+								<img src="/{{$user->avater}}" class="brround" alt="User Avatar " id="avater">
 							</div>
 							<div class="user-wideget-footer">
 								<div class="row">
 									<div class="col-sm-4 border-left">
 										<div class="description-block">
 											<h5 class="description-header">نوع الجهاز</h5>
-											<span class="description-text">Android</span>
+											<span class="description-text">{{$user->os_mobile}}</span>
 										</div>
 									</div>
 									<div class="col-sm-4 border-left">
 										<div class="description-block">
 											<h5 class="description-header">اسم المستخدم </h5>
-											<span class="description-text">ahmadnaha.12 - (USERID#123521)</span>
+											<span class="description-text">{{$user->username}} - (USERID#{{$user->id}})</span>
 										</div>
 									</div>
 									<div class="col-sm-4">
 										<div class="description-block">
-											<h5 class="description-header">البلد</h5>
-											<span class="description-text">فلسطين</span>
+											<h5 class="description-header">IP Address</h5>
+											<span class="description-text">{{$user->ip_address}}</span>
 										</div>
 									</div>
 								</div>
@@ -62,7 +62,7 @@
 						</div>
 					</div>
                     <div class='col-12'>
-                        <input type="file" class="dropify" data-height="200" id="img_profile" >
+                        <input type="file" class="dropify" data-height="200" id="img_profile"  style="display: none">
 						<div class="py-2 px-3">
                     <button class="saveImg btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit" style="display: none">حفظ الأن</button>
                 </div>
@@ -74,7 +74,7 @@
 				</div>
                 <!-- favorits -->
                 <div class="row row-sm">
-                    <div class="col-md-12 col-lg-6 col-xl-4 col-sm-12">
+                    {{-- <div class="col-md-12 col-lg-6 col-xl-4 col-sm-12">
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
@@ -183,10 +183,10 @@
 
 							</div>
 						</div>
-					</div>
+					</div> --}}
 
                     <!-- dawry favorits -->
-                    <div class="col-md-12 col-lg-6 col-xl-4 col-sm-12">
+                    <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
@@ -194,110 +194,41 @@
 									<i class="mdi mdi-dots-vertical"></i>
 								</div>
 							</div>
-							<p class="tx-12 tx-gray-500 mb-0 pl-3 pr-3">أخر الفرق التي نالت على اعجاب المستخدم</p>
 							<div class="rating-scroll ps ps--active-y">
+								@forelse ( $user->clubs as  $club )
 								<div class="pl-3 pr-3 py-3 border-bottom">
 									<div class="media mt-0">
 										<div class="d-flex ml-3">
 											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
+												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="{{$club->avater}}">
 											</a>
 										</div>
 										<div class="media-body">
 											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
+												<h6 class="mt-0 mb-0 font-weight-semibold ">{{$club->name}}</h6>
 
 											</div>
 											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
+												<p class="tx-12 text-muted mb-0">{{$club->country}}</p>
 											</div>
 
 										</div>
 									</div>
 								</div>
-                                <div class="pl-3 pr-3 py-3 border-bottom">
-									<div class="media mt-0">
-										<div class="d-flex ml-3">
-											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
-											</a>
-										</div>
-										<div class="media-body">
-											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
+								@empty
+									<center><p>لم يقم بمتابعة اي فريق بعد</p></center>
+								@endforelse
 
-											</div>
-											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
-											</div>
-
-										</div>
-									</div>
-								</div>
-                                <div class="pl-3 pr-3 py-3 border-bottom">
-									<div class="media mt-0">
-										<div class="d-flex ml-3">
-											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
-											</a>
-										</div>
-										<div class="media-body">
-											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
-
-											</div>
-											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
-											</div>
-
-										</div>
-									</div>
-								</div>
-                                <div class="pl-3 pr-3 py-3 border-bottom">
-									<div class="media mt-0">
-										<div class="d-flex ml-3">
-											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
-											</a>
-										</div>
-										<div class="media-body">
-											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
-
-											</div>
-											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
-											</div>
-
-										</div>
-									</div>
-								</div>
-                                <div class="pl-3 pr-3 py-3 border-bottom">
-									<div class="media mt-0">
-										<div class="d-flex ml-3">
-											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
-											</a>
-										</div>
-										<div class="media-body">
-											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
-
-											</div>
-											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
-											</div>
-
-										</div>
-									</div>
-								</div>
+								
+								
+                               
 
 
 							</div>
 						</div>
 					</div>
                     <!-- last likes user -->
-                    <div class="col-md-12 col-lg-6 col-xl-4 col-sm-12">
+                    <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
@@ -305,103 +236,32 @@
 									<i class="mdi mdi-dots-vertical"></i>
 								</div>
 							</div>
-							<p class="tx-12 tx-gray-500 mb-0 pl-3 pr-3">أخر الاعجابات التي قام بها المستخدم</p>
 							<div class="rating-scroll ps ps--active-y">
+								@forelse ($user->likes as $likePost)
 								<div class="pl-3 pr-3 py-3 border-bottom">
 									<div class="media mt-0">
 										<div class="d-flex ml-3">
 											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
+												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="{{$likePost->thumnail}}">
 											</a>
 										</div>
 										<div class="media-body">
 											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
+												<h6 class="mt-0 mb-0 font-weight-semibold ">{{$likePost->title}}</h6>
 
 											</div>
 											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
+												<p class="tx-12 text-muted mb-0">{{substr($likePost->content,0,50)}}</p>
 											</div>
 
 										</div>
 									</div>
 								</div>
-                                <div class="pl-3 pr-3 py-3 border-bottom">
-									<div class="media mt-0">
-										<div class="d-flex ml-3">
-											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
-											</a>
-										</div>
-										<div class="media-body">
-											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
-
-											</div>
-											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
-											</div>
-
-										</div>
-									</div>
-								</div>
-                                <div class="pl-3 pr-3 py-3 border-bottom">
-									<div class="media mt-0">
-										<div class="d-flex ml-3">
-											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
-											</a>
-										</div>
-										<div class="media-body">
-											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
-
-											</div>
-											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
-											</div>
-
-										</div>
-									</div>
-								</div>
-                                <div class="pl-3 pr-3 py-3 border-bottom">
-									<div class="media mt-0">
-										<div class="d-flex ml-3">
-											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
-											</a>
-										</div>
-										<div class="media-body">
-											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
-
-											</div>
-											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
-											</div>
-
-										</div>
-									</div>
-								</div>
-                                <div class="pl-3 pr-3 py-3 border-bottom">
-									<div class="media mt-0">
-										<div class="d-flex ml-3">
-											<a href="#">
-												<img class="media-object avatar brround w-7 h-7" alt="64x64" src="http://bein.test/assets/img/faces/5.jpg">
-											</a>
-										</div>
-										<div class="media-body">
-											<div class="d-flex">
-												<h6 class="mt-0 mb-0 font-weight-semibold ">Joanne Scott</h6>
-
-											</div>
-											<div class="d-flex">
-												<p class="tx-12 text-muted mb-0">long established fact..</p>
-											</div>
-
-										</div>
-									</div>
-								</div>
+								@empty
+									<center><p>لم يقم بالاعجاب في اي منشور بعد</p></center>
+								@endforelse
+								
+                               
 
 
 							</div>
@@ -410,7 +270,7 @@
                     <!-- end row -->
                 </div>
                 <!-- Chart -->
-                <div class="row row-sm">
+                {{-- <div class="row row-sm" >
 					<div class="col-md-6">
 						<div class="card mg-b-20">
 							<div class="card-body">
@@ -432,7 +292,7 @@
 							</div>
 						</div>
 					</div><!-- col-6 -->
-				</div>
+				</div> --}}
             </div>
 		<!-- Container closed -->
         @endsection

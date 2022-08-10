@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ClubDataJob;
 use App\Models\Club;
 use App\Models\Dawry;
 use Illuminate\Http\Request;
@@ -128,5 +129,11 @@ class ClubController extends Controller
         //
         $club->delete();
         return redirect()->route('clubs.index');
+    }
+
+
+    public function getDataClub(){
+        ClubDataJob::dispatch();
+        return response()->json(['msg'=>"تم اضافتها للمهام"]);
     }
 }

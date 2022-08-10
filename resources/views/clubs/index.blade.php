@@ -57,7 +57,12 @@
                 </div>
 
                 <div class="py-2 px-3">
-
+                    <div class="mb-3 mb-xl-0">
+                        <div class="btn-group dropdown">
+                            <button type="button" class="btn btn-primary" onclick="performGetDataClub()">جلب المعلومات</button>
+                            </button>
+                        </div>
+                    </div>
                     <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">تصفية</button>
                 </div>
             </div>
@@ -105,6 +110,14 @@
     <script src="{{ URL::asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script>
+
+        function performGetDataClub(){
+            axios.post('/clubs/get-data-club',{}).then(function(response){
+			    toastr.success(response.data.msg);
+            }).catch(function(error){
+
+            });
+        }
         (function($) {
             "use strict";
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\GetMatchJob;
 use App\Models\Channel;
 use App\Models\Club;
 use App\Models\Dawry;
@@ -180,6 +181,10 @@ class MobaraController extends Controller
 
 
 
+    public function getMatch(){
+        GetMatchJob::dispatch();
+        return response()->json(['msg'=>"تم اضافة جلب المباريات للمهام ."]);
+    }
     // Custom function
 
     /**
