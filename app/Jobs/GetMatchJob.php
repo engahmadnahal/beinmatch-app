@@ -16,11 +16,6 @@ class GetMatchJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    // public $maxExceptions = 3;
-    // public $tries = 3;
-    public $backoff = 5;
-
-
     /**
      * Create a new job instance.
      *
@@ -31,6 +26,7 @@ class GetMatchJob implements ShouldQueue
         //
     }
 
+    public $maxExceptions = 3;
     /**
      * Execute the job.
      *
@@ -47,8 +43,5 @@ class GetMatchJob implements ShouldQueue
             }
          }
         (new GetMatchController)->getMatch();
-
-        $day = 24*60*60;
-        $this->release($day);
     }
 }
