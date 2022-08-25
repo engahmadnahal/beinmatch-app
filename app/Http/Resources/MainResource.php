@@ -15,8 +15,7 @@ class MainResource extends JsonResource
     {
         $this->data = $data;
         $this->response = $response;
-        $this->message = $message;
-
+    $this->message = $message;
 
     }
 

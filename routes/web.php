@@ -63,7 +63,6 @@ Route::middleware(['auth:admin','verified'])->group(function(){
     Route::post('/employees/restor/{id}',[EmployeeController::class , 'restor'])->name('employees.restor');
     Route::get('/employees/{employee}/permission/edit',[EmployeeController::class , 'editUserPermission'])->name('employees.permissions');
     Route::put('/employees/{employee}/permission/update',[EmployeeController::class , 'updateUserPermission'])->name('employees.update_permissions');
-
     Route::resource('/employees',EmployeeController::class);
 
     // Post Routes

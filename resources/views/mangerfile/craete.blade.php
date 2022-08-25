@@ -86,6 +86,8 @@
     <script src="{{asset('assets/plugins/fileuploads/js/fileupload.js')}}"></script>
     <script>
         function performStore() {
+
+
             let formData = new FormData();
             formData.append('typeFile', document.getElementById('typeFile').value);
             formData.append('title', document.getElementById('title').value);
