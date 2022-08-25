@@ -35,7 +35,7 @@
 								<h3 class="widget-user-username">{{$user->full_name}}</h3>
 							</div>
 							<div class="widget-user-image" >
-								<img src="/{{$user->avater}}" class="brround" alt="User Avatar " id="avater">
+								<img src="{{$user->avater}}" class="brround" alt="User Avatar " id="avater">
 							</div>
 							<div class="user-wideget-footer">
 								<div class="row">
