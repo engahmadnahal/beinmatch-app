@@ -215,7 +215,9 @@
 				@else
 				<div>
 
-
+					<div >
+						<p class=" bg-success text-center" style="font-size: 17px;color : #fff;padding: 7px;">اللوحة ما وزالت تحت التطوير</p>
+					</div>
 
 					<!-- row -->
 					<div class="row">
@@ -228,7 +230,7 @@
 										</div>
 										<div class="mr-auto">
 											<h5 class="tx-13 tx-white-8 mb-3">كل مشاركاتك</h5>
-											<h2 class="counter mb-0 text-white">{{$users->count()}}</h2>
+											<h2 class="counter mb-0 text-white">{{$postUser}}</h2>
 										</div>
 									</div>
 								</div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Mobara;
+use App\Models\Post;
 use App\Models\Search;
 use App\Models\User;
 use App\Models\View;
@@ -23,12 +24,14 @@ class HomeController extends Controller
             $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::today())->get();
             $employees = Employee::where('status','active')->get();
             $search = Search::take(5)->orderBy('created_at','desc')->get();
+            $postUser = Post::where('employee_id',auth()->user()->id)->count();
             return view('index',[
                 'users'=>$users,
                 'views'=>$views,
                 'employees'=>$employees,
                 'mobara'=>$mobara,
-                'search'=>$search
+                'search'=>$search,
+                'postUser' => $postUser
             ]);
         }
     }
