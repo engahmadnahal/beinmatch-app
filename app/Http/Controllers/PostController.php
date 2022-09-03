@@ -31,7 +31,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('employee_id',auth()->user()->id)->with('employee')->latest()->paginate(15);
+
+        if(auth()->user()->jop_title == 'Admin'){
+            $posts = Post::with('employee')->latest()->paginate(15);
+        }else{
+            $posts = Post::where('employee_id',auth()->user()->id)->with('employee')->latest()->paginate(15);
+        }
         return view('posts.index',[
             'posts'=>$posts
         ]);
