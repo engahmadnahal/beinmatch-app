@@ -5,6 +5,7 @@
 @endsection
 
 @section('page-header')
+
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="left-content">
@@ -25,9 +26,14 @@
 						</div>
 					</div>
 				</div>
+			
 				<!-- /breadcrumb -->
 @endsection
 @section('content')
+@if(auth()->user()->jop_title == "Admin")
+
+<div>
+
 
 
 				<!-- row -->
@@ -202,6 +208,124 @@
 				<!-- /row -->
 			</div>
 		</div>
+
+</div>
+
+
+				@else
+				<div>
+
+
+
+					<!-- row -->
+					<div class="row">
+						<div class="col-lg-3 col-md-6">
+							<div class="card  bg-primary-gradient">
+								<div class="card-body">
+									<div class="counter-status d-flex md-mb-0">
+										<div class="counter-icon">
+											<i class="icon icon-people"></i>
+										</div>
+										<div class="mr-auto">
+											<h5 class="tx-13 tx-white-8 mb-3">كل مشاركاتك</h5>
+											<h2 class="counter mb-0 text-white">{{$users->count()}}</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="card  bg-danger-gradient">
+								<div class="card-body">
+									<div class="counter-status d-flex md-mb-0">
+										<div class="counter-icon text-warning">
+											<i class="far fa-eye"></i>
+										</div>
+										<div class="mr-auto">
+											<h5 class="tx-13 tx-white-8 mb-3">مشاهدات اليوم</h5>
+											<h2 class="counter mb-0 text-white">{{$views}}</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="card  bg-success-gradient">
+								<div class="card-body">
+									<div class="counter-status d-flex md-mb-0">
+										<div class="counter-icon text-primary">
+											<i class="far fa-futbol"></i>
+										</div>
+										<div class="mr-auto">
+											<h5 class="tx-13 tx-white-8 mb-3"> مباريات اليوم</h5>
+											<h2 class="counter mb-0 text-white">{{$mobara->count()}}</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<div class="card  bg-warning-gradient">
+								<div class="card-body">
+									<div class="counter-status d-flex md-mb-0">
+										<div class="counter-icon text-success">
+											<i class="far fa-user"></i>
+										</div>
+										<div class="mr-auto">
+											<h5 class="tx-13 tx-white-8 mb-3">جميع الموظفين</h5>
+											<h2 class="counter mb-0 text-white">{{$employees->count()}}</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- row closed -->
+	
+	
+					<!-- row opened -->
+					<div class="row row-sm row-deck">
+					
+						<div class="col-md-12 col-lg-12 col-xl-12">
+							<div class="card card-table-two">
+								<div class="d-flex justify-content-between">
+									<h4 class="card-title mb-1">أخر عمليات بحث</h4>
+									<i class="mdi mdi-dots-horizontal text-gray"></i>
+								</div>
+								<span class="tx-12 tx-muted mb-3 ">عرض أخر عمليات بحث على التطبيق .</span>
+								<div class="table-responsive country-table">
+									<table class="table table-striped table-bordered mb-0 text-sm-nowrap text-lg-nowrap text-xl-nowrap">
+										<thead>
+											<tr>
+												<th class="wd-lg-25p">التاريخ</th>
+												<th class="wd-lg-25p tx-right">توقيت البحث</th>
+												<th class="wd-lg-25p tx-right">عملية البحث</th>
+												<th class="wd-lg-25p tx-right">المستخدم</th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach ($search  as $s)
+											<tr>
+												<td>{{$s->created_at->format('Y/m/d')}}</td>
+												<td class="tx-right tx-medium tx-inverse">{{$s->created_at->diffForhumans()}}</td>
+												<td class="tx-right tx-medium tx-inverse">{{$s->content}}</td>
+												<td class="tx-right tx-medium tx-inverse">{{$s->user->full_name}}</td>
+											</tr>
+											@endforeach
+											
+									
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /row -->
+				</div>
+			</div>
+	
+	</div>
+				@endif
 		<!-- Container closed -->
 @endsection
 @section('js')
