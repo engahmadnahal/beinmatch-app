@@ -33,8 +33,8 @@
 @endsection
 @section('content')
     <!-- Row Content -->
+    <form action="{{route('clubs.store')}}" method="post">
     <div class="row row-sm">
-        <form action="{{route('clubs.show')}}" method="post">
         <div class="col-xl-3 col-lg-3 col-md-12 mb-3 mb-md-0">
                 @csrf
                 <div class="card">
