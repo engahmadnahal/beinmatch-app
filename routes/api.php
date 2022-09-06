@@ -31,16 +31,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 
 Route::prefix('v1')->group(function(){
+
+    // For Web Api match
+    Route::get('/web/mobara/today', [MobaraController::class , 'today']);
+
     /**
      * Change Lang For All Route
      */
     Carbon::setLocale('ar');
     App::setlocale('ar');
 
-    Route::get('/ip',function(Request $request){
-        return response()->json(["user_id" => $request->ip()],200);
-
-    });
+    
     Route::get('/setting',[SettingController::class,'getSetting']);
     Route::post('/log',[LogController::class,'sendLogs']);
     // Auth
