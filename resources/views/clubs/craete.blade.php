@@ -34,14 +34,14 @@
 @section('content')
     <!-- Row Content -->
     <div class="row row-sm">
+        <form action="{{route('clubs.show')}}" method="post">
         <div class="col-xl-3 col-lg-3 col-md-12 mb-3 mb-md-0">
-            <form action="" method="get">
+                @csrf
                 <div class="card">
                     <div class="card-header border-bottom pt-3 pb-3 mb-0 font-weight-bold text-uppercase">الاعدادات</div>
                     <div class="card-body pb-0">
                         <div class="form-group">
                             <label class="form-label">الدوري التابع له</label>
-
 
                                 <select class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true" name="dawry">
 											<option label="Choose one" data-select2-id="3">
@@ -64,7 +64,6 @@
                         <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">حفظ الأن</button>
                     </div>
                 </div>
-            </form>
 
         </div>
 
@@ -106,6 +105,8 @@
 
             </div>
         </div>
+    </form>
+
 
     </div>
     </div>
