@@ -47,8 +47,8 @@
 									</div>
 									<div class="col-sm-4 border-left">
 										<div class="description-block">
-											<h5 class="description-header">اسم المستخدم </h5>
-											<span class="description-text">{{$user->username}} - (USERID#{{$user->id}})</span>
+											<h5 class="description-header"> ايميل المستخدم </h5>
+											<span class="description-text">{{$user->email}}</span>
 										</div>
 									</div>
 									<div class="col-sm-4">
