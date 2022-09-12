@@ -47,6 +47,7 @@ class MobaraResource extends JsonResource
         return [
             'id' => intval($this->id),
             'botola' => intval($this->botola),
+            'voice' => $this->voice,
             'timeStart'=>$this->start,
             'likes'=>$this->like->where('is_like',1)->count(),
             'dislikes'=>$this->like->where('is_like',0)->count(),
