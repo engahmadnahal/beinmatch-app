@@ -45,8 +45,8 @@ Route::prefix('v1')->group(function(){
     Route::get('/setting',[SettingController::class,'getSetting']);
     Route::post('/log',[LogController::class,'sendLogs']);
     // Auth
-    Route::post('/user/login', [UserAuthController::class , 'login']);
-    Route::post('/user/signup', [UserAuthController::class , 'signup']);
+    Route::post('/user/login', [UserAuthController::class , 'login'])->middleware('throttle:2,1');
+    Route::post('/user/signup', [UserAuthController::class , 'signup'])->middleware('throttle:1,1');
 
 
 Route::middleware('auth:sanctum')->group(function(){
