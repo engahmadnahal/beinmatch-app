@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
+
+// This is test get server
 /*
 |--------------------------------------------------------------------------
 | API Routes
