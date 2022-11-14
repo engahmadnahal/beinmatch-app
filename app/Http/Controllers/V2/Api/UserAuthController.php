@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\V2\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\MainResource;
@@ -12,7 +12,10 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Mockery\Expectation;
 use Nette\Utils\Random;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,30 +36,60 @@ class UserAuthController extends Controller
             'password' => 'required|min:6|max:12',
         ]);
         if(!$validator->fails()){
-            if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password],true)){
                 $user = User::where('email',$request->email)->where('status','active')->first();
-                // For check staus user [active,delete,block]
                 if(is_null($user)){
                     return response()->json(['status'=>false,'message'=>"الحساب غير موجود او محظور"],Response::HTTP_BAD_REQUEST);
                 }
-                $token = $user->createToken('beinmatchapp');
-                // Set Token To User Resource
-                $user['token'] = $token->plainTextToken;
-                return response()->json([
-                    'message' => 'تم التسجيل بنجاح',
-                    'data' => $user,
-                ], Response::HTTP_OK);
-            }else{
-                return response()->json([
-                    'message' => 'كلمة المرور غير صحيحة'
-                ], Response::HTTP_BAD_REQUEST);
-            }
+                return $this->generateToken($request,$user);
+                
+            
         }else{
             return response()->json(['status'=>false,'message'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
         }
 
     }
 
+    private function generateToken(Request $request, $user,$type = 'login')
+    {
+        try {
+        $response = Http::asForm()->post(env('API_TOKEN_URL'), [
+            'grant_type' => 'password',
+            'client_id' => env('USER_CLIENT_ID'),
+            'client_secret' => env('USER_CLIENT_SECRET'),
+            'username' => $request->get('email'),
+            'password' => $request->get('password'),
+            'scope' => '*',
+        ]);
+
+        
+        $user->setAttribute('token', $response->json()['access_token']);
+        $user->setAttribute('token_type', $response->json()['token_type']);
+        $user->setAttribute('refresh_token', $response->json()['refresh_token']);
+        $this->revokePreviousTokens($user);
+        try{
+            $user->avater = Storage::url($user->avater);
+        }catch(Exception $e){
+            $user->avater = env('APP_URL') . '/' . $user->avater;
+        }
+        return response()->json([
+            'status' => true,
+            'message' => 'تم التسجيل بنجاح',
+            'data' => $user,
+        ], Response::HTTP_OK);
+        } catch (Exception $e) {
+            $message = '';
+            if ($response->json()['error'] == 'invalid_grant') {
+                $message = 'حدث خطأ اثناء التسيجل';
+            } else {
+                $message = 'جدث حطأ ما !';
+            }
+            return response()->json([
+                'status' => false,
+                'message' => $message,
+            ], Response::HTTP_BAD_REQUEST);
+        }
+    }
+    
     public function signup(Request $request){
         $validator = Validator($request->all(), [
             'fname' => 'required|string',
@@ -80,21 +113,18 @@ class UserAuthController extends Controller
                 $user->os_mobile = $request->os_mobile;
                 $isSaved = $user->save();
 
-                $token = $user->createToken('beinmatchapp');
-                $user['token'] = $token->plainTextToken;
-
                 // Send notification For Admin When Register new User
                 $admin = Employee::where('jop_title','Admin')->where('email','admin@admin.com')->first();
                 $data['title'] = "تم تسجيل مستخدم جديد";
                 $data['body'] = "لقد سجل المستخدم " .$request->fname . " ". $request->lname . "من خلال التطبيق ويملك الايميل  ".$request->email;
                 $admin->notify(new AdminDashNotification($data));
 
-
+                $this->generateToken($request,$user,'register');
                 
-                return response()->json([
-                    'message' => $isSaved  ? 'تم التسجيل بنجاح' : 'حدث خطأ أثناء التسحيل حاول مجدداً',
-                    'data' => $user,
-                ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
+                // return response()->json([
+                //     'message' => $isSaved  ? 'تم التسجيل بنجاح' : 'حدث خطأ أثناء التسحيل حاول مجدداً',
+                //     'data' => $user,
+                // ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
             }catch(Exception $e){
                 return response()->json([
                     'message' => 'حدث خطأ ما',
@@ -119,7 +149,8 @@ class UserAuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        $token = auth('user-api')->user()->token();
+        $isRevoked = $token->revoke();
         return response()->json([
             'message' => 'Logout Successful'
         ], Response::HTTP_OK);
@@ -147,6 +178,15 @@ class UserAuthController extends Controller
 
     public function statusUser(){
         return response()->json(['status'=>auth()->user()->status],Response::HTTP_OK);
+    }
+
+    private function revokePreviousTokens($userId)
+    {
+        DB::table('oauth_access_tokens')
+            ->where('user_id', $userId)
+            ->update([
+                'revoked' => true
+            ]);
     }
 
 }

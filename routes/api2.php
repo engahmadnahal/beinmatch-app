@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\Api\ClubController;
-use App\Http\Controllers\Api\DawryController;
-use App\Http\Controllers\Api\LogController;
-use App\Http\Controllers\Api\MobaraController;
-use App\Http\Controllers\Api\NotificationController;
-use App\Http\Controllers\Api\PostController;
-use App\Http\Controllers\Api\SearchController;
-use App\Http\Controllers\Api\SettingController;
-use App\Http\Controllers\Api\SupportController;
-use App\Http\Controllers\Api\UserAuthController;
+use App\Http\Controllers\V2\Api\ClubController;
+use App\Http\Controllers\V2\Api\DawryController;
+use App\Http\Controllers\V2\Api\LogController;
+use App\Http\Controllers\V2\Api\MobaraController;
+use App\Http\Controllers\V2\Api\NotificationController;
+use App\Http\Controllers\V2\Api\PostController;
+use App\Http\Controllers\V2\Api\SearchController;
+use App\Http\Controllers\V2\Api\SettingController;
+use App\Http\Controllers\V2\Api\SupportController;
+use App\Http\Controllers\V2\Api\UserAuthController;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v2')->group(function () {
 
     // For Web Api match
     Route::get('/web/mobara/today', [MobaraController::class, 'today']);
@@ -43,11 +43,11 @@ Route::prefix('v1')->group(function () {
     Route::get('/setting', [SettingController::class, 'getSetting']);
     Route::post('/log', [LogController::class, 'sendLogs']);
     // Auth
-    Route::post('/user/login', [UserAuthController::class, 'login'])->middleware('throttle:2,1');
-    Route::post('/user/signup', [UserAuthController::class, 'signup'])->middleware('throttle:1,1');
+    Route::post('/user/login', [UserAuthController::class, 'login']);
+    Route::post('/user/signup', [UserAuthController::class, 'signup']);
 
 
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('auth:user-api')->group(function () {
 
         /**
          *
