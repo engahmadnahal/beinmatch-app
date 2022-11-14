@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\V2;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -49,7 +49,7 @@ class MobaraResource extends JsonResource
             'id' => intval($this->id),
             'botola' => intval($this->botola),
             'voice' => $this->voice_over,
-            'timeStart'=>$this->start,
+            'timeStart'=>Carbon::parse($this->start)->format('g:i A') . ' KSA',
             'likes'=>$this->like->where('is_like',1)->count(),
             'dislikes'=>$this->like->where('is_like',0)->count(),
             'poll_to_club_one' => $this->poll->where('club_one',1)->count(),
