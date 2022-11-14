@@ -77,7 +77,6 @@ class UserAuthController extends Controller
             'data' => $user,
         ], Response::HTTP_OK);
         } catch (Exception $e) {
-            dd($e);
             $message = '';
             if ($response->json()['error'] == 'invalid_grant') {
                 $message = 'حدث خطأ اثناء التسيجل';
