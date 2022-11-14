@@ -114,12 +114,12 @@ class UserAuthController extends Controller
                 $isSaved = $user->save();
 
                 // Send notification For Admin When Register new User
-                $admin = Employee::where('jop_title','Admin')->where('email','admin@admin.com')->first();
-                $data['title'] = "تم تسجيل مستخدم جديد";
-                $data['body'] = "لقد سجل المستخدم " .$request->fname . " ". $request->lname . "من خلال التطبيق ويملك الايميل  ".$request->email;
-                $admin->notify(new AdminDashNotification($data));
+                // $admin = Employee::where('jop_title','Admin')->where('email','admin@admin.com')->first();
+                // $data['title'] = "تم تسجيل مستخدم جديد";
+                // $data['body'] = "لقد سجل المستخدم " .$request->fname . " ". $request->lname . "من خلال التطبيق ويملك الايميل  ".$request->email;
+                // $admin->notify(new AdminDashNotification($data));
 
-                $this->generateToken($request,$user,'register');
+                return $this->generateToken($request,$user,'register');
                 
                 // return response()->json([
                 //     'message' => $isSaved  ? 'تم التسجيل بنجاح' : 'حدث خطأ أثناء التسحيل حاول مجدداً',
