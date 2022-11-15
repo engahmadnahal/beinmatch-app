@@ -184,6 +184,20 @@ span.select2 {
                                     <input class="form-control" type="text" placeholder="اسم المعلق.." name="voice" value="{{$mobara->voice_over}}">
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">الملعب: </label>
+                                    <input class="form-control" type="text" placeholder="الملعب .." name="stadium" value="{{$mobara->stadium}}">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">تاريخ المباراة: </label>
+                                    <input class="form-control" type="date" placeholder=" تاريخ المباراة .." name="date_match" value="{{$mobara->date_match}}">
+                                </div>
+                            </div>
                         </div>
                 </div>
             </div>

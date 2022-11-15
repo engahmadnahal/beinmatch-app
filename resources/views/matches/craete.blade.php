@@ -157,6 +157,13 @@ span.select2 {
 
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label class="form-label">الملعب: </label>
+                                    <input class="form-control" type="text" placeholder="الملعب .." id="stadium">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
                                     <label class="form-label">تاريخ المباراة: </label>
                                     <input class="form-control" type="date" placeholder=" تاريخ المباراة .." id="date_match">
                                 </div>
@@ -260,6 +267,8 @@ $('#timeStart').appendDtpicker({
             voice : document.getElementById('voice').value,
             channel : document.getElementById('channel').value,
             date_match : document.getElementById('date_match').value,
+            stadium : document.getElementById('stadium').value,
+            
         };
         axios.post('/mobaras',data).then(function(response){
 			    toastr.success(response.data.msg);

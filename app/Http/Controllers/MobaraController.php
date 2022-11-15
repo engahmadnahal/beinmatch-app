@@ -66,7 +66,8 @@ class MobaraController extends Controller
             "timeStart" => "required|string",
             "voice" => "required|string",
             "channel" => "required|numeric|exists:channels,id",
-            'date_match' => 'required|string'
+            'date_match' => 'required|string',
+            'stadium' => 'required|string'
 
         ]);
 
@@ -80,6 +81,7 @@ class MobaraController extends Controller
             $mobara->channel_id = $request->input('channel');
             $mobara->voice_over = $request->input('voice');
             $mobara->date_match = $request->input('date_match');
+            $mobara->stadium = $request->input('stadium');
             $mobara->publish_at = $request->input('publish_match') ? Carbon::createFromTimestamp(time()) : null;
             $mobara->save();
 
@@ -141,11 +143,12 @@ class MobaraController extends Controller
             "publish_match"=>'nullable|string',
             "club_one" => "required|numeric|exists:clubs,id",
             "club_two" => "required|numeric|exists:clubs,id",
-            "botola" => "required|numeric|exists|dawries,id",
+            "botola" => "required|numeric|exists:dawries,id",
             "timeStart" => "required|string",
             "voice" => "required|string",
             "channel" => "required|numeric|exists:channels,id",
-            'date_match' => 'required|string'
+            'date_match' => 'required|string',
+            'stadium' => 'required|string'
 
         ]);
         $mobara->employee_id = auth()->user()->id;
