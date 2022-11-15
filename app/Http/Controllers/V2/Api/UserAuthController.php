@@ -65,8 +65,7 @@ class UserAuthController extends Controller
         $user->setAttribute('token', $response->json()['access_token']);
         $user->setAttribute('token_type', $response->json()['token_type']);
         $user->setAttribute('refresh_token', $response->json()['refresh_token']);
-        dd($response->json());
-        $this->revokePreviousTokens($user);
+        $this->revokePreviousTokens($user->id);
 
         try{
             $user->avater = Storage::url($user->avater);
