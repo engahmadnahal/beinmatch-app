@@ -52,7 +52,7 @@ class UserAuthController extends Controller
     private function generateToken(Request $request, $user,$type = 'login')
     {
 
-        try {
+        // try {
         $response = Http::asForm()->post(env('API_TOKEN_URL'), [
             'grant_type' => 'password',
             'client_id' => env('USER_CLIENT_ID'),
@@ -66,28 +66,28 @@ class UserAuthController extends Controller
         $user->setAttribute('token_type', $response->json()['token_type']);
         $user->setAttribute('refresh_token', $response->json()['refresh_token']);
         $this->revokePreviousTokens($user);
-        try{
-            $user->avater = Storage::url($user->avater);
-        }catch(Exception $e){
-            $user->avater = env('APP_URL') . '/' . $user->avater;
-        }
+        $user->avater = Storage::url($user->avater);
+        // try{
+        // }catch(Exception $e){
+        //     $user->avater = env('APP_URL') . '/' . $user->avater;
+        // }
         return response()->json([
             'status' => true,
             'message' => 'تم التسجيل بنجاح',
             'data' => $user,
         ], Response::HTTP_OK);
-        } catch (Exception $e) {
-            $message = '';
-            if ($response->json()['error'] == 'invalid_grant') {
-                $message = 'حدث خطأ اثناء التسيجل';
-            } else {
-                $message = 'حدث حطأ ما !';
-            }
-            return response()->json([
-                'status' => false,
-                'message' => $message,
-            ], Response::HTTP_BAD_REQUEST);
-        }
+        // } catch (Exception $e) {
+        //     $message = '';
+        //     if ($response->json()['error'] == 'invalid_grant') {
+        //         $message = 'حدث خطأ اثناء التسيجل';
+        //     } else {
+        //         $message = 'حدث حطأ ما !';
+        //     }
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => $message,
+        //     ], Response::HTTP_BAD_REQUEST);
+        // }
     }
     
     public function signup(Request $request){
