@@ -7,6 +7,7 @@ use App\Http\Resources\MainResource;
 use App\Http\Resources\UserResource;
 use App\Models\Employee;
 use App\Models\User;
+use App\Models\UserPassportApi;
 use App\Notifications\AdminDashNotification;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -36,7 +37,7 @@ class UserAuthController extends Controller
             'password' => 'required|min:6|max:12',
         ]);
         if(!$validator->fails()){
-                $user = User::where('email',$request->email)->where('status','active')->first();
+                $user = UserPassportApi::where('email',$request->email)->where('status','active')->first();
                 if(is_null($user)){
                     return response()->json(['status'=>false,'message'=>"الحساب غير موجود او محظور"],Response::HTTP_BAD_REQUEST);
                 }
@@ -111,7 +112,7 @@ class UserAuthController extends Controller
             //         'error' => $e->getMessage()
             //     ], Response::HTTP_BAD_REQUEST);
             // }
-                $user = new User();
+                $user = new UserPassportApi();
                 $user->fname = $request->fname;
                 $user->lname = $request->lname;
                 $user->email = $request->email;
