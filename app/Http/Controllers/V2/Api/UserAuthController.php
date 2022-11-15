@@ -100,7 +100,13 @@ class UserAuthController extends Controller
         ]);
 
         if(! $validator->fails()) {
-            try{
+            // try{
+            // }catch(Exception $e){
+            //     return response()->json([
+            //         'message' => 'حدث خطأ ما',
+            //         'error' => $e->getMessage()
+            //     ], Response::HTTP_BAD_REQUEST);
+            // }
                 $user = new User();
                 $user->fname = $request->fname;
                 $user->lname = $request->lname;
@@ -125,12 +131,7 @@ class UserAuthController extends Controller
                 //     'message' => $isSaved  ? 'تم التسجيل بنجاح' : 'حدث خطأ أثناء التسحيل حاول مجدداً',
                 //     'data' => $user,
                 // ], $isSaved ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
-            }catch(Exception $e){
-                return response()->json([
-                    'message' => 'حدث خطأ ما',
-                    'error' => $e->getMessage()
-                ], Response::HTTP_BAD_REQUEST);
-            }
+            
 
         }else {
             return response()->json(['status'=>false,'message'=>$validator->getMessageBag()->first()],Response::HTTP_BAD_REQUEST);
