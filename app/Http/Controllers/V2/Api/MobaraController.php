@@ -45,7 +45,7 @@ class MobaraController extends Controller
     public function today()
     {
         // check data today equal created_at
-        $mobara = Mobara::whereDate('date_match',Carbon::today())->where('publish_at','<>',null)->get();
+        $mobara = Mobara::whereDate('date_match',Carbon::today())->where('publish_at','<>',null)->orderBy('start')->get();
         return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات اليوم بنجاح');
 
     }

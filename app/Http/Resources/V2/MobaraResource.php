@@ -49,6 +49,7 @@ class MobaraResource extends JsonResource
             'id' => intval($this->id),
             'botola' => intval($this->botola),
             'voice' => $this->voice_over,
+            'isStart' => false,
             'timeStart'=>Carbon::parse($this->start)->timezone($this->getTimeZone($this->extra != null ? $this->extra->zone : null))->format('g:i A'),
             'likes'=>$this->like->where('is_like',1)->count(),
             'dislikes'=>$this->like->where('is_like',0)->count(),
