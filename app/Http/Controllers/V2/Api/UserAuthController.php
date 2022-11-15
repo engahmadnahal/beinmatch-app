@@ -61,11 +61,11 @@ class UserAuthController extends Controller
             'password' => $request->get('password'),
             'scope' => '*',
         ]);
-        dd($response->json());
-
+        
         $user->setAttribute('token', $response->json()['access_token']);
         $user->setAttribute('token_type', $response->json()['token_type']);
         $user->setAttribute('refresh_token', $response->json()['refresh_token']);
+        dd($response->json());
         $this->revokePreviousTokens($user);
 
         try{
