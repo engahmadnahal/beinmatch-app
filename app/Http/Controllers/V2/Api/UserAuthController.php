@@ -66,12 +66,13 @@ class UserAuthController extends Controller
         $user->setAttribute('token_type', $response->json()['token_type']);
         $user->setAttribute('refresh_token', $response->json()['refresh_token']);
         $this->revokePreviousTokens($user);
+        dd($response->json());
+
         try{
             $user->avater = Storage::url($user->avater);
         }catch(Exception $e){
             $user->avater = env('APP_URL') . '/' . $user->avater;
         }
-        dd($response->json());
 
         return response()->json([
             'status' => true,
