@@ -53,6 +53,9 @@ class UserAuthController extends Controller
     {
 
         try {
+            if($type == 'login'){
+                $this->revokePreviousTokens($user->id);
+            }
         $response = Http::asForm()->post(env('API_TOKEN_URL'), [
             'grant_type' => 'password',
             'client_id' => env('USER_CLIENT_ID'),
@@ -65,7 +68,6 @@ class UserAuthController extends Controller
         $user->setAttribute('token', $response->json()['access_token']);
         $user->setAttribute('token_type', $response->json()['token_type']);
         $user->setAttribute('refresh_token', $response->json()['refresh_token']);
-        $this->revokePreviousTokens($user->id);
 
         try{
             $user->avater = Storage::url($user->avater);
