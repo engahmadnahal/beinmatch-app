@@ -58,6 +58,8 @@ Route::prefix('v2')->group(function () {
         Route::get('/mobara', [MobaraController::class, 'index']);
         // Get All Mobara Api For non Auth users
         Route::get('/mobara/today', [MobaraController::class, 'today']);
+        Route::get('/mobara/today/next', [MobaraController::class, 'nextMatch']);
+        Route::post('/mobara/today/zone', [MobaraController::class, 'todayZone']);
         Route::get('/mobara/tomorrow', [MobaraController::class, 'tomorrow']);
         Route::get('/mobara/ysetday', [MobaraController::class, 'ysetday']);
         // Get Single Mobara Api For non Auth users

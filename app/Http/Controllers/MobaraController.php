@@ -58,27 +58,40 @@ class MobaraController extends Controller
     public function store(Request $request)
     {
         // id	employee_id	club_one_id	club_two_id	start	botola	channel_id	voice_over	publish_at
-        $request->validate([
-            "publish_match"=>'nullable',
-            "club_one" => "required",
-            "club_two" => "required",
-            "botola" => "required",
-            "timeStart" => "required",
-            "voice" => "required",
-            "channel" => "required",
+        $validator = Validator($request->all(),[
+            "publish_match"=>'nullable|boolean',
+            "club_one" => "required|numeric|exists:clubs,id",
+            "club_two" => "required|numeric|exists:clubs,id",
+            "botola" => "required|numeric|exists:dawries,id",
+            "timeStart" => "required|string",
+            "voice" => "required|string",
+            "channel" => "required|numeric|exists:channels,id",
+            'date_match' => 'required|string'
 
         ]);
-        $mobara = new Mobara();
-        $mobara->employee_id = auth()->user()->id;
-        $mobara->club_one_id = $request->input('club_one');
-        $mobara->club_two_id = $request->input('club_two');
-        $mobara->start = $request->input('timeStart');
-        $mobara->botola = $request->input('botola');
-        $mobara->channel_id = $request->input('channel');
-        $mobara->voice_over = $request->input('voice');
-        $mobara->publish_at = $request->input('publish_match') == 'on' ? Carbon::createFromTimestamp(time()) : null;
-        $mobara->save();
-        return redirect()->route('mobaras.index');
+
+        if(!$validator->fails()){
+            $mobara = new Mobara();
+            $mobara->employee_id = auth()->user()->id;
+            $mobara->club_one_id = $request->input('club_one');
+            $mobara->club_two_id = $request->input('club_two');
+            $mobara->start = Carbon::parse($request->input('timeStart'));
+            $mobara->botola = $request->input('botola');
+            $mobara->channel_id = $request->input('channel');
+            $mobara->voice_over = $request->input('voice');
+            $mobara->date_match = $request->input('date_match');
+            $mobara->publish_at = $request->input('publish_match') ? Carbon::createFromTimestamp(time()) : null;
+            $mobara->save();
+
+            return response()->json([
+                'msg' => 'تم الانشاء بنجاح'
+            ],Response::HTTP_OK);
+        }else{
+            return response()->json([
+                'msg' => $validator->getMessageBag()->first()
+            ],Response::HTTP_BAD_REQUEST);
+        }
+        
 
     }
 
@@ -125,13 +138,14 @@ class MobaraController extends Controller
     {
         //
         $request->validate([
-            "publish_match"=>'nullable',
-            "club_one" => "required",
-            "club_two" => "required",
-            "botola" => "required",
-            "timeStart" => "required",
-            "voice" => "required",
-            "channel" => "required",
+            "publish_match"=>'nullable|string',
+            "club_one" => "required|numeric|exists:clubs,id",
+            "club_two" => "required|numeric|exists:clubs,id",
+            "botola" => "required|numeric|exists|dawries,id",
+            "timeStart" => "required|string",
+            "voice" => "required|string",
+            "channel" => "required|numeric|exists:channels,id",
+            'date_match' => 'required|string'
 
         ]);
         $mobara->employee_id = auth()->user()->id;
@@ -141,6 +155,7 @@ class MobaraController extends Controller
         $mobara->botola = $request->input('botola');
         $mobara->channel_id = $request->input('channel');
         $mobara->voice_over = $request->input('voice');
+        $mobara->date_match = $request->input('date_match');
         $mobara->publish_at = $request->input('publish_match') == 'on' ? Carbon::createFromTimestamp(time()) : null;
         $mobara->save();
         return redirect()->route('mobaras.index');

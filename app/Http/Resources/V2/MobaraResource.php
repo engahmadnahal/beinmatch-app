@@ -44,12 +44,12 @@ class MobaraResource extends JsonResource
             }
         }
 
-
+        
         return [
             'id' => intval($this->id),
             'botola' => intval($this->botola),
             'voice' => $this->voice_over,
-            'timeStart'=>Carbon::parse($this->start)->format('g:i A'),
+            'timeStart'=>Carbon::parse($this->start)->timezone($this->getTimeZone($this->extra != null ? $this->extra->zone : null))->format('g:i A'),
             'likes'=>$this->like->where('is_like',1)->count(),
             'dislikes'=>$this->like->where('is_like',0)->count(),
             'poll_to_club_one' => $this->poll->where('club_one',1)->count(),
@@ -85,5 +85,24 @@ class MobaraResource extends JsonResource
                 }),
             ],
         ];
+    }
+
+
+    public function getTimeZone($tz){
+        /**
+         * 
+         * [
+         *  '1' => KSA,
+         *  '2' => EG,
+         *  '3' => Morocoo
+         * ]
+         */
+        if($tz == 2){
+            return 'Africa/Cairo';
+
+        }else if($tz == 3){
+            return 'Africa/Algiers';
+        }
+    return config('app.timezone');
     }
 }

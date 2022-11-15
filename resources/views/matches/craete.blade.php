@@ -42,21 +42,10 @@ span.select2 {
                 <div class="card-header border-bottom pt-3 pb-3 mb-0 font-weight-bold text-uppercase">الاعدادات</div>
                 <div class="card-body pb-0">
                     <div class="form-group">
-                        {{-- <label class="form-label">التصنيفات</label>
-                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true" name="dawry">
-											<option label="Choose one" data-select2-id="3">
-											</option>
-											@foreach ($dawrys as $dawry)
-                                                <option value="{{$dawry->id}}">
-                                                    {{$dawry->name}}
-                                                </option>
-                                            @endforeach
-										</select> --}}
-
 
                         <label class="form-label">نشر المقال</label>
                         <div class="publish main-toggle main-toggle-secondary">
-                            <input type="checkbox" name="publish_match" id="publish" style="display: none">
+                            <input type="checkbox" id="publish_match" id="publish" style="display: none">
                             <span></span>
                         </div>
 
@@ -66,7 +55,7 @@ span.select2 {
                 </div>
 
                 <div class="py-2 px-3">
-                    <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="submit">حفظ الأن</button>
+                    <button class="btn btn-primary-gradient mt-2 mb-2 pb-2" type="button" onclick="performStore()">حفظ الأن</button>
                 </div>
             </div>
 
@@ -83,7 +72,7 @@ span.select2 {
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
                                     <label class="form-label">اسم الفريق الاول: </label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="3" tabindex="-1" aria-hidden="true" name="club_one">
+                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="3" tabindex="-1" aria-hidden="true" id="club_one">
 											<option label="Choose one" data-select2-id="3">
 											</option>
 											@foreach ( $clubs as $club)
@@ -97,7 +86,7 @@ span.select2 {
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">اسم الفريق الثاني: </label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="6" tabindex="-1" aria-hidden="true" name="club_two">
+                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="6" tabindex="-1" aria-hidden="true" id="club_two">
 											<option label="Choose one" data-select2-id="3">
 											</option>
 
@@ -115,7 +104,7 @@ span.select2 {
                             <div class="col-6">
                                 <div class="form-group mg-b-0">
                                     <label class="form-label">البطولة: </label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="4" tabindex="-1" aria-hidden="true" name="botola">
+                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="4" tabindex="-1" aria-hidden="true" id="botola">
 											<option label="Choose one" data-select2-id="4">
 											</option>
 											@foreach ($dawrys as $dawry)
@@ -130,7 +119,7 @@ span.select2 {
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">القناة الناقلة: </label>
-                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="5" tabindex="-1" aria-hidden="true" name="channel">
+                                        <select class="form-control select2 select2-hidden-accessible" data-select2-id="5" tabindex="-1" aria-hidden="true" id="channel">
 											<option label="Choose one" data-select2-id="1">
 											</option>
 											@foreach ($channel as $item)
@@ -153,15 +142,23 @@ span.select2 {
 											<div class="input-group-text">
 												<i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
 											</div>
-										</div><input class="form-control" id="datetimepicker2" type="text" value="2022-01-01 21:05" name="timeStart">
+										</div><input class="form-control" type="text" value="{{Carbon::now()}}" id="timeStart">
 									</div>
                                 </div>
                             </div>
+                            
                             {{-- {{dd(date('Y-m-d H:i:s', strtotime("14:05")))}} --}}
                             <div class="col-6">
                                 <div class="form-group">
                                     <label class="form-label">المعلق: </label>
-                                    <input class="form-control" type="text" placeholder="اسم المعلق.." name="voice">
+                                    <input class="form-control" type="text" placeholder="اسم المعلق.." id="voice">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">تاريخ المباراة: </label>
+                                    <input class="form-control" type="date" placeholder=" تاريخ المباراة .." id="date_match">
                                 </div>
                             </div>
                         </div>
@@ -195,15 +192,13 @@ span.select2 {
 
 $('.publish').on('click', function() {
 		$(this).toggleClass('on');
-        let attr = $("#publish").attr('checked');
+        let attr = $("#publish_match").attr('checked');
 
         if(attr == undefined){
-            console.log(true);
-            $("#publish").attr('checked','checked');
+            $("#publish_match").attr('checked','checked');
         }else{
 
-            $("#publish").removeAttr('checked');
-            console.log(false);
+            $("#publish_match").removeAttr('checked');
 
 
         }
@@ -247,12 +242,30 @@ $(document).ready(function() {
 		});
 	});
 
-$('#datetimepicker2').appendDtpicker({
+$('#timeStart').appendDtpicker({
 		closeOnSelected: true,
 		onInit: function(handler) {
 			var picker = handler.getPicker();
 			$(picker).addClass('main-datetimepicker');
 		}
 	});
+
+    function performStore(){
+         let data = {
+            publish_match : document.getElementById('publish_match').checked,
+            club_one : document.getElementById('club_one').value,
+            club_two : document.getElementById('club_two').value,
+            botola : document.getElementById('botola').value,
+            timeStart : document.getElementById('timeStart').value,
+            voice : document.getElementById('voice').value,
+            channel : document.getElementById('channel').value,
+            date_match : document.getElementById('date_match').value,
+        };
+        axios.post('/mobaras',data).then(function(response){
+			    toastr.success(response.data.msg);
+            }).catch(function(error){
+                toastr.error(error.response.data.msg);
+            });
+    }
     </script>
 @endsection

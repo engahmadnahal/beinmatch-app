@@ -33,6 +33,11 @@ class MobaraController extends Controller
 
     }
 
+    public function nextMatch(){
+        $mobara = Mobara::where('publish_at','<>',null)->whereDate('date_match',Carbon::today())->orderBy('start')->first();
+        return new MainResource(new MobaraResource($mobara),Response::HTTP_OK,'تم جلب مباريات اليوم بنجاح');
+    }
+
     /**
      *
      * Get Match for today
@@ -40,11 +45,21 @@ class MobaraController extends Controller
     public function today()
     {
         // check data today equal created_at
-        $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::today())->get();
+        $mobara = Mobara::whereDate('date_match',Carbon::today())->where('publish_at','<>',null)->get();
         return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات اليوم بنجاح');
 
     }
 
+    public function todayZone(Request $request)
+    {
+        // check data today equal created_at
+        $mobara = Mobara::where('publish_at','<>',null)->whereDate('date_match',Carbon::today())->get();
+        foreach($mobara as $m){
+            $m->extra = (object) ['zone' => $request->zone];
+        }
+        return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات اليوم بنجاح');
+
+    }
     /**
      *
      * Get Match for tomorrow
@@ -52,7 +67,7 @@ class MobaraController extends Controller
     public function tomorrow()
     {
         // check data tomorrow equal created_at
-        $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::tomorrow())->get();
+        $mobara = Mobara::where('publish_at','<>',null)->whereDate('date_match',Carbon::tomorrow())->get();
         return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات الغد بنجاح');
 
     }
@@ -64,7 +79,7 @@ class MobaraController extends Controller
     public function ysetday()
     {
         // check data ysetday equal created_at
-        $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::yesterday())->get();
+        $mobara = Mobara::where('publish_at','<>',null)->whereDate('date_match',Carbon::yesterday())->get();
         return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات الامس بنجاح');
 
     }
