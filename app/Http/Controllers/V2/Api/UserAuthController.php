@@ -51,6 +51,7 @@ class UserAuthController extends Controller
 
     private function generateToken(Request $request, $user,$type = 'login')
     {
+
         try {
         $response = Http::asForm()->post(env('API_TOKEN_URL'), [
             'grant_type' => 'password',
@@ -61,7 +62,7 @@ class UserAuthController extends Controller
             'scope' => '*',
         ]);
 
-        
+        dd($response);
         $user->setAttribute('token', $response->json()['access_token']);
         $user->setAttribute('token_type', $response->json()['token_type']);
         $user->setAttribute('refresh_token', $response->json()['refresh_token']);
