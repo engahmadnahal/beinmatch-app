@@ -62,7 +62,6 @@ class UserAuthController extends Controller
             'scope' => '*',
         ]);
 
-        dd($response->json());
         $user->setAttribute('token', $response->json()['access_token']);
         $user->setAttribute('token_type', $response->json()['token_type']);
         $user->setAttribute('refresh_token', $response->json()['refresh_token']);
