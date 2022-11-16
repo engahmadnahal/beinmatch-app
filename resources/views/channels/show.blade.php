@@ -38,18 +38,20 @@ form {
                 <div class="card-body h-100">
                     <div class="row row-sm ">
                         <div class=" col-xl-5 col-lg-12 col-md-12">
+
                             <div class="preview-pic tab-content">
                                 <div class="tab-pane active" id="pic-1">
-                                    <img src="#"
-                                        alt="image">
-                                    </div>
                             </div>
 
                         </div>
+
                         <div class="details col-xl-7 col-lg-12 col-md-12 mt-4 mt-xl-0">
                             <h4 class="product-title mb-1">{{$channel->name}}</h4>
                             @foreach (json_decode($channel->urls) as $key => $item)
                                 <p class="btn btn-primary">{{$key}}</b></p>
+                                <iframe src="{{$item}}" title="Cairokee - Ana El Segara كايروكي - أنا السيجارة" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <br>
+
                             @endforeach
 
                             <br>

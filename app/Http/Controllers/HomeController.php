@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Search;
 use App\Models\User;
 use App\Models\View;
+use App\Models\ViewMobara;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ class HomeController extends Controller
         }else{
             $users = User::where('status','active')->orderBy('created_at','desc')->get();
             $views = View::whereDate('created_at',Carbon::today())->count();
+            $viewsMatch = ViewMobara::whereDate('created_at',Carbon::today())->count();
             $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::today())->get();
             $employees = Employee::where('status','active')->get();
             $search = Search::take(5)->orderBy('created_at','desc')->get();
@@ -31,7 +33,8 @@ class HomeController extends Controller
                 'employees'=>$employees,
                 'mobara'=>$mobara,
                 'search'=>$search,
-                'postUser' => $postUser
+                'postUser' => $postUser,
+                'viewsMatch' => $viewsMatch
             ]);
         }
     }

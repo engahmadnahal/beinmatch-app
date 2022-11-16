@@ -40,8 +40,8 @@ class UserAuthController extends Controller
                     return response()->json(['status'=>false,'message'=>"الحساب غير موجود او محظور"],Response::HTTP_BAD_REQUEST);
                 }
                 $token = $user->createToken('beinmatchapp');
-                // Set Token To User Resource
-                $user['token'] = $token->plainTextToken;
+                $user->setAttribute('token', $token->plainTextToken);
+                
                 return response()->json([
                     'message' => 'تم التسجيل بنجاح',
                     'data' => $user,
@@ -81,13 +81,13 @@ class UserAuthController extends Controller
                 $isSaved = $user->save();
 
                 $token = $user->createToken('beinmatchapp');
-                $user['token'] = $token->plainTextToken;
+                $user->setAttribute('token', $token->plainTextToken);
 
-                // Send notification For Admin When Register new User
-                $admin = Employee::where('jop_title','Admin')->where('email','admin@admin.com')->first();
-                $data['title'] = "تم تسجيل مستخدم جديد";
-                $data['body'] = "لقد سجل المستخدم " .$request->fname . " ". $request->lname . "من خلال التطبيق ويملك الايميل  ".$request->email;
-                $admin->notify(new AdminDashNotification($data));
+                // // Send notification For Admin When Register new User
+                // $admin = Employee::where('jop_title','Admin')->where('email','admin@admin.com')->first();
+                // $data['title'] = "تم تسجيل مستخدم جديد";
+                // $data['body'] = "لقد سجل المستخدم " .$request->fname . " ". $request->lname . "من خلال التطبيق ويملك الايميل  ".$request->email;
+                // $admin->notify(new AdminDashNotification($data));
 
 
                 

@@ -62,7 +62,7 @@
 									</div>
 									<div class="mr-auto">
 										<h5 class="tx-13 tx-white-8 mb-3">مشاهدات اليوم</h5>
-										<h2 class="counter mb-0 text-white">{{$views}}</h2>
+										<h2 class="counter mb-0 text-white">{{$views + $viewsMatch}}</h2>
 									</div>
 								</div>
 							</div>
