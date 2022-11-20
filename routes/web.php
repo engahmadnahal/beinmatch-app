@@ -13,14 +13,17 @@ use App\Http\Controllers\MangerFileController;
 use App\Http\Controllers\MobaraController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\Scraping\GetClubController;
 use App\Http\Controllers\Scraping\GetDawryController;
 use App\Http\Controllers\Scraping\GetMatchController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TermUseController;
 use App\Http\Controllers\UserController;
 use App\Jobs\GetMatchJob;
 use App\Jobs\SendUserNotifyJob;
 use App\Models\MobileToken;
+use App\Models\Privacy;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,6 +89,12 @@ Route::middleware(['auth:admin','verified'])->group(function(){
 
     // Channels
     Route::resource('channels',ChannelController::class);
+
+    Route::get('/privacy/{id}/edit',[PrivacyController::class , 'edit'])->name('privacy.edit');
+    Route::put('/privacy/{id}',[PrivacyController::class , 'update'])->name('privacy.update');
+    
+    Route::get('/term/{id}/edit',[TermUseController::class , 'edit'])->name('term.edit');
+    Route::put('/term/{id}',[TermUseController::class , 'update'])->name('term.update');
 
     // Matches
     Route::get('/mobaras/trash',[MobaraController::class , 'trush'])->name('mobaras.trush');
