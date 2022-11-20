@@ -46,8 +46,8 @@ Route::prefix('v1')->group(function () {
     Route::get('/setting', [SettingController::class, 'getSetting']);
     Route::post('/log', [LogController::class, 'sendLogs']);
 
-    Route::get('/privacy', [PrivacyController::class, 'show']);
-    Route::get('/term', [TermUseController::class, 'show']);
+    Route::get('/privacy/1', [PrivacyController::class, 'show']);
+    Route::get('/term/1', [TermUseController::class, 'show']);
 
     // Auth
     Route::post('/user/login', [UserAuthController::class, 'login'])->middleware('throttle:2,1');
