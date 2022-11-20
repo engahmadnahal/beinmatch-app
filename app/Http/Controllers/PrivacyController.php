@@ -48,6 +48,11 @@ class PrivacyController extends Controller
     public function show(Privacy $privacy)
     {
         //
+        return response()->json([
+            'status' => true,
+            'message' => 'Success',
+            'data' => $privacy
+        ]);
     }
 
     /**

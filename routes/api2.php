@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\TermUseController;
 use App\Http\Controllers\V2\Api\ClubController;
 use App\Http\Controllers\V2\Api\DawryController;
 use App\Http\Controllers\V2\Api\LogController;
@@ -46,7 +48,9 @@ Route::prefix('v2')->group(function () {
     Route::post('/user/login', [UserAuthController::class, 'login']);
     Route::post('/user/signup', [UserAuthController::class, 'signup']);
 
-
+    Route::post('/privacy', [PrivacyController::class, 'show']);
+    Route::post('/term', [TermUseController::class, 'show']);
+    
     Route::middleware('auth:user-api')->group(function () {
 
         /**

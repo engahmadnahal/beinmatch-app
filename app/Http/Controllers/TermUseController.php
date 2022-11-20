@@ -49,6 +49,11 @@ class TermUseController extends Controller
     public function show(TermUse $termUse)
     {
         //
+        return response()->json([
+            'status' => true,
+            'message' => 'Success',
+            'data' => $termUse
+        ]);
     }
 
     /**

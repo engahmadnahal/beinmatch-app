@@ -10,6 +10,9 @@ use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\SupportController;
 use App\Http\Controllers\Api\UserAuthController;
+use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\TermUseController;
+use App\Models\TermUse;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +45,10 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/setting', [SettingController::class, 'getSetting']);
     Route::post('/log', [LogController::class, 'sendLogs']);
+
+    Route::post('/privacy', [PrivacyController::class, 'show']);
+    Route::post('/term', [TermUseController::class, 'show']);
+
     // Auth
     Route::post('/user/login', [UserAuthController::class, 'login'])->middleware('throttle:2,1');
     Route::post('/user/signup', [UserAuthController::class, 'signup'])->middleware('throttle:1,1');
