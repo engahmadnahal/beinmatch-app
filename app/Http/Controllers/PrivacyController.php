@@ -51,7 +51,7 @@ class PrivacyController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Success',
-            'data' => $privacy
+            'data' => Privacy::first()
         ]);
     }
 

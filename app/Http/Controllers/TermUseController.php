@@ -52,7 +52,7 @@ class TermUseController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Success',
-            'data' => $termUse
+            'data' => TermUse::first()
         ]);
     }
 

@@ -48,8 +48,8 @@ Route::prefix('v2')->group(function () {
     Route::post('/user/login', [UserAuthController::class, 'login']);
     Route::post('/user/signup', [UserAuthController::class, 'signup']);
 
-    Route::get('/privacy/1', [PrivacyController::class, 'show']);
-    Route::get('/term/1', [TermUseController::class, 'show']);
+    Route::get('/privacy', [PrivacyController::class, 'show']);
+    Route::get('/term', [TermUseController::class, 'show']);
     
     Route::middleware('auth:user-api')->group(function () {
 
