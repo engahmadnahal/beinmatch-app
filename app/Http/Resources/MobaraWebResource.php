@@ -44,4 +44,22 @@ class MobaraWebResource extends JsonResource
             ],
         ];
     }
+
+    public function getTimeZone($tz){
+        /**
+         * 
+         * [
+         *  '1' => KSA,
+         *  '2' => EG,
+         *  '3' => Morocoo
+         * ]
+         */
+        if($tz == 2){
+            return 'Africa/Cairo';
+
+        }else if($tz == 3){
+            return 'Africa/Algiers';
+        }
+    return config('app.timezone');
+    }
 }
