@@ -159,6 +159,7 @@ class MobaraController extends Controller
         $mobara->channel_id = $request->input('channel');
         $mobara->voice_over = $request->input('voice');
         $mobara->date_match = $request->input('date_match');
+        $mobara->stadium = $request->input('stadium');
         $mobara->publish_at = $request->input('publish_match') == 'on' ? Carbon::createFromTimestamp(time()) : null;
         $mobara->save();
         return redirect()->route('mobaras.index');
