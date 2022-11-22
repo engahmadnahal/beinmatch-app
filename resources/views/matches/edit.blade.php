@@ -195,7 +195,7 @@ span.select2 {
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">تاريخ المباراة: </label>
-                                    <input class="form-control" type="date" placeholder=" تاريخ المباراة .." name="date_match" value="{{$mobara->date_match}}">
+                                    <input class="form-control" type="date" placeholder=" تاريخ المباراة .." name="date_match" value="{{Carbon::parse($mobara->date_match)->format('Y-m-d')}}">
                                 </div>
                             </div>
                         </div>
