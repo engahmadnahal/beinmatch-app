@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
 
     // For Web Api match
-    Route::get('/web/mobara/today', [MobaraController::class, 'today']);
+    Route::get('/web/mobara/today', [MobaraController::class, 'todayWeb']);
 
     /**
      * Change Lang For All Route

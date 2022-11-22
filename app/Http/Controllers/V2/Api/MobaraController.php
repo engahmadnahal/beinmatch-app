@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentResource;
 use App\Http\Resources\MainResource;
 use App\Http\Resources\MatchLikeResource;
+use App\Http\Resources\MobaraWebResource;
 use App\Http\Resources\PollResource;
 use App\Http\Resources\V2\MobaraResource;
 use App\Models\Commentlive;
@@ -49,6 +50,16 @@ class MobaraController extends Controller
         return new MainResource(MobaraResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات اليوم بنجاح');
 
     }
+
+    public function todayWeb()
+    {
+        // check data today equal created_at
+        $mobara = Mobara::whereDate('date_match',Carbon::today())->where('publish_at','<>',null)->orderBy('start')->get();
+        return new MainResource(MobaraWebResource::collection($mobara),Response::HTTP_OK,'تم جلب مباريات اليوم بنجاح');
+
+    }
+
+    
 
     public function todayZone(Request $request)
     {
