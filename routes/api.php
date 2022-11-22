@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\ClubController;
 use App\Http\Controllers\Api\DawryController;
 use App\Http\Controllers\Api\LogController;
-use App\Http\Controllers\Api\MobaraController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\SearchController;
@@ -12,6 +11,7 @@ use App\Http\Controllers\Api\SupportController;
 use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\TermUseController;
+use App\Http\Controllers\V2\Api\MobaraController;
 use App\Models\TermUse;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
