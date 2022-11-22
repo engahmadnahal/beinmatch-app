@@ -188,7 +188,7 @@ span.select2 {
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="form-label">الملعب: </label>
-                                    <input class="form-control" type="text" placeholder="الملعب .." name="stadium" value="{{$mobara->stadium}}">
+                                    <input class="form-control" type="text" placeholder="الملعب .." name="stadium" value="{{$mobara->stadium}}" id="stadium">
                                 </div>
                             </div>
 
