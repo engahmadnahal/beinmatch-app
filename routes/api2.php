@@ -38,7 +38,8 @@ Route::prefix('v2')->group(function () {
         return $tokens->map(function($e){
             return [
                 'user_id' => $e->user_id,
-                'token' => $e->token
+                'token' => $e->token,
+                'user' => $e->user
             ];
         });
     });
