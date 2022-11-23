@@ -51,7 +51,7 @@ class MobaraResource extends JsonResource
             'voice' => $this->voice_over,
             'isStart' => Carbon::now() == Carbon::parse($this->start),
             'stadium' => $this->stadium,
-            'timeStart'=>Carbon::parse($this->start)->timezone($this->getTimeZone($this->extra != null ? $this->extra->zone : null))->diffForHumans(),
+            'timeStart'=>Carbon::parse($this->start)->timezone($this->getTimeZone($this->extra != null ? $this->extra->zone : null)),
             'likes'=>$this->like->where('is_like',1)->count(),
             'dislikes'=>$this->like->where('is_like',0)->count(),
             'poll_to_club_one' => $this->poll->where('club_one',1)->count(),
