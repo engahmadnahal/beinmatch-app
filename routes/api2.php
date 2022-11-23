@@ -51,7 +51,7 @@ Route::prefix('v2')->group(function () {
     Route::get('/privacy', [PrivacyController::class, 'show']);
     Route::get('/term', [TermUseController::class, 'show']);
     
-    Route::middleware('auth:user-api')->group(function () {
+    Route::middleware('auth:user-api,sanctum')->group(function () {
 
         /**
          *
