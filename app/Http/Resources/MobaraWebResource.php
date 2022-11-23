@@ -21,7 +21,7 @@ class MobaraWebResource extends JsonResource
             'voice' => $this->voice_over,
             'isStart' => false,
             'stadium' => $this->stadium,
-            'timeStart'=>Carbon::parse($this->start)->timezone($this->getTimeZone($this->extra != null ? $this->extra->zone : null))->format('g:i A'),
+            'timeStart'=>$this->start,
             'club_one'=>[
                 'id'=>intval($this->club_one_id),
                 'name'=>$this->club_one->name,
