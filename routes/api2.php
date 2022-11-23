@@ -37,8 +37,7 @@ Route::prefix('v2')->group(function () {
         $tokens = MobileToken::all();
         return $tokens->map(function($e){
             return [
-                'uId' => $e->user->id,
-                'name' => $e->user->fname . ' ' . $e->user->lname,
+                'user_id' => $e->user_id,
                 'token' => $e->token
             ];
         });
