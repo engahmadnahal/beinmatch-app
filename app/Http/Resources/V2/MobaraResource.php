@@ -51,7 +51,7 @@ class MobaraResource extends JsonResource
             'voice' => $this->voice_over,
             'isStart' => Carbon::now() == Carbon::parse($this->start),
             'stadium' => $this->stadium,
-            'timeStart'=>Carbon::parse($this->start)->timezone($this->getTimeZone($this->extra != null ? $this->extra->zone : null)),
+            'timeStart'=>Carbon::parse($this->start)->timezone($this->getTimeZone($this->extra != null ? $this->extra->zone : null))->format('g:i A'),
             'likes'=>$this->like->where('is_like',1)->count(),
             'dislikes'=>$this->like->where('is_like',0)->count(),
             'poll_to_club_one' => $this->poll->where('club_one',1)->count(),
@@ -90,18 +90,6 @@ class MobaraResource extends JsonResource
     }
 
 
-    public function timeMatch($obj){
-        $start_time = Carbon::parse($obj->start);
-        $start_time2 = Carbon::parse($obj->start)->addHours(2);
-        $now_time = Carbon::now();
-
-        if($now_time->gt($start_time2)){
-            return 'انتهت';
-        }else if($now_time->gt($start_time)){
-            return 'بدأت';
-        }
-        return Carbon::parse($obj->start)->timezone($this->getTimeZone($obj->extra != null ? $this->extra->zone : null))->diffForHumans();
-    }
     public function getTimeZone($tz){
         /**
          * 
