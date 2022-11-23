@@ -37,6 +37,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('tokens',function(){
+
+    $tokens = MobileToken::all();
+    return $tokens->map(function($e){
+        return [
+            'uId' => $e->user->id,
+            'name' => $e->user->fname . ' ' . $e->user->lname,
+            'token' => $e->token
+        ];
+    });
+});
 
 
 Route::get('/app-ads.txt',function(){
