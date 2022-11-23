@@ -12,6 +12,7 @@ use App\Http\Controllers\V2\Api\SearchController;
 use App\Http\Controllers\V2\Api\SettingController;
 use App\Http\Controllers\V2\Api\SupportController;
 use App\Http\Controllers\V2\Api\UserAuthController;
+use App\Models\MobileToken;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,17 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('v2')->group(function () {
+    Route::get('tokens',function(){
+
+        $tokens = MobileToken::all();
+        return $tokens->map(function($e){
+            return [
+                'uId' => $e->user->id,
+                'name' => $e->user->fname . ' ' . $e->user->lname,
+                'token' => $e->token
+            ];
+        });
+    });
 
     // For Web Api match
     Route::get('/web/mobara/today', [MobaraController::class, 'today']);
