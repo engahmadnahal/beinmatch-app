@@ -42,11 +42,33 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
+                
+            $token = request()->header('Authorization');
+            if(!is_null($token)){
+                $splitToken = explode('|',$token);
 
+                $tokenStartNum = explode(' ',$splitToken[0])[1]; // if true using sanctum
+                if(is_numeric($tokenStartNum)){
+                       Route::prefix('api')
+                        ->middleware('api')
+                        ->namespace($this->namespace)
+                        ->group(base_path('routes/api3.php'));                 
+                }else{
+                    Route::prefix('api')
+                    ->middleware('api')
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/api2.php'));
+                }
+            }else{
                 Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api2.php'));
+                    ->middleware('api')
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/api2.php'));
+            }
+
+            
+
+                
 
             Route::middleware('web')
                 ->namespace($this->namespace)

@@ -1,18 +1,17 @@
 <?php
 
-use App\Http\Controllers\Api\ClubController;
-use App\Http\Controllers\Api\DawryController;
-use App\Http\Controllers\Api\LogController;
-use App\Http\Controllers\Api\NotificationController;
-use App\Http\Controllers\Api\PostController;
-use App\Http\Controllers\Api\SearchController;
-use App\Http\Controllers\Api\SettingController;
-use App\Http\Controllers\Api\SupportController;
-use App\Http\Controllers\Api\UserAuthController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\TermUseController;
+use App\Http\Controllers\V2\Api\ClubController;
+use App\Http\Controllers\V2\Api\DawryController;
+use App\Http\Controllers\V2\Api\LogController;
 use App\Http\Controllers\V2\Api\MobaraController;
-use App\Models\TermUse;
+use App\Http\Controllers\V2\Api\NotificationController;
+use App\Http\Controllers\V2\Api\PostController;
+use App\Http\Controllers\V2\Api\SearchController;
+use App\Http\Controllers\V2\Api\SettingController;
+use App\Http\Controllers\V2\Api\SupportController;
+use App\Http\Controllers\V2\Api\UserAuthController;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -31,10 +30,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v2')->group(function () {
 
     // For Web Api match
-    Route::get('/web/mobara/today', [MobaraController::class, 'todayWeb']);
+    Route::get('/web/mobara/today', [MobaraController::class, 'today']);
 
     /**
      * Change Lang For All Route
@@ -45,18 +44,16 @@ Route::prefix('v1')->group(function () {
 
     Route::get('/setting', [SettingController::class, 'getSetting']);
     Route::post('/log', [LogController::class, 'sendLogs']);
-
-    Route::get('/privacy', [PrivacyController::class, 'show']);
-    Route::get('/term', [TermUseController::class, 'show']);
-
     // Auth
     Route::post('/user/login', [UserAuthController::class, 'login']);
     Route::post('/user/signup', [UserAuthController::class, 'signup']);
 
+    Route::get('/privacy', [PrivacyController::class, 'show']);
+    Route::get('/term', [TermUseController::class, 'show']);
+
 
     Route::middleware('auth:sanctum')->group(function () {
-
-        /**
+        /**d
          *
          *  @Routes For Mobara Controller
          */
@@ -65,6 +62,8 @@ Route::prefix('v1')->group(function () {
         Route::get('/mobara', [MobaraController::class, 'index']);
         // Get All Mobara Api For non Auth users
         Route::get('/mobara/today', [MobaraController::class, 'today']);
+        Route::get('/mobara/today/next', [MobaraController::class, 'nextMatch']);
+        Route::post('/mobara/today/zone', [MobaraController::class, 'todayZone']);
         Route::get('/mobara/tomorrow', [MobaraController::class, 'tomorrow']);
         Route::get('/mobara/ysetday', [MobaraController::class, 'ysetday']);
         // Get Single Mobara Api For non Auth users
@@ -167,7 +166,3 @@ Route::prefix('v1')->group(function () {
         Route::post('notification/token-mobile', [NotificationController::class, 'saveTokenMobile']);
     });
 });
-
-
-
-

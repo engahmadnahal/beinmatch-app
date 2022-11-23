@@ -51,6 +51,8 @@ Route::prefix('v2')->group(function () {
     Route::get('/privacy', [PrivacyController::class, 'show']);
     Route::get('/term', [TermUseController::class, 'show']);
     
+    Route::middleware('switchToken')->group(function(){
+
     Route::middleware('auth:user-api')->group(function () {
 
         /**
@@ -165,6 +167,7 @@ Route::prefix('v2')->group(function () {
         Route::post('/notification/read', [NotificationController::class, 'readAll']);
         Route::post('notification/token-mobile', [NotificationController::class, 'saveTokenMobile']);
     });
+});
 
     // Route::middleware('auth:sanctum')->group(function () {
 
