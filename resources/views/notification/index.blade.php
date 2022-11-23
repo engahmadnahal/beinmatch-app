@@ -53,7 +53,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($notifications as $n)
-                                {{dd($n)}}
                                 <tr>
                                     <td colspan="2" class="title-post">
 
