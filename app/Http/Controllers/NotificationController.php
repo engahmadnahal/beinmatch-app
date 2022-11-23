@@ -6,6 +6,7 @@ use App\Http\Helper\CustomTrait;
 use App\Jobs\SendUserFcmJob;
 use App\Jobs\SendUserNotifyJob;
 use App\Models\MobileToken;
+use App\Models\MsgFCM;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +25,7 @@ class NotificationController extends Controller
         // dd(Notification::distinct()->get(['data','created_at']));
         return view('notification.index',[
             // return all notifications withot duplicates
-            'notifications' =>   Notification::distinct()->get(['data','created_at','id']),
+            'notifications' =>   MsgFCM::latest()->take(30)->get(),
         ]);
     }
 
@@ -85,7 +86,7 @@ class NotificationController extends Controller
 
     }
 
-public function destroy(Notification $notification){
+public function destroy(MsgFCM $notification){
     $notification->delete();
 
     return response()->json(['msg' => 'تم الحذف']);

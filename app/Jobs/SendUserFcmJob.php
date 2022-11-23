@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\MobileToken;
+use App\Models\MsgFCM;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -40,15 +41,9 @@ class SendUserFcmJob implements ShouldQueue
             foreach($mobileToken as $token){
                 array_push($arrayToken,$token->token);
             }
-            $SERVER_API_KEY = env('SERVER_API_KEY');
-    
-            // $token_1 = 'Test Token';
+            $SERVER_API_KEY = "AAAAtbcGYVE:APA91bEi0dFC9gea1bH-AIPkOpaBKoeskckmTnA2R1OlIiy59nw1loM9s95Y-4THK2x8PihDlOZNh6MdIx76zi1zpJcFs8BbRhMuJmIKOWgwlMZnl6EbKl8195YfoiSXsUJ83lOvC5xZ";
     
             $data = [
-    
-                // "registration_ids" => [
-                //     $token_1
-                // ],
     
                 "registration_ids" => $arrayToken,
                 "data" => [
@@ -94,6 +89,12 @@ class SendUserFcmJob implements ShouldQueue
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
     
             $response = curl_exec($ch);
+
+            if($response){
+                MsgFCM::create([
+                    'msg' => $this->data['content']
+                ]);
+            }
     
         }
 }

@@ -56,7 +56,7 @@
                                 <tr>
                                     <td colspan="2" class="title-post">
 
-                                        {{json_decode($n->data)->title}}
+                                        {{$n->msg}}
                                     </td>
                                     <td>
                                         {{$n->created_at->diffForHumans()}}
