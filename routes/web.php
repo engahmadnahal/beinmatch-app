@@ -38,6 +38,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('/',function(){
+    return view('homepage');
+});
+
+Route::get('/app-ads.txt',function(){
+    return view('app-ads');
+});
+
+Route::prefix('cms/dash')->group(function(){
+
+
+
 
 Route::middleware('guest:admin')->group(function(){
     Route::get('/auth',[AuthController::class , 'index'])->name('auth.index');
@@ -140,6 +152,8 @@ Route::middleware(['auth:admin','verified'])->group(function(){
 
 });
 
+
+});
 
 
 
