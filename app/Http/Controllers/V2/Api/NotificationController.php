@@ -15,8 +15,12 @@ class NotificationController extends Controller
     //
 
     public function getNotifications(){
-        $user = User::find(auth()->user()->id);
-        return new MainResource(new NotificationResource($user),Response::HTTP_OK,'تم جلب الاشعارات بنجاح');
+        // $user = User::find(auth()->user()->id);
+        return response()->json([
+            'status' =>true,
+            'message' => 'تم بنجاح',
+            'data' => []
+        ]);
     }
 
     public function readAll(){

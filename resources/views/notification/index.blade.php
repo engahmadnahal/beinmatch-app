@@ -47,11 +47,13 @@
                                     <th class="wd-lg-8p"><span>عنوان الاشعار</span></th>
                                     <th class="wd-lg-20p"><span></th>
                                     <th class="wd-lg-20p"><span>تاريخ النشر</span></th>
+                                    <th class="wd-lg-20p"><span> حذف</span></th>
                                     {{-- <th class="wd-lg-20p">الحدث</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($notifications as $n)
+                                {{dd($n)}}
                                 <tr>
                                     <td colspan="2" class="title-post">
 
@@ -59,6 +61,10 @@
                                     </td>
                                     <td>
                                         {{$n->created_at->diffForHumans()}}
+                                    </td>
+
+                                    <td>
+                                       <button type="button" onclick="performDelete('{{$n->id}}')">Delete</button>
                                     </td>
 {{--
                                     <td>
@@ -86,6 +92,20 @@
 @endsection
 @section('js')
     <script>
+
+        function performDelete(id){
+console.log(id);
+            axios.delete('/notification/'+id).then(function(response) {
+
+                toastr.success(response.data.msg);
+
+        }).catch(function(error) {
+
+        toastr.error(error.response.data.msg);
+
+        });
+
+        }
         // $('#checkAll').on('click', function() {
         // 	if ($(this).is(':checked')) {
         // 		$('.ckbox input').each(function() {

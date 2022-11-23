@@ -24,7 +24,7 @@ class NotificationController extends Controller
         // dd(Notification::distinct()->get(['data','created_at']));
         return view('notification.index',[
             // return all notifications withot duplicates
-            'notifications' =>   Notification::distinct()->get(['data','created_at']),
+            'notifications' =>   Notification::distinct()->get(['data','created_at','id']),
         ]);
     }
 
@@ -85,7 +85,11 @@ class NotificationController extends Controller
 
     }
 
+public function destroy(Notification $notification){
+    $notification->delete();
 
+    return response()->json(['msg' => 'تم الحذف']);
+}
 
 
 
