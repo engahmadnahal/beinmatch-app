@@ -23,6 +23,10 @@ class HomeController extends Controller
             $users = User::where('status','active')->orderBy('created_at','desc')->get();
             $views = View::whereDate('created_at',Carbon::today())->count();
             $viewsMatch = ViewMobara::whereDate('created_at',Carbon::today())->count();
+
+            $Allview = View::count();
+            $AllviewsMatch = ViewMobara::count();
+            
             $mobara = Mobara::where('publish_at','<>',null)->whereDate('created_at',Carbon::today())->get();
             $employees = Employee::where('status','active')->get();
             $search = Search::take(5)->orderBy('created_at','desc')->get();
@@ -34,7 +38,9 @@ class HomeController extends Controller
                 'mobara'=>$mobara,
                 'search'=>$search,
                 'postUser' => $postUser,
-                'viewsMatch' => $viewsMatch
+                'viewsMatch' => $viewsMatch,
+                'all_view' => ($Allview + $AllviewsMatch)
+                
             ]);
         }
     }

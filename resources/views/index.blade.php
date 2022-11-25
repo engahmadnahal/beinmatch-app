@@ -69,6 +69,22 @@
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-6">
+						<div class="card  bg-danger-gradient">
+							<div class="card-body">
+								<div class="counter-status d-flex md-mb-0">
+									<div class="counter-icon text-warning">
+										<i class="far fa-eye"></i>
+									</div>
+									<div class="mr-auto">
+										<h5 class="tx-13 tx-white-8 mb-3">كل المشاهدات </h5>
+										<h2 class="counter mb-0 text-white">{{$all_view}}</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-lg-3 col-md-6">
 						<div class="card  bg-success-gradient">
 							<div class="card-body">
 								<div class="counter-status d-flex md-mb-0">

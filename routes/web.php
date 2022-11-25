@@ -39,10 +39,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/app-ads.txt',function(){
-    return view('app-ads');
-});
-
 
 
 

@@ -32,17 +32,17 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('v2')->group(function () {
-    Route::get('tokens',function(){
+    // Route::get('tokens',function(){
 
-        $tokens = MobileToken::all();
-        return $tokens->map(function($e){
-            return [
-                'user_id' => $e->user_id,
-                'token' => $e->token,
-                'user' => $e->user
-            ];
-        });
-    });
+    //     $tokens = MobileToken::all();
+    //     return $tokens->map(function($e){
+    //         return [
+    //             'user_id' => $e->user_id,
+    //             'token' => $e->token,
+    //             'user' => $e->user
+    //         ];
+    //     });
+    // });
 
     // For Web Api match
     Route::get('/web/mobara/today', [MobaraController::class, 'today']);
